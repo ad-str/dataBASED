@@ -10,9 +10,7 @@ Currently, two official plugins are available:
 
 ## Initial Setup
 
-1. **Clone the Repository**: Start by cloning the project repository to your local machine.
-2. **Navigate to the Project Directory**: After cloning, change into the project directory:`cd dataBASED/client/src`
-3. **Install Dependencies**:
+**Install Dependencies**:
 ```
 npm i
 ```

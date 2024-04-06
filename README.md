@@ -25,14 +25,12 @@ Before you begin, be sure that you have the following installed:
 1. **Clone the Repository**: Start by cloning the project repository to your local machine.
 2. **Navigate to the Project Directory**: After cloning, change into the project directory:`cd dataBASED/client/src`
 3. **Install Dependencies**:
-   Install all required:
-
-   ```
-   npm i
-   ```
+```
+npm i
+```
 
 
-## Running the Client Side in Vite
+## Running the Client Side in React+Vite
 
    ```
    npm run dev

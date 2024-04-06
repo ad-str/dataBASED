@@ -17,7 +17,7 @@ Welcome to our project setup guide! This guide is designed to help you get the p
 
 Before you begin, be sure that you have the following installed:
 
-- Node.js (20.12 or newer)
+- [Node.js (20.12 or newer)](https://nodejs.org/en)
 - npm (Node package manage)
 
 ## Initial Setup

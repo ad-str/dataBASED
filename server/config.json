@@ -1,0 +1,9 @@
+{
+  "rds_host": "data-based-cis550.cvbrtll6h3hk.us-east-1.rds.amazonaws.com",
+  "rds_port":"3306",
+  "rds_user": "admin",
+  "rds_password": "tFskz0Ix0*Nv!h6F",
+  "rds_db": "dataBASED",
+  "server_host": "localhost",
+  "server_port": "8080"
+}

@@ -1,10 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+
+import config from "./config.json"; // Import the config JSON file
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const config = require("../config.json");
+  const [count, setCount] = useState(0);
+  const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://${config.server_host}:${config.server_port}/artist`)
+      .then((res) => res.json())
+      .then((resJson) => setArtists(resJson));
+  }, []);
 
   return (
     <>
@@ -18,6 +28,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <h1>Hello dataBASED Team</h1>
+      <p>Artists are here:</p>
+      <ul>
+        {artists.map((artist, index) => (
+          <li key={index}>{artist.name}</li>
+        ))}
+      </ul>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -30,7 +47,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

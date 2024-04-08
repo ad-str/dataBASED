@@ -65,15 +65,39 @@ const artist = async function (req, res) {
         // return type you may need to return an empty array [] instead.
         res.json({});
       } else {
-        // Here, we return results of the query as an object, keeping only relevant data
+        // Here, we return data of the query as an object, keeping only relevant data
         // being song_id and title which you will add. In this case, there is only one song
-        // so we just directly access the first element of the query results array (data)
+        // so we just directly access the first element of the query data array (data)
         // TODO (TASK 3): also return the song title in the response
         res.json(data);
       }
     }
   );
 };
+
+
+const getImages = async (req, res) => {
+
+    connection.query(`
+    SELECT image_id 
+    FROM Artwork 
+    WHERE image_id IS NOT NULL 
+    ORDER BY RAND() 
+    LIMIT 1`, (err, data) => {
+      if (err || data.length === 0) {
+        console.error('Error fetching image IDs:', err);
+        res.status(500).json({ err: 'Internal Server Error' });
+      } else {
+        
+           const imageId = data[0].image_id;
+          res.json(imageId);; 
+        
+      }
+    });
+ 
+};
+
+
 
 /********************************
  * BASIC SONG/ALBUM INFO ROUTES *
@@ -312,4 +336,5 @@ const search_songs = async function (req, res) {
 module.exports = {
   author,
   artist,
+   getImages,
 };

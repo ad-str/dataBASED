@@ -35,3 +35,8 @@ npm i
    ```
    npm run dev
    ```
+## Running the Server Side in Node js
+
+   ```
+   npm start
+   ```

@@ -102,6 +102,87 @@ const getImages = async (req, res) => {
   );
 };
 
+// GET /artist-descriptors/:artist_id
+const artistDescriptors = async (req, res) => {
+  connection.query(
+    `SELECT descriptor_type, descriptor_title, MAX(count) AS mcount
+    FROM (
+        SELECT D.aspect AS Descriptor_Type, D.title AS Descriptor_Title, COUNT(*) AS count
+        FROM Artist AS A
+        JOIN Made M ON A.id = M.artist_id
+        JOIN Descriptor D ON M.artwork_id = D.artwork_id
+        WHERE A.id = ${req.params.artist_id}
+        GROUP BY D.aspect, D.title
+         ) AS a
+    GROUP BY descriptor_type
+    ORDER BY descriptor_type`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching artist descriptors:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+};
+
+// GET /era-descriptors/:start_year/:end_year
+const eraDescriptors = async (req, res) => {
+  connection.query(
+    `WITH DescriptorCounts AS (
+      SELECT
+          D.aspect AS Descriptor_Type,
+          D.title AS Descriptor_Title,
+          CAST(COUNT(*) AS FLOAT) / SUM(COUNT(*)) OVER(PARTITION BY D.aspect) AS Fraction
+      FROM Artwork A
+      JOIN Descriptor D ON A.id = D.artwork_id
+      WHERE A.start_year >= ${req.params.start_year} AND A.end_year <= ${req.params.end_year}
+      GROUP BY D.aspect, D.title
+    )
+    SELECT
+        Descriptor_Type,
+        Descriptor_Title,
+        Fraction
+    FROM DescriptorCounts
+    WHERE Fraction > 0.05
+    ORDER BY Descriptor_Type, Fraction DESC`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching artist descriptors:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+}
+
+// GET /proportionUnknown
+const proportionUnknown = async (req, res) => {
+  connection.query(
+    `SELECT
+      A.place_of_origin AS Country,
+      SUM(IF(M.artist_id IS NULL, 1, 0)) AS Artworks_Without_Artist,
+      COUNT(A.id) AS Total_Artworks,
+      (SUM(IF(M.artist_id IS NULL, 1, 0)) / COUNT(A.id)) * 100 AS Proportion_Unknown_Artist
+    FROM Artwork A
+    LEFT JOIN Made M ON A.id = M.artwork_id
+    GROUP BY A.place_of_origin
+    HAVING Total_Artworks > 0
+    ORDER BY Proportion_Unknown_Artist DESC`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching artist descriptors:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+}
+
+
 // Route 3: GET /song/:song_id
 const song = async function (req, res) {
   // TODO (TASK 4): implement a route that given a song_id, returns all information about the song
@@ -336,4 +417,7 @@ module.exports = {
   author,
   artist,
   getImages,
+  artistDescriptors,
+  eraDescriptors,
+  proportionUnknown,
 };

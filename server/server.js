@@ -14,7 +14,10 @@ app.use(
 // provide their handlers that we implemented in routes.js
 app.get("/author/:type", routes.author);
 app.get("/artist", routes.artist);
-app.get('/images', routes.getImages); 
+app.get('/images', routes.getImages);
+app.get('/artist-descriptors/:artist_id', routes.artistDescriptors);
+app.get('/era-descriptors/:start_year/:end_year', routes.eraDescriptors);
+app.get('/proportion-unknown', routes.proportionUnknown);
 // app.get('/song/:song_id', routes.song);
 // app.get('/album/:album_id', routes.album);
 // app.get('/albums', routes.albums);

@@ -12,9 +12,26 @@ const connection = mysql.createConnection({
 });
 connection.connect((err) => err && console.log(err));
 
-/******************
- * WARM UP ROUTES *
- ******************/
+// two ways to get routes
+// FIRST METHOD //
+// const artist = async function (req, res) {
+//   connection.query(
+//     `SELECT *
+//     FROM Artist
+//     LIMIT 10`,
+//     (err, data) => { // If there is an error for some reason, or if the query is empty
+//       if (err || data.length === 0) { // print the error message and return an empty object instead
+//         console.log(err);
+//         // Be cognizant of the fact we return an empty object {}. For future routes, depending on the
+//         // return type you may need to return an empty array [] instead.
+//         res.json({});
+//       } else {
+//         res.json(data); // return an array if query is an array
+//       }
+//     }
+//   );
+
+// SECOND METHOD //
 
 // Route 1: GET /author/:type
 const author = async function (req, res) {
@@ -41,15 +58,8 @@ const author = async function (req, res) {
   }
 };
 
-// Route 2: GET /random
+// Route 2: GET /artists
 const artist = async function (req, res) {
-  // you can use a ternary operator to check the value of request query values
-  // which can be particularly useful for setting the default value of queries
-  // note if users do not provide a value for the query it will be undefined, which is falsey
-  // const explicit = req.query.explicit === 'true' ? 1 : 0;
-
-  // Here is a complete example of how to query the database in JavaScript.
-  // Only a small change (unrelated to querying) is required for TASK 3 in this route.
   connection.query(
     `
     SELECT *
@@ -65,43 +75,32 @@ const artist = async function (req, res) {
         // return type you may need to return an empty array [] instead.
         res.json({});
       } else {
-        // Here, we return data of the query as an object, keeping only relevant data
-        // being song_id and title which you will add. In this case, there is only one song
-        // so we just directly access the first element of the query data array (data)
-        // TODO (TASK 3): also return the song title in the response
+        // return an array of artists
         res.json(data);
       }
     }
   );
 };
 
-
 const getImages = async (req, res) => {
-
-    connection.query(`
+  connection.query(
+    `
     SELECT image_id 
     FROM Artwork 
     WHERE image_id IS NOT NULL 
     ORDER BY RAND() 
-    LIMIT 1`, (err, data) => {
+    LIMIT 1`,
+    (err, data) => {
       if (err || data.length === 0) {
-        console.error('Error fetching image IDs:', err);
-        res.status(500).json({ err: 'Internal Server Error' });
+        console.error("Error fetching image IDs:", err);
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
-        
-           const imageId = data[0].image_id;
-          res.json(imageId);; 
-        
+        const imageId = data[0].image_id;
+        res.json(imageId);
       }
-    });
- 
+    }
+  );
 };
-
-
-
-/********************************
- * BASIC SONG/ALBUM INFO ROUTES *
- ********************************/
 
 // Route 3: GET /song/:song_id
 const song = async function (req, res) {
@@ -336,5 +335,5 @@ const search_songs = async function (req, res) {
 module.exports = {
   author,
   artist,
-   getImages,
+  getImages,
 };

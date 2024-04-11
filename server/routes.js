@@ -38,7 +38,7 @@ const author = async function (req, res) {
   // TODO (TASK 1): replace the values of name and pennKey with your own
   const team = "dataBASED";
   const names =
-    "Adam Streff, Daunel Augustin, Veronica Polanco, Brianna Malcolm";
+    "Adam Streff, Brianna Malcolm, Daunel Augustin and Veronica Polanco";
 
   // checks the value of type the request parameters
   // note that parameters are required and are specified in server.js in the endpoint by a colon (e.g. /author/:type)

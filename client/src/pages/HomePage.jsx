@@ -11,6 +11,7 @@ export default function HomePage() {
   const [count, setCount] = useState(0);
   const [artists, setArtists] = useState([]);
   const [images, setImages] = useState([]);
+  const [author, setAuthor] = useState("");
 
   useEffect(() => {
     fetch(`${url}/artist`)
@@ -28,6 +29,10 @@ export default function HomePage() {
     fetch(`${url}/images`)
       .then((res) => res.json())
       .then((resJson) => setImages(resJson));
+
+    fetch(`http://${config.server_host}:${config.server_port}/author/names`)
+      .then((res) => res.text())
+      .then((resText) => setAuthor(resText));
   }, []);
 
   return (
@@ -63,11 +68,7 @@ export default function HomePage() {
           />
         )}
       </div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <p> {author} </p>
     </>
   );
 }

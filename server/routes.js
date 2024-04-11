@@ -149,7 +149,7 @@ const eraDescriptors = async (req, res) => {
     ORDER BY Descriptor_Type, Fraction DESC`,
     (err, data) => {
       if (err || data.length === 0) {
-        console.error("Error fetching artist descriptors:", err);
+        console.error("Error fetching era descriptors:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
@@ -173,7 +173,7 @@ const proportionUnknown = async (req, res) => {
     ORDER BY Proportion_Unknown_Artist DESC`,
     (err, data) => {
       if (err || data.length === 0) {
-        console.error("Error fetching artist descriptors:", err);
+        console.error("Error fetching unknown proportions:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
@@ -182,6 +182,99 @@ const proportionUnknown = async (req, res) => {
   );
 }
 
+//camelcase or snake case tis the question?
+// GET /timePeriods
+const timePeriods = async (req, res) => {
+
+  // req.query params are optional unless user specifies so this defaults to 0 for birth year and current year for death year
+  //front end implementation of this will be a slider i think
+  //const deathYear = req.query.deathYear ? req.query.deathYear : new Date().getFullYear() ; TODO later
+  const deathYear = req.query.deathYear ? req.query.deathYear : 2024
+  const birthYear = req.query.birthYear? req.query.birthYear : 0;
+  connection.query(
+    `SELECT name, id 
+    FROM Artist
+    WHERE death_year <  ${deathYear} AND birth_year > ${birthYear}`,
+    (err, data) => {
+
+    //return empty array for ranges where there are no artist
+    if (err) {
+        console.log(err);
+      }else if (data.length === 0){
+         res.json({});
+      }else {
+        res.json(data);
+      }
+    }
+  );
+}
+
+// GET /artworksLocation/:location
+const artworksLocation = async (req, res) => {
+
+  const place = req.params.location
+
+  connection.query(
+    `SELECT AR.title, COUNT(AR.id)
+     FROM Artworks AT
+     JOIN ON Made  M.id = AT.id  JOIN Artist ON AR.id = M.id 
+     WHERE place_of_orgin LIKE '%${place}%'
+     GROUP BY AR.id, AR.title
+     ORDER BY COUNT(AR.id)
+     LIMIT 10
+`,
+  (err, data) => {
+      if (err) {
+        console.log(err);
+      }else if (data.length === 0){
+         res.json({});
+      }else {
+        res.json(data);
+      }
+    }
+    
+  );
+}
+
+
+
+
+const colorfulArtists = async (req, res) => {
+
+  const colorfulness = req.query.color ? req.query.color : 15
+ 
+  connection.query(
+    `WITH ColorfulArtists AS
+      (SELECT 
+              Artist.name AS Name,
+              Artist.id AS  IdNum
+              AVG(Artwork.colorfulness) AS avg_colorfulness
+          FROM 
+              Artist AT
+          JOIN Made M ON  M.id = AT.id  JOIN Artworks AR ON AR.id = M.id 
+          WHERE image_url IS NOT NULL
+          GROUP BY Artist.id, Artist.name
+          HAVING avg_colorfulness >= ${colorfulness})
+          SELECT Artist.name, Artwork.title as Piece, image_url
+          FROM Artists AT
+          JOIN Made M ON  M.id = AT.id  JOIN Artworks AR ON AR.id = M.id 
+          WHERE Artist.id IN(SELECT IdNum FROM ColorfulArtists)
+          ORDER BY RAND()
+          LIMIT 1
+`,
+    (err, data) => {
+
+    //return empty array for ranges where there are no artist
+    if (err) {
+        console.log(err);
+      }else if (data.length === 0){
+         res.json({});
+      }else {
+        res.json(data);
+      }
+    }
+  );
+}
 
 // Route 3: GET /song/:song_id
 const song = async function (req, res) {
@@ -420,4 +513,7 @@ module.exports = {
   artistDescriptors,
   eraDescriptors,
   proportionUnknown,
+  timePeriods,
+  artworksLocation,
+  colorfulArtists
 };

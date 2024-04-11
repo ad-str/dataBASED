@@ -21,13 +21,8 @@ app.get('/proportion-unknown', routes.proportionUnknown);
 app.get('/time-periods', routes.timePeriods);
 app.get('/artworks-locations/:location', routes.artworksLocation);
 app.get('/colorful-artists', routes.colorfulArtists);
-// app.get('/song/:song_id', routes.song);
-// app.get('/album/:album_id', routes.album);
-// app.get('/albums', routes.albums);
-// app.get('/album_songs/:album_id', routes.album_songs);
-// app.get('/top_songs', routes.top_songs);
-// app.get('/top_albums', routes.top_albums);
-// app.get('/search_songs', routes.search_songs);
+app.get('/minimalViews', routes.minimalViews);
+app.get('/unknownArtists', routes.unknownArtists);
 
 app.listen(config.server_port, () => {
   console.log(

@@ -183,7 +183,7 @@ const proportionUnknown = async (req, res) => {
 }
 
 //camelcase or snake case tis the question?
-// GET /timePeriods
+// GET /time-periods
 const timePeriods = async (req, res) => {
 
   // req.query params are optional unless user specifies so this defaults to 0 for birth year and current year for death year
@@ -209,18 +209,18 @@ const timePeriods = async (req, res) => {
   );
 }
 
-// GET /artworksLocation/:location
+// GET /artworks-location/:location
 const artworksLocation = async (req, res) => {
 
   const place = req.params.location
-
   connection.query(
-    `SELECT AR.title, COUNT(AR.id)
-     FROM Artworks AT
-     JOIN ON Made  M.id = AT.id  JOIN Artist ON AR.id = M.id 
-     WHERE place_of_orgin LIKE '%${place}%'
-     GROUP BY AR.id, AR.title
-     ORDER BY COUNT(AR.id)
+    `SELECT AR.name, COUNT(AT.id)
+     FROM Artwork AT
+     JOIN Made M ON M.artwork_id = AT.id
+     JOIN Artist AR ON AR.id = M.artist_id
+     WHERE AT.place_of_origin LIKE '%${place}%'
+     GROUP BY AR.name, AR.id
+     ORDER BY COUNT(AR.id) DESC
      LIMIT 10
 `,
   (err, data) => {
@@ -238,29 +238,25 @@ const artworksLocation = async (req, res) => {
 
 
 
-
+// GET colorful-artists/:location
 const colorfulArtists = async (req, res) => {
 
   const colorfulness = req.query.color ? req.query.color : 15
  
   connection.query(
-    `WITH ColorfulArtists AS
-      (SELECT 
-              Artist.name AS Name,
-              Artist.id AS  IdNum
-              AVG(Artwork.colorfulness) AS avg_colorfulness
-          FROM 
-              Artist AT
-          JOIN Made M ON  M.id = AT.id  JOIN Artworks AR ON AR.id = M.id 
-          WHERE image_url IS NOT NULL
-          GROUP BY Artist.id, Artist.name
-          HAVING avg_colorfulness >= ${colorfulness})
-          SELECT Artist.name, Artwork.title as Piece, image_url
-          FROM Artists AT
-          JOIN Made M ON  M.id = AT.id  JOIN Artworks AR ON AR.id = M.id 
-          WHERE Artist.id IN(SELECT IdNum FROM ColorfulArtists)
-          ORDER BY RAND()
-          LIMIT 1
+`WITH ColorfulArtists AS (
+SELECT Artist.name AS Name, Artist.id AS IdNum, AVG(Artwork.colorfulness) AS avg_colorfulness
+FROM Artist
+JOIN Made ON Made.artist_id = Artist.id JOIN Artwork ON Artwork.id = Made.artwork_id
+WHERE Artwork.image_id IS NOT NULL
+GROUP BY Artist.id, Artist.name
+HAVING AVG(Artwork.colorfulness) >= ${colorfulness})
+SELECT AT.name AS ArtistName, AR.title AS Piece, AR.image_id
+FROM Artist AS AT JOIN Made AS M ON M.artist_id = AT.id JOIN Artwork AS AR ON AR.id = M.artwork_id
+WHERE AT.id IN (SELECT IdNum FROM ColorfulArtists) 
+ORDER BY 
+RAND()
+LIMIT 1;
 `,
     (err, data) => {
 

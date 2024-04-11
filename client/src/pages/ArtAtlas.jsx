@@ -3,7 +3,16 @@ import { NavLink } from "react-router-dom";
 
 import config from "../config.json";
 
+const url = `http://${config.server_host}:${config.server_port}`;
+
 export default function ArtAtlas() {
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    fetch(`${url}//artworks-location/united`)
+      .then((res) => res.json())
+      .then((resJson) => setLocations(resJson));
+  }, []);
   return (
     <>
       <h2>What's beautiful about getting to know art through a map?</h2>
@@ -25,6 +34,14 @@ export default function ArtAtlas() {
         travel experince where you can follow a trail of art across specific
         region{" "}
       </p>
+      <div>
+        <h4>Artworks from the United States:</h4>
+        <ul>
+          {locations.map((location, index) => (
+            <li key={index}>{location.name}</li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

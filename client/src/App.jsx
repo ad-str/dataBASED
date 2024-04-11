@@ -28,7 +28,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/stories" element={<ArtistStories />} />
           <Route path="/map" element={<ArtAtlas />} />
-          <Route path="/unkown" element={<Nameless />} />
+          <Route path="/nameless" element={<Nameless />} />
           <Route path="/steal" element={<StealLike />} />
         </Routes>
       </BrowserRouter>

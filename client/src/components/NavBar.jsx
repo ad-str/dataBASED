@@ -34,7 +34,7 @@ export default function NavBar() {
           <NavText href="/stories" text="The Artist's Story" />
           <NavText href="/map" text="Art Atlas" />
           <NavText href="/" text="ArtBased" isMain />
-          <NavText href="/unknown" text="The Nameless" />
+          <NavText href="/nameless" text="The Nameless" />
           <NavText href="/steal" text='"Steal Like An Arist"' />
         </Toolbar>
       </Container>

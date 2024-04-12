@@ -89,7 +89,7 @@ const getImages = async (req, res) => {
     FROM Artwork 
     WHERE image_id IS NOT NULL 
     ORDER BY RAND() 
-    LIMIT 1`,
+    LIMIT 0,1`,
     (err, data) => {
       if (err || data.length === 0) {
         console.error("Error fetching image IDs:", err);

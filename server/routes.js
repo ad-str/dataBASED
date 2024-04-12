@@ -38,7 +38,7 @@ const author = async function (req, res) {
   // TODO (TASK 1): replace the values of name and pennKey with your own
   const team = "dataBASED";
   const names =
-    "Adam Streff, Daunel Augustin, Veronica Polanco, Brianna Malcolm";
+    "Adam Streff, Brianna Malcolm, Daunel Augustin and Veronica Polanco";
 
   // checks the value of type the request parameters
   // note that parameters are required and are specified in server.js in the endpoint by a colon (e.g. /author/:type)
@@ -156,7 +156,7 @@ const eraDescriptors = async (req, res) => {
       }
     }
   );
-}
+};
 
 // GET /proportionUnknown
 const proportionUnknown = async (req, res) => {
@@ -180,39 +180,37 @@ const proportionUnknown = async (req, res) => {
       }
     }
   );
-}
+};
 
 //camelcase or snake case tis the question?
 // GET /time-periods
 const timePeriods = async (req, res) => {
-
   // req.query params are optional unless user specifies so this defaults to 0 for birth year and current year for death year
   //front end implementation of this will be a slider i think
   //const deathYear = req.query.deathYear ? req.query.deathYear : new Date().getFullYear() ; TODO later
-  const deathYear = req.query.deathYear ? req.query.deathYear : 2024
-  const birthYear = req.query.birthYear? req.query.birthYear : 0;
+  const deathYear = req.query.deathYear ? req.query.deathYear : 2024;
+  const birthYear = req.query.birthYear ? req.query.birthYear : 0;
   connection.query(
     `SELECT name, id 
     FROM Artist
     WHERE death_year <  ${deathYear} AND birth_year > ${birthYear}`,
     (err, data) => {
-
-    //return empty array for ranges where there are no artist
-    if (err) {
+      //return empty array for ranges where there are no artist
+      if (err) {
         console.log(err);
-      }else if (data.length === 0){
-         res.json({});
-      }else {
+      } else if (data.length === 0) {
+        res.json({});
+      } else {
         res.json(data);
       }
     }
   );
-}
+};
 
 // GET /artworks-location/:location
 const artworksLocation = async (req, res) => {
+  const place = req.params.location;
 
-  const place = req.params.location
   connection.query(
     `SELECT AR.name, COUNT(AT.id)
      FROM Artwork AT
@@ -223,28 +221,24 @@ const artworksLocation = async (req, res) => {
      ORDER BY COUNT(AR.id) DESC
      LIMIT 10
 `,
-  (err, data) => {
+    (err, data) => {
       if (err) {
         console.log(err);
-      }else if (data.length === 0){
-         res.json({});
-      }else {
+      } else if (data.length === 0) {
+        res.json({});
+      } else {
         res.json(data);
       }
     }
-    
   );
-}
-
-
+};
 
 // GET colorful-artists/:location
 const colorfulArtists = async (req, res) => {
+  const colorfulness = req.query.color ? req.query.color : 15;
 
-  const colorfulness = req.query.color ? req.query.color : 15
- 
   connection.query(
-`WITH ColorfulArtists AS (
+    `WITH ColorfulArtists AS (
 SELECT Artist.name AS Name, Artist.id AS IdNum, AVG(Artwork.colorfulness) AS avg_colorfulness
 FROM Artist
 JOIN Made ON Made.artist_id = Artist.id JOIN Artwork ON Artwork.id = Made.artwork_id
@@ -259,22 +253,17 @@ RAND()
 LIMIT 1;
 `,
     (err, data) => {
-
-    //return empty array for ranges where there are no artist
-    if (err) {
+      //return empty array for ranges where there are no artist
+      if (err) {
         console.log(err);
-      }else if (data.length === 0){
-         res.json({});
-      }else {
+      } else if (data.length === 0) {
+        res.json({});
+      } else {
         res.json(data);
       }
     }
   );
-}
-
-
-
-
+};
 
 // Route: GET /minimalViews
 /*This is a dedicated page for artwork that hasn't been viewed as much and its artist. 
@@ -302,7 +291,7 @@ const minimalViews = async function (req, res) {
           res.json(data);
         }
       }
-    ); 
+    );
   } else {
     // specified pages
     connection.query(
@@ -322,7 +311,7 @@ const minimalViews = async function (req, res) {
           res.json(data);
         }
       }
-    ); 
+    );
   }
 };
 
@@ -353,7 +342,7 @@ const unknownArtists = async function (req, res) {
           res.json(data);
         }
       }
-    ); 
+    );
   } else {
     // specified pages
     connection.query(
@@ -374,10 +363,35 @@ const unknownArtists = async function (req, res) {
           res.json(data);
         }
       }
-    ); 
+    );
   }
 };
 
+// const artworksLocation = async (req, res) => {
+
+//   const place = req.params.location
+//   connection.query(
+//     `SELECT AR.name, COUNT(AT.id)
+//      FROM Artwork AT
+//      JOIN Made M ON M.artwork_id = AT.id
+//      JOIN Artist AR ON AR.id = M.artist_id
+//      WHERE AT.place_of_origin LIKE '%${place}%'
+//      GROUP BY AR.name, AR.id
+//      ORDER BY COUNT(AR.id) DESC
+//      LIMIT 10
+// `,
+//   (err, data) => {
+//       if (err) {
+//         console.log(err);
+//       }else if (data.length === 0){
+//          res.json({});
+//       }else {
+//         res.json(data);
+//       }
+//     }
+
+//   );
+// }
 
 module.exports = {
   author,
@@ -390,5 +404,5 @@ module.exports = {
   artworksLocation,
   colorfulArtists,
   minimalViews,
-  unknownArtists
+  unknownArtists,
 };

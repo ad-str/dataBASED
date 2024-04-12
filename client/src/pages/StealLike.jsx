@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import config from "../config.json";
+const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function StealLike() {
   return (

@@ -11,6 +11,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --dark-primary-color: #7e8f00;
+  --dark-background-color: #4b4848;
+  --dark-text-color: #040101;
 }
 
 a {
@@ -28,6 +32,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  
+  background-color: var(--dark-background-color);
+  color: var(--dark-text-color);
+  
+  
 }
 
 h1 {
@@ -65,4 +74,11 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  
+}
+
+@media (prefers-color-scheme: dark) {
+
+
 }

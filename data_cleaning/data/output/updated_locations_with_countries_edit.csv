@@ -761,7 +761,7 @@ Frankfurt an der Oder,Germany
 Neuwied,Germany
 Southwark,United Kingdom
 Genoa,Italy
-Castelli,France
+Castelli,Italy
 Trouville,France
 Wheeling,United States
 Armenia,Armenia
@@ -772,10 +772,10 @@ Normandy,France
 Northwest Coast,Spain
 Alaska,United States
 Madhya Pradesh,India
-Southern Veracruz,
+Southern Veracruz,Mexico
 Arkansas,United States
 Asia Minor,Turkey
-Hizen (former province),
+Hizen (former province),Japan
 Guangdong,China
 Polis,Cyprus
 Magdeburg,Germany
@@ -790,10 +790,10 @@ Sankt Gallen,Switzerland
 Chard,France
 Bern,Switzerland
 Waterford,Ireland
-Chicago Transit Authority-O'Hare Station,
+Chicago Transit Authority-O'Hare Station,United States
 Fort Wayne,United States
 Wokingham,United Kingdom
-Niagara Falls,United States
+Niagara Falls,Canada
 Rhine,Germany
 Highland Park,United States
 Winnetka,United States
@@ -809,9 +809,9 @@ Ocean Springs,United States
 Edgerton,United States
 Southern Highlands,Papua New Guinea
 Nievería,Peru
-Alti Plano,
+Alti Plano,Peru
 Pisco Valley,United States
-Unknown,India
+Unknown,
 Thessaloníki,Greece
 Samsun,Turkey
 Austria-Hungary,Austria
@@ -821,7 +821,7 @@ Caen,France
 Tübingen,Germany
 Sheffield,United Kingdom
 Youngstown,United States
-"Madison Street, 29 East",Country Not Found
+"Madison Street, 29 East",United States
 Poznan,Poland
 White Mountain,United States
 Concord,United States
@@ -837,14 +837,14 @@ Topeka,United States
 Stony Brook,United States
 Aspen,United States
 "Randolph Street, 100 West",United States
-Lincoln Park Zoo Large Mammal Complex,
+Lincoln Park Zoo Large Mammal Complex,United States
 "Wacker Drive, 55 East",United States
 Pasadena,United States
 Luxor,Egypt
 Arundel,United Kingdom
 Royal Tunbridge Wells,United Kingdom
 Fond du Lac,United States
-Northeastern France,
+Northeastern France,France
 Kathmandu Valley,Nepal
 West Bengal,India
 East Germany,Germany
@@ -859,8 +859,8 @@ Meriden,United States
 Batavia,Indonesia
 Edinburgh,United Kingdom
 "Jackson, 1000 East",United States
-"Ridge Road, 722",Country Not Found
-"Meacham Road, 645 South",
+"Ridge Road, 722",United States
+"Meacham Road, 645 South",United States
 Park Forest,United States
 Roselle,United States
 Ikere,Nigeria
@@ -875,10 +875,10 @@ Evanston,United States
 Mogadore,United States
 Taxco,Mexico
 "Lakeview Avenue, 2400 North",United States
-60th Street at Cottage Grove Avenue,
+60th Street at Cottage Grove Avenue,United States
 Wilmette,United States
 Aurora,United States
-Eastern Tibet,Russia
+Eastern Tibet,China
 Gujarat,India
 Usak,Serbia
 Angola,Angola
@@ -889,7 +889,7 @@ Fontainebleau,France
 Wichita,United States
 "Cornell Avenue, 5346 South",United States
 Arlington Heights,United States
-"Sheridan Road, 3400 North (apartment building)",
+"Sheridan Road, 3400 North (apartment building)",United States
 Oshkosh,United States
 Titusville,United States
 Ellison Bay,United States
@@ -904,25 +904,25 @@ Albany County,United States
 Cranbrook Academy of Art,United States
 Berkeley,United States
 "Michigan Avenue, 18 South",United States
-Western Europe,Belarus
+Western Europe,
 Solingen,Germany
 Stirling,United Kingdom
 Northern Spain,Philippines
 Greenwich,United Kingdom
 Uri canton,Switzerland
-Western Iran,Egypt
+Western Iran,Iran
 Graz,Austria
 Teschen,Poland
 Ripoll,Spain
-Central Asia,Kyrgyzstan
+Central Asia,
 Dundee,United Kingdom
 Carlsbad,United States
 Maastricht,Netherlands
 O'Hare International Airport,United States
 "Plymouth Court, 531 South",United States
-Richard J. Daley Plaza,
+Richard J. Daley Plaza,United States
 Santa Fe,Argentina
-"Michigan Avenue, 400 North",Country Not Found
+"Michigan Avenue, 400 North",United States
 Utrecht,Netherlands
 Haarlem,Netherlands
 Manises,Spain
@@ -966,7 +966,7 @@ Suhl,Germany
 Madrid,Spain
 Rossiya republic,Russia
 India subcontinent,India
-Ancient Europe,Ukraine
+Ancient Europe,
 Doune,United Kingdom
 Burgundy,France
 Glendale,United States
@@ -1002,7 +1002,7 @@ Cerro Blanco,Mexico
 Albuquerque,United States
 Fern Creek,United States
 Sámos,Greece
-Greater Athens,United States
+Greater Athens,Greece
 Afghanistan,Afghanistan
 Sapulpa,United States
 Odisha,India
@@ -1026,7 +1026,7 @@ Manistique,United States
 "Lake Shore Drive, 2300 South",Australia
 Edmond,United States
 Tulsa,United States
-Michigan Avenue at 24th Street,
+Michigan Avenue at 24th Street,United States
 Trenton,United States
 Guerneville,United States
 Tenafly,United States
@@ -1038,7 +1038,7 @@ Oberursel,Germany
 Shangyu,China
 "Kenridge Drive, 6970",United States
 "Morse Avenue, 1221 West",United States
-Western Tibet,Slovakia
+Western Tibet,China
 Megalópolis,Germany
 Mantinea,Greece
 Aegina,Greece
@@ -1046,7 +1046,7 @@ Sigacik,Turkey
 Conway,United States
 "Sheridan Road, 5555 North",United States
 South Shore Park,United States
-World's Columbian Exposition,
+World's Columbian Exposition,United States
 Grant Park,United States
 Remojadas,Mexico
 Düsseldorf,Germany
@@ -1058,7 +1058,7 @@ Tuscany,Italy
 John F. Kennedy International Airport,United States
 Chicago Heights,United States
 Central Tibet,Colombia
-Southern Tibet,Russia
+Southern Tibet,China
 Seoul,South Korea
 Himachal Pradesh,India
 Northfield,United States
@@ -1068,7 +1068,7 @@ Trier,Germany
 "Lakeview Avenue, 2450 North",Canada
 Barcelona,Spain
 Atlanta,United States
-"State Street, 1255 North (apartment building)",
+"State Street, 1255 North (apartment building)",United States
 Steubenville,United States
 Glenview,United States
 Weimar,Germany
@@ -1080,7 +1080,7 @@ Hyde Park,United Kingdom
 Dallas,United States
 Art Institute of Chicago,United States
 "Michigan Avenue, 744 North",United States
-81st Street at Cottage Grove Avenue,
+81st Street at Cottage Grove Avenue,United States
 Monaco,Monaco
 Ronchamp,France
 "Swanson Street, 113",United States
@@ -1107,7 +1107,7 @@ Madurai,India
 Kerala,India
 Ede,Netherlands
 Madagascar,Madagascar
-Northern Laos,
+Northern Laos,Laos
 Mill Valley,United States
 Serbia,Serbia
 Swat,Pakistan

@@ -38,27 +38,21 @@ export default function HomePage() {
   return (
     <>
       <div>
-        <h1>Hello from dataBASED Team</h1>
+        <h1>An art haven for art lovers </h1>
         <h3>
-          Welcome to a haven for art lovers! Explore art from every corner of
-          the globe, get inspire from unique stories, honor forgotten artists,
-          and unleash your inner artist at our vibrant art base.
+          Explore art from every corner of the globe, get inspiration from
+          unique stories, honor forgotten artists, and unleash your inner
+          artist.
         </h3>
       </div>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
+      {/* <div>
+        {/* <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Example artist Route is here:</p>
-      <ul>
-        {artists.map((artist, index) => (
-          <li key={index}>{artist.name}</li>
-        ))}
-      </ul>
+        </a> */}
+      {/* </div> */}
       <div className="image-container">
         {images.length > 0 && (
           <img
@@ -68,6 +62,12 @@ export default function HomePage() {
           />
         )}
       </div>
+      <p>Example artist Route is here:</p>
+      <ul>
+        {artists.map((artist, index) => (
+          <li key={index}>{artist.name}</li>
+        ))}
+      </ul>
       <p> {author} </p>
     </>
   );

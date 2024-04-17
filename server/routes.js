@@ -106,7 +106,7 @@ const artist_descriptors = async (req, res) => {
   );
 };
 
-// GET /era-era_descriptors/:start_year/:end_year
+// GET /era_descriptors/:start_year/:end_year
 const era_descriptors = async (req, res) => {
   connection.query(
     `WITH DescriptorCounts AS (
@@ -244,6 +244,7 @@ LIMIT 1;
   );
 };
 
+// Needs to be fixed; won't run in datagrip
 // Route: GET /minimal_views
 /*This is a dedicated page for artwork that hasn't been viewed as much and its artist. 
 It implements page functionality for simplified browsing*/
@@ -307,11 +308,11 @@ const unknown_artists = async function (req, res) {
     // page not specified
     connection.query(
       `
-      SELECT DISTINCT art.id AS id, art.image_id AS image, art.title AS title, art.date_end AS year,	art.place_of_origin AS Location, desc.title AS style
-      FROM Artwork AS art LEFT 
-      JOIN Made AS made ON art.id = made.artwork_id
-      JOIN Descriptor AS desc ON art.id = desc.artwork_id
-      WHERE made.artist_id is NULL AND art.date_end > ${lastCentury} AND desc.field = 'style'
+      SELECT DISTINCT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
+      FROM Artwork art
+      LEFT JOIN Made made ON art.id = made.artwork_id
+      JOIN Descriptor D ON art.id = D.artwork_id
+      WHERE made.artist_id is NULL AND art.end_year > ${lastCentury} AND D.aspect = 'style'
     `,
       (err, data) => {
         if (err || data.length === 0) {
@@ -326,11 +327,11 @@ const unknown_artists = async function (req, res) {
     // specified pages
     connection.query(
       `
-      SELECT DISTINCT id, art.title, date_end,	place_of_origin, field, desc.title
-      FROM artworks_df AS art LEFT 
-      JOIN made_df AS made ON art.id = made.artwork_id
-      JOIN desc_df AS desc ON art.id = desc.artwork_id
-      WHERE made.artist_id is NULL AND art.date_end > ${lastCentury}    
+      SELECT DISTINCT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
+      FROM Artwork AS art LEFT 
+      JOIN Made AS made ON art.id = made.artwork_id
+      JOIN Descriptor AS D ON art.id = D.artwork_id
+      WHERE made.artist_id is NULL AND art.year_end > ${lastCentury} AND D.aspect = 'style'  
       LIMIT ${pageSize}
       OFFSET ${offset}
     `,
@@ -352,7 +353,7 @@ const artwork_materials = async (req, res) => {
   connection.query(
     `SELECT title 
     FROM Descriptor
-    WHERE field = 'material' AND artwork_id = ${req.params.artwork_id}`,
+    WHERE aspect = 'material' AND artwork_id = ${req.params.artwork_id}`,
     (err, data) => {
       if (err || data.length === 0) {
         console.error("Error fetching artwork materials:", err);
@@ -366,31 +367,31 @@ const artwork_materials = async (req, res) => {
 
 // Route: GET /artwork_techniques/:artist_id
 /* Given an artworkID get techniques */
-const artwork_techniques = async (req, res) => {
-  connection.query(
-    `SELECT title 
-    FROM Descriptor
-    WHERE field = 'technique' AND artwork_id = ${req.params.artwork_id}`,
-    (err, data) => {
-      if (err || data.length === 0) {
-        console.error("Error fetching artwork materials:", err);
-        res.status(500).json({ err: "Internal Server Error" });
-      } else {
-        res.json(data); //as an array
-      }
-    }
-  );
-};
+// const artwork_techniques = async (req, res) => {
+//   connection.query(
+//     `SELECT title
+//     FROM Descriptor
+//     WHERE aspect = 'technique' AND artwork_id = ${req.params.artwork_id}`,
+//     (err, data) => {
+//       if (err || data.length === 0) {
+//         console.error("Error fetching artwork materials:", err);
+//         res.status(500).json({ err: "Internal Server Error" });
+//       } else {
+//         res.json(data); //as an array
+//       }
+//     }
+//   );
+// };
 
 // Route: GET /artwork_description/:artwork_id
 /* Given an artworkID, get info about piece */
 const artwork_description = async (req, res) => {
   connection.query(
-    `SELECT AT.title AS title, AT.date_end AS year, AR.title AS artist, AT.image_id AS image
+    `SELECT AT.title AS title, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
     FROM Artwork AS AT
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id
-    WHERE AT.artwork_id = ${req.params.artwork_id}`,
+    WHERE AT.id = ${req.params.artwork_id}`,
     (err, data) => {
       if (err || data.length === 0) {
         console.error("Error fetching artwork materials:", err);
@@ -413,7 +414,7 @@ const three_artworks = async (req, res) => {
     FROM Artwork AS AT
     JOIN Descriptor D1 ON D1.artwork_id = AT.id
     JOIN Descriptor D2 ON D2.artwork_id = AT.id
-    WHERE D1.field = 'artwork_type' AND D1.title = '${artworkType}' AND D2.field = 'classification' AND D2.title = '${medium}'
+    WHERE D1.aspect = 'artwork_type' AND D1.title = '${artworkType}' AND D2.aspect = 'classification' AND D2.title LIKE '%${medium}%'
     ORDER BY RANDOM()
     LIMIT 3`,
     (err, data) => {
@@ -489,7 +490,7 @@ module.exports = {
   minimal_views, // for which page? maybe nameless?
   unknown_artists, // for Nameless page
   artwork_materials, //for Steal Like An Artist
-  artwork_techniques, //for Steal Like An Artist
+  // artwork_techniques, //for Steal Like An Artist
   artwork_description, //for Steal Like An Artist
   three_artworks, //for Steal Like An Artist
   artist_stories, //for Artist Stories page

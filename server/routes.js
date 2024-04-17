@@ -51,7 +51,8 @@ const artist = async function (req, res) {
         console.log(err);
         // Be cognizant of the fact we return an empty object {}. For future routes, depending on the
         // return type you may need to return an empty array [] instead.
-        res.json({});
+        console.error("Error fetching artist:", err);
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         // return an array of artists
         res.json(data);
@@ -71,8 +72,9 @@ const getImages = async (req, res) => {
     LIMIT 1`,
     (err, data) => {
       if (err || data.length === 0) {
+        console.log(err);
         console.error("Error fetching image IDs:", err);
-        res.status(500).json({ err: "Internal Server Error" });
+        res.status(500).json({err: "Internal Server Error" });
       } else {
         const imageId = data[0].image_id;
         res.json(imageId);
@@ -97,8 +99,9 @@ const artist_descriptors = async (req, res) => {
     ORDER BY descriptor_type`,
     (err, data) => {
       if (err || data.length === 0) {
+        console.log(err);
         console.error("Error fetching artist descriptors:", err);
-        res.status(500).json({ err: "Internal Server Error" });
+        res.status(500).json({err: "Internal Server Error" });
       } else {
         res.json(data);
       }
@@ -128,6 +131,7 @@ const era_descriptors = async (req, res) => {
     ORDER BY Descriptor_Type, Fraction DESC`,
     (err, data) => {
       if (err || data.length === 0) {
+        console.log(err);
         console.error("Error fetching era descriptors:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
@@ -152,7 +156,8 @@ const proportion_unknown = async (req, res) => {
     ORDER BY Proportion_Unknown_Artist DESC`,
     (err, data) => {
       if (err || data.length === 0) {
-        console.error("Error fetching unknown proportions:", err);
+        console.log(err);
+        console.error("Error fetching proportion unknown:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
@@ -175,10 +180,10 @@ const time_periods = async (req, res) => {
     WHERE death_year <  ${deathYear} AND birth_year > ${birthYear}`,
     (err, data) => {
       //return empty array for ranges where there are no artist
-      if (err) {
+      if (err||data.length === 0) {
         console.log(err);
-      } else if (data.length === 0) {
-        res.json({});
+        console.error("Error fetching time periods:", err);
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
       }
@@ -201,10 +206,10 @@ const artworks_location = async (req, res) => {
      LIMIT 10
 `,
     (err, data) => {
-      if (err) {
+      if (err || data.length === 0) {
         console.log(err);
-      } else if (data.length === 0) {
-        res.json({});
+        console.error("Error fetching artworks location:", err);
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
       }
@@ -233,10 +238,10 @@ LIMIT 1;
 `,
     (err, data) => {
       //return empty array for ranges where there are no artist
-      if (err) {
+       if (err || data.length === 0) {
         console.log(err);
-      } else if (data.length === 0) {
-        res.json({});
+        console.error("Error fetching colorful artists:", err);
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
       }
@@ -266,7 +271,8 @@ const minimal_views = async function (req, res) {
       (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          console.error("Error fetching minimal views:", err);
+          res.status(500).json({ err: "Internal Server Error" });
         } else {
           res.json(data);
         }
@@ -286,7 +292,8 @@ const minimal_views = async function (req, res) {
       (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          console.error("Error fetching minimal views:", err);
+          res.status(500).json({ err: "Internal Server Error" });
         } else {
           res.json(data);
         }
@@ -317,7 +324,8 @@ const unknown_artists = async function (req, res) {
       (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          console.error("Error fetching unknown artists:", err);
+          res.status(500).json({ err: "Internal Server Error" });
         } else {
           res.json(data);
         }
@@ -338,7 +346,8 @@ const unknown_artists = async function (req, res) {
       (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          console.error("Error fetching unknown artists:", err);
+          res.status(500).json({ err: "Internal Server Error" });
         } else {
           res.json(data);
         }
@@ -356,6 +365,7 @@ const artwork_materials = async (req, res) => {
     WHERE aspect = 'material' AND artwork_id = ${req.params.artwork_id}`,
     (err, data) => {
       if (err || data.length === 0) {
+        console.log(err);
         console.error("Error fetching artwork materials:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
@@ -394,6 +404,7 @@ const artwork_description = async (req, res) => {
     WHERE AT.id = ${req.params.artwork_id}`,
     (err, data) => {
       if (err || data.length === 0) {
+        console.log(err);
         console.error("Error fetching artwork materials:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
@@ -419,6 +430,7 @@ const three_artworks = async (req, res) => {
     LIMIT 3`,
     (err, data) => {
       if (err || data.length === 0) {
+        console.log(err);
         console.error("Error fetching 3 artworks:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
@@ -493,5 +505,5 @@ module.exports = {
   // artwork_techniques, //for Steal Like An Artist
   artwork_description, //for Steal Like An Artist
   three_artworks, //for Steal Like An Artist
-  artist_stories, //for Artist Stories page
+  //artist_stories, //for Artist Stories page
 };

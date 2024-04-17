@@ -12,27 +12,6 @@ const connection = mysql.createConnection({
 });
 connection.connect((err) => err && console.log(err));
 
-// two ways to get routes
-// FIRST METHOD //
-// const artist = async function (req, res) {
-//   connection.query(
-//     `SELECT *
-//     FROM Artist
-//     LIMIT 10`,
-//     (err, data) => { // If there is an error for some reason, or if the query is empty
-//       if (err || data.length === 0) { // print the error message and return an empty object instead
-//         console.log(err);
-//         // Be cognizant of the fact we return an empty object {}. For future routes, depending on the
-//         // return type you may need to return an empty array [] instead.
-//         res.json({});
-//       } else {
-//         res.json(data); // return an array if query is an array
-//       }
-//     }
-//   );
-
-// SECOND METHOD //
-
 // Route 1: GET /author/:type
 const author = async function (req, res) {
   // TODO (TASK 1): replace the values of name and pennKey with your own
@@ -102,8 +81,8 @@ const getImages = async (req, res) => {
   );
 };
 
-// GET /artist-descriptors/:artist_id
-const artistDescriptors = async (req, res) => {
+// GET /artist_descriptors/:artist_id
+const artist_descriptors = async (req, res) => {
   connection.query(
     `SELECT descriptor_type, descriptor_title, MAX(count) AS mcount
     FROM (
@@ -127,8 +106,8 @@ const artistDescriptors = async (req, res) => {
   );
 };
 
-// GET /era-descriptors/:start_year/:end_year
-const eraDescriptors = async (req, res) => {
+// GET /era-era_descriptors/:start_year/:end_year
+const era_descriptors = async (req, res) => {
   connection.query(
     `WITH DescriptorCounts AS (
       SELECT
@@ -158,8 +137,8 @@ const eraDescriptors = async (req, res) => {
   );
 };
 
-// GET /proportionUnknown
-const proportionUnknown = async (req, res) => {
+// GET /proportion_unknown
+const proportion_unknown = async (req, res) => {
   connection.query(
     `SELECT
       A.place_of_origin AS Country,
@@ -183,8 +162,8 @@ const proportionUnknown = async (req, res) => {
 };
 
 //camelcase or snake case tis the question?
-// GET /time-periods
-const timePeriods = async (req, res) => {
+// GET /time_periods
+const time_periods = async (req, res) => {
   // req.query params are optional unless user specifies so this defaults to 0 for birth year and current year for death year
   //front end implementation of this will be a slider i think
   //const deathYear = req.query.deathYear ? req.query.deathYear : new Date().getFullYear() ; TODO later
@@ -207,8 +186,8 @@ const timePeriods = async (req, res) => {
   );
 };
 
-// GET /artworks-location/:location
-const artworksLocation = async (req, res) => {
+// GET /artworks_location/:location
+const artworks_location = async (req, res) => {
   const place = req.params.location;
 
   connection.query(
@@ -233,8 +212,8 @@ const artworksLocation = async (req, res) => {
   );
 };
 
-// GET colorful-artists/:location
-const colorfulArtists = async (req, res) => {
+// GET colorful_artists/:location
+const colorful_artists = async (req, res) => {
   const colorfulness = req.query.color ? req.query.color : 15;
 
   connection.query(
@@ -265,10 +244,10 @@ LIMIT 1;
   );
 };
 
-// Route: GET /minimalViews
+// Route: GET /minimal_views
 /*This is a dedicated page for artwork that hasn't been viewed as much and its artist. 
 It implements page functionality for simplified browsing*/
-const minimalViews = async function (req, res) {
+const minimal_views = async function (req, res) {
   const page = req.query.page;
   const pageSize = req.query.page_size ? req.query.page_size : 10; // default 10 items per page
   const offset = (page - 1) * pageSize; // calculates the appropriate offset amount based on selected page
@@ -315,10 +294,10 @@ const minimalViews = async function (req, res) {
   }
 };
 
-// Route: GET /unknownArtists
+// Route: GET /unknown_artists
 /*This is a dedicated page for unknown artists. It showcases ones within the last
 century. This route implements page functionality for simplified browsing*/
-const unknownArtists = async function (req, res) {
+const unknown_artists = async function (req, res) {
   const page = req.query.page;
   const pageSize = req.query.page_size ? req.query.page_size : 10; // default 10 items per page
   const offset = (page - 1) * pageSize; // calculates the appropriate offset amount based on selected page
@@ -328,11 +307,11 @@ const unknownArtists = async function (req, res) {
     // page not specified
     connection.query(
       `
-      SELECT DISTINCT id, art.title, date_end,	place_of_origin, field, desc.title
-      FROM artworks_df AS art LEFT 
-      JOIN made_df AS made ON art.id = made.artwork_id
-      JOIN desc_df AS desc ON art.id = desc.artwork_id
-      WHERE made.artist_id is NULL AND art.date_end > ${lastCentury}
+      SELECT DISTINCT art.id AS id, art.image_id AS image, art.title AS title, art.date_end AS year,	art.place_of_origin AS Location, desc.title AS style
+      FROM Artwork AS art LEFT 
+      JOIN Made AS made ON art.id = made.artwork_id
+      JOIN Descriptor AS desc ON art.id = desc.artwork_id
+      WHERE made.artist_id is NULL AND art.date_end > ${lastCentury} AND desc.field = 'style'
     `,
       (err, data) => {
         if (err || data.length === 0) {
@@ -367,42 +346,151 @@ const unknownArtists = async function (req, res) {
   }
 };
 
-// const artworksLocation = async (req, res) => {
+// Route: GET /artwork_materials/:artist_id
+/* Given an artworkID get materials */
+const artwork_materials = async (req, res) => {
+  connection.query(
+    `SELECT title 
+    FROM Descriptor
+    WHERE field = 'material' AND artwork_id = ${req.params.artwork_id}`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching artwork materials:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+};
 
-//   const place = req.params.location
-//   connection.query(
-//     `SELECT AR.name, COUNT(AT.id)
-//      FROM Artwork AT
-//      JOIN Made M ON M.artwork_id = AT.id
-//      JOIN Artist AR ON AR.id = M.artist_id
-//      WHERE AT.place_of_origin LIKE '%${place}%'
-//      GROUP BY AR.name, AR.id
-//      ORDER BY COUNT(AR.id) DESC
-//      LIMIT 10
-// `,
-//   (err, data) => {
-//       if (err) {
-//         console.log(err);
-//       }else if (data.length === 0){
-//          res.json({});
-//       }else {
-//         res.json(data);
+// Route: GET /artwork_techniques/:artist_id
+/* Given an artworkID get techniques */
+const artwork_techniques = async (req, res) => {
+  connection.query(
+    `SELECT title 
+    FROM Descriptor
+    WHERE field = 'technique' AND artwork_id = ${req.params.artwork_id}`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching artwork materials:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data); //as an array
+      }
+    }
+  );
+};
+
+// Route: GET /artwork_description/:artwork_id
+/* Given an artworkID, get info about piece */
+const artwork_description = async (req, res) => {
+  connection.query(
+    `SELECT AT.title AS title, AT.date_end AS year, AR.title AS artist, AT.image_id AS image
+    FROM Artwork AS AT
+    JOIN Made M ON M.artwork_id = AT.id
+    JOIN Artist AR ON AR.id = M.artist_id
+    WHERE AT.artwork_id = ${req.params.artwork_id}`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching artwork materials:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data); //as an array
+      }
+    }
+  );
+};
+
+// Route: GET /three_artworks/:artworkType/:medium
+/* Given an artwork type and medium, get 3 pieces */
+const three_artworks = async (req, res) => {
+  const artworkType = req.params.artworkType;
+  const medium = req.params.medium;
+
+  connection.query(
+    `SELECT DISTINCT AT.id, AT.image_id 
+    FROM Artwork AS AT
+    JOIN Descriptor D1 ON D1.artwork_id = AT.id
+    JOIN Descriptor D2 ON D2.artwork_id = AT.id
+    WHERE D1.field = 'artwork_type' AND D1.title = '${artworkType}' AND D2.field = 'classification' AND D2.title = '${medium}'
+    ORDER BY RANDOM()
+    LIMIT 3`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.error("Error fetching 3 artworks:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+};
+
+// Route: GET /artistStories/:artworkType/:medium
+/* Given an artwork type and medium, get 3 pieces */
+// const artistStories = async function (req, res) {
+//   const page = req.query.page;
+//   const pageSize = req.query.page_size || 10;
+//   let limit = pageSize;
+//   let offset = page * pageSize - pageSize;
+
+//   if (!page) {
+//     connection.query(
+//       `
+//       SELECT A.title AS album, S.album_id, S.plays AS plays, S.song_id, S.title AS title
+//       FROM Albums A JOIN Songs S on A.album_id = S.album_id
+//       ORDER BY S.plays DESC;
+//     `,
+//       (err, data) => {
+//         if (err || data.length == 0) {
+//           // res.send(`There is an error`);
+//           console.log(err);
+//           res.json({});
+//         } else {
+//           res.json(data);
+//         }
 //       }
-//     }
-
-//   );
-// }
+//     );
+//   } else {
+//     // TODO (TASK 10): reimplement TASK 9 with pagination
+//     // Hint: use LIMIT and OFFSET (see https://www.w3schools.com/php/php_mysql_select_limit.asp)
+//     connection.query(
+//       `
+//       SELECT A.title AS album, S.album_id, S.plays AS plays, S.song_id, S.title AS title
+//       FROM Albums A JOIN Songs S on A.album_id = S.album_id
+//       ORDER BY S.plays DESC
+//       LIMIT ${limit} OFFSET ${offset};
+//   `,
+//       (err, data) => {
+//         if (err || data.length == 0) {
+//           // res.send(`There is an error`);
+//           // console.log(err);
+//           res.json({ limit, offset, page, pageSize });
+//         } else {
+//           // res.json({limit,offset});
+//           res.json(data);
+//         }
+//       }
+//     );
+//   }
+// };
 
 module.exports = {
-  author,
-  artist,
-  getImages,
-  artistDescriptors,
-  eraDescriptors,
-  proportionUnknown,
-  timePeriods,
-  artworksLocation,
-  colorfulArtists,
-  minimalViews,
-  unknownArtists,
+  author, //for home page
+  artist, //for ArtistStories
+  getImages, //for everything
+  artist_descriptors, // for which page? map?
+  era_descriptors, //for which page?
+  proportion_unknown, // for which page?
+  time_periods, //for which page?
+  artworks_location, //for map
+  colorful_artists, //for which page?
+  minimal_views, // for which page? maybe nameless?
+  unknown_artists, // for Nameless page
+  artwork_materials, //for Steal Like An Artist
+  artwork_techniques, //for Steal Like An Artist
+  artwork_description, //for Steal Like An Artist
+  three_artworks, //for Steal Like An Artist
+  artist_stories, //for Artist Stories page
 };

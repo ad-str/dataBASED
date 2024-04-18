@@ -249,7 +249,6 @@ LIMIT 1;
   );
 };
 
-// Needs to be fixed; won't run in datagrip
 // Route: GET /minimal_views
 /*This is a dedicated page for artwork that hasn't been viewed as much and its artist. 
 It implements page functionality for simplified browsing*/
@@ -264,8 +263,8 @@ const minimal_views = async function (req, res) {
       `
       SELECT a.title, m.artist_id
       FROM Artwork a
-      JOIN Made m ON a.artwork_id = m.artwork_id
-      WHERE a.has_not_been_viewed_much = TRUE
+      JOIN Made m ON a.id = m.artwork_id
+      WHERE a.not_viewed_much = TRUE
       
     `,
       (err, data) => {

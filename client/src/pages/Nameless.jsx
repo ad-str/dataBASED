@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import config from "../config.json";
+import { Box, Container } from '@mui/material';
+//import { Button, Checkbox, Container, FormControlLabel, Grid, Link, Slider, TextField } from '@mui/material';
+//import { DataGrid } from '@mui/x-data-grid';
 
 const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function Nameless() {
   const [artworks, setArtworks] = useState([]);
+  const [images, setImages] = useState([]);
+  //const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     const fetchArtworks = async () => {
@@ -22,7 +27,15 @@ export default function Nameless() {
     };
 
     fetchArtworks();
+
+    fetch(`${url}/images`)
+    .then((res) => res.json())
+    .then((resJson) => setImages(resJson));
   }, []);
+
+  //flexFormat for a UI friendly page formatting
+  const flexFormat = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' };
+
 
   return (
     <>
@@ -38,13 +51,44 @@ export default function Nameless() {
         stories lost to time. In museums, exhibit labels often bear a silent
         testament to this injustice: "unknown."
       </p>
-      <ul>
+      <Container style={flexFormat}>
         {artworks.map((artwork) => (
-          <li key={artwork.id}>
-            <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>
-          </li>
+          <Box
+          key={artwork.id}
+          p={3}
+          m={2}
+          style={{ background: 'white', borderRadius: '16px', border: '2px solid #000' }}
+        >
+          {
+          <img
+            src={`https://www.artic.edu/iiif/2/${images}/full/200,/0/default.jpg`}
+            alt={`Artwork ${images}`}
+          />
+          }
+          <h4 key={artwork.id}> <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink></h4>
+          </Box>
         ))}
-      </ul>
+      </Container>
     </>
   );
+
+  /*B- implementing page size
+The code snippet uses DataGrid. It might be helpful to use LazyTable component instead?
+
+  <Container>
+  <DataGrid
+        rows={data}
+        columns={columns}
+        pageSize={pageSize}
+        rowsPerPageOptions={[5, 10, 25]}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        autoHeight
+      />
+  </Container>
+  */ 
 }
+
+/*B- grabbing images
+It would be nice to have the artwork pop up. At a minimum, the image should 
+link to a new page. Using this tutorial as a starter:
+https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-in-React-Router*/

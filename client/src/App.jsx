@@ -10,7 +10,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import Pages
 import HomePage from "./pages/HomePage";
-
 import ArtAtlas from "./pages/ArtAtlas";
 import StealLike from "./pages/StealLike";
 import ArtistStories from "./pages/ArtistStories";

@@ -9,7 +9,6 @@ const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function Nameless() {
   const [artworks, setArtworks] = useState([]);
-  const [images, setImages] = useState([]);
   //const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
@@ -27,10 +26,6 @@ export default function Nameless() {
     };
 
     fetchArtworks();
-
-    fetch(`${url}/images`)
-    .then((res) => res.json())
-    .then((resJson) => setImages(resJson));
   }, []);
 
   //flexFormat for a UI friendly page formatting
@@ -61,8 +56,8 @@ export default function Nameless() {
         >
           {
           <img
-            src={`https://www.artic.edu/iiif/2/${images}/full/200,/0/default.jpg`}
-            alt={`Artwork ${images}`}
+            src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
+            alt={`${artwork.title} Artwork`}
           />
           }
           <h4 key={artwork.id}> <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink></h4>
@@ -91,4 +86,7 @@ The code snippet uses DataGrid. It might be helpful to use LazyTable component i
 /*B- grabbing images
 It would be nice to have the artwork pop up. At a minimum, the image should 
 link to a new page. Using this tutorial as a starter:
-https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-in-React-Router*/
+https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-in-React-Router
+
+If we have time to make it sexy, we can use this site as reference:
+https://mui.com/material-ui/react-image-list/ */

@@ -36,12 +36,13 @@ const author = async function (req, res) {
   }
 };
 
-// Route: GET /artist
+// Route: GET /artist 
 const artist = async function (req, res) {
   connection.query(
     `
     SELECT *
     FROM Artist
+    ORDER BY RAND()
     LIMIT 10
   `,
     (err, data) => {
@@ -61,8 +62,8 @@ const artist = async function (req, res) {
   );
 };
 
-// Route: GET /images
-const getImages = async (req, res) => {
+// Route: GET /random
+const random = async (req, res) => {
   connection.query(
     `
     SELECT image_id 
@@ -70,6 +71,28 @@ const getImages = async (req, res) => {
     WHERE image_id IS NOT NULL 
     ORDER BY RAND() 
     LIMIT 1`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.log(err);
+        console.error("Error fetching random image:", err);
+        res.status(500).json({err: "Internal Server Error" });
+      } else {
+        const imageId = data[0].image_id;
+        res.json(imageId);
+      }
+    }
+  );
+};
+
+// Route: GET /artwork/:id
+// given an id, returns all information about the artwork
+const artwork = async (req, res) => {
+  connection.query(
+    `
+    SELECT * 
+    FROM Artwork 
+    WHERE id = '${req.params.id}'
+    `,
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);
@@ -491,7 +514,8 @@ const three_artworks = async (req, res) => {
 module.exports = {
   author, //for home page
   artist, //for ArtistStories
-  getImages, //for everything
+  random, //for home page
+  artwork, //for everything
   artist_descriptors, // for which page? map?
   era_descriptors, //for which page?
   proportion_unknown, // for which page?

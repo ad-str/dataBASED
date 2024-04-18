@@ -14,7 +14,8 @@ app.use(
 // provide their handlers that we implemented in routes.js
 app.get("/author/:type", routes.author);
 app.get("/artist", routes.artist);
-app.get('/images', routes.getImages);
+app.get('/random', routes.random);
+app.get('/artwork/:id', routes.artwork);
 app.get('/artist-descriptors/:artist_id', routes.artist_descriptors);
 app.get('/era-descriptors/:start_year/:end_year', routes.era_descriptors);
 app.get('/proportion-unknown', routes.proportion_unknown);

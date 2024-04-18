@@ -10,7 +10,7 @@ const url = `http://${config.server_host}:${config.server_port}`;
 export default function HomePage() {
   const [count, setCount] = useState(0);
   const [artists, setArtists] = useState([]);
-  const [images, setImages] = useState([]);
+  const [randomImage, setRandomImage] = useState([]);
   const [author, setAuthor] = useState("");
 
   useEffect(() => {
@@ -26,9 +26,9 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetch(`${url}/images`)
+    fetch(`${url}/random`)
       .then((res) => res.json())
-      .then((resJson) => setImages(resJson));
+      .then((resJson) => setRandomImage(resJson));
 
     fetch(`http://${config.server_host}:${config.server_port}/author/names`)
       .then((res) => res.text())
@@ -54,18 +54,19 @@ export default function HomePage() {
         </a> */}
       {/* </div> */}
       <div className="image-container">
-        {images.length > 0 && (
+        {randomImage.length > 0 && (
           <img
-            src={`https://www.artic.edu/iiif/2/${images}/full/200,/0/default.jpg`}
-            alt={`Artwork ${images}`}
+            src={`https://www.artic.edu/iiif/2/${randomImage}/full/200,/0/default.jpg`}
+            alt={`Artwork ${randomImage}`}
             className="artwork-image"
           />
         )}
       </div>
-      <p>Example artist Route is here:</p>
+      <p>Artists to explore:</p>
       <ul>
         {artists.map((artist, index) => (
-          <li key={index}>{artist.name}</li>
+          //<h4 key={index}>{artist.name}</h4>
+          <h4 key={artist.id}> <NavLink to={`/artist/${artist.id}`}>{artist.name}</NavLink></h4>
         ))}
       </ul>
       <p> {author} </p>

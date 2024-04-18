@@ -1170,13 +1170,13 @@ Swadlincote,United Kingdom
 "Monroe Street, 30 West",United States
 "Park Avenue, 390", United States
 "Chicago Avenue, 303-311 East",United States
-Broadway at 62nd Street,
-"Cannon Drive, 2200 North",United States
-Northbrook,United States
+Broadway at 62nd Street,United States
+"Cannon Drive, 2200 North", United States
+Northbrook, United States
 Chiang Mai province,Thailand
 Soviet Union,Austria
 Guinea-Bissau,Guinea-Bissau
-Pyramid Lake Indian Reservation,
+Pyramid Lake Indian Reservation, United States
 Alabama,United States
 Canosa di Puglia,Italy
 Chippewa Falls,United States
@@ -1185,12 +1185,12 @@ Kohler,United States
 "Michigan Avenue, 1936 South",United States
 "Fair Oaks Avenue, 540",United States
 Jahangirabad,Iran
-"12th Place, 554 West",
+"12th Place, 554 West", United States
 Lincoln Park Zoo,United States
 "Green Bay Road, 1724 South",United States
 "East Avenue, 504 North",United States
 "Maxwell Street, 1006-1010",United Kingdom
-"Lake Shore Drive, 860-880 North (apartment buildings)",
+"Lake Shore Drive, 860-880 North (apartment buildings)", United States
 Southern England,United Kingdom
 "Erie Street, 60 West",United States
 Midway Airport,United States
@@ -1236,7 +1236,7 @@ Albania,Albania
 Lampung,Indonesia
 Zambia,Zambia
 Zimbabwe,Zimbabwe
-Park Avenue,Country Not Found
+Park Avenue,United States
 Bessarabia,Ukraine
 Edgefield county,United States
 Flemish Brabant,Belgium
@@ -1249,10 +1249,10 @@ Waltham,United States
 Perth Amboy,United States
 Hamburg,Germany
 Galveston,United States
-Boston Architectural Center,
+Boston Architectural Center,United States
 Lowell,United States
 Middlebury,United States
-"Ville de Paris, Départment de",
+"Ville de Paris, Départment de", France
 Northern Illinois,United States
 Ravinia,United States
 Santa Clara Pueblo,United States
@@ -1294,7 +1294,7 @@ Auburn,United States
 Toledo,Spain
 Lafayette,United States
 Charleston,United States
-Amfípolis,Germany
+Amfípolis,Greece
 Leiden,Netherlands
 Leipzig,Germany
 Vitebsk,Belarus
@@ -1304,7 +1304,7 @@ Mauritania,Mauritania
 Newburgh,United States
 Bridgeton,United States
 Iraq,Iraq
-"Zuni Tribe of the Zuni Reservation, New Mexico",
+"Zuni Tribe of the Zuni Reservation, New Mexico", United States
 Zia Pueblo,United States
 Southbury,United States
 Miami Beach,United States
@@ -1349,29 +1349,29 @@ Honolulu,United States
 Atlantic City,United States
 Guam Island,United States
 Hampton Falls,United States
-København county,Sweden
+København county, Denmark
 Memphis,United States
 "Lakeview Avenue, 2704 North",Canada
 Southern Plains,Botswana
-Noritake-shimmachi,
+Noritake-shimmachi, Japan
 Dunes Hotel,United Kingdom
 Germantown,United States
 Coraopolis,United States
 Vallauris,France
 Northern Plains,United States
-Central Anatolian Region,
+Central Anatolian Region,Turkey
 Malawi,Malawi
 Corfu,Greece
 "Michigan Avenue, 360 North",United States
-"Adams Street, 287 West (old)",
+"Adams Street, 287 West (old)", United States
 "Stony Island Avenue, 7400 South",United States
 Sharon,United States
-"Stetson Avenue, 211 North",
-"Lake Shore Drive, 1500 North (apartment building)",
+"Stetson Avenue, 211 North", United States
+"Lake Shore Drive, 1500 North (apartment building)", United States
 Bangkok,Thailand
 "Bryn Mawr Avenue, 8750 West",United States
 Saxony-Anhalt,Germany
-[Retired]American all locations,
+[Retired]American all locations, United States
 Wheaton,United States
 Downers Grove,United States
 Linz,Austria
@@ -1381,7 +1381,7 @@ Hokkaido region,Japan
 "Michigan Avenue, 220 South",United States
 LaSalle Street,United States
 Walworth,United States
-91st Street at Commercial Avenue,
+91st Street at Commercial Avenue, United States
 Artesia,United States
 Jackson Hole,United States
 Lake Koshkonong,United States
@@ -1391,9 +1391,9 @@ Hillsborough,United States
 Lake Geneva,France
 "Oakvale Road, 55",United States
 Lincoln Park,United States
-"Michigan Avenue, 20 North",Country Not Found
+"Michigan Avenue, 20 North", United States
 Piñon,United States
-"Elm Street, 2-10 West (apartment hotel)",
+"Elm Street, 2-10 West (apartment hotel)", United States
 North Barrington,United States
 "Cannon Drive, 2430 North",United States
 Treviso,Italy
@@ -1407,7 +1407,7 @@ Anet,France
 Èze Bord de Mer,France
 Amiens,France
 Jammu-Kashmir,India
-Tourrette-sur-Loup,
+Tourrette-sur-Loup, France
 Áyios Nikólaos,Cyprus
 Granada province,Peru
 Muncie,United States
@@ -1419,23 +1419,23 @@ Puri,India
 Nathdwara,India
 Maharashtra,India
 Mysore,India
-Merton Abbey Works,
-"Korhogo, Département de",
+Merton Abbey Works, ,United Kingdom
+"Korhogo, Département de", Ivory Coast
 Lima department,Peru
 Cape Town,South Africa
 Captiva,United States
 Acoma Pueblo,United States
 Gilbert,United States
 Togo,Togo
-South America,South America
+South America,
 Giverny,France
 Cuernavaca,Mexico
 Edgefield,United States
 Kinngait,Canada
-Coromandel Coast,Australia
+Coromandel Coast, India
 Schaumburg,United States
 Clinton,United States
-"Peru, Viceroyalty of",
+"Peru, Viceroyalty of", Peru
 Dali,China
 Bogotá,Colombia
 West Indies,Dominican Republic

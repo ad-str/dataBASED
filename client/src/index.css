@@ -27,12 +27,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
-  
-  background-color: var(--dark-background-color);
-  color: var(--dark-text-color);
-  
-  
+  min-height: 100vh;  
 }
 
 h1 {

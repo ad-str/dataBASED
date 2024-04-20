@@ -32,7 +32,7 @@ export default function NavBar() {
 
   const theme = useTheme();
   return (
-    <AppBar position="static" style={{ background: theme.palette.background.default }}>
+    <AppBar position="static" style={{ background: "transparent" }}>
       <Container maxWidth="l">
         <Toolbar disableGutters>
           <NavText href="/stories" text="The Artist's Story" />

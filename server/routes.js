@@ -436,19 +436,19 @@ const artwork_description = async (req, res) => {
   );
 };
 
-// Route: GET /three_artworks/:artworkType/:medium
+// Route: GET /three_artworks/:artworkType/:artworktype/:medium
 /* Given an artwork type and medium, get 3 pieces */
 const three_artworks = async (req, res) => {
   const artworkType = req.params.artworkType;
   const medium = req.params.medium;
 
   connection.query(
-    `SELECT DISTINCT AT.id, AT.image_id 
-    FROM Artwork AS AT
+    `SELECT DISTINCT AT.id AS id, AT.image_id AS image
+    FROM Artwork AT
     JOIN Descriptor D1 ON D1.artwork_id = AT.id
     JOIN Descriptor D2 ON D2.artwork_id = AT.id
     WHERE D1.aspect = 'artwork_type' AND D1.title = '${artworkType}' AND D2.aspect = 'classification' AND D2.title LIKE '%${medium}%'
-    ORDER BY RANDOM()
+    ORDER BY RAND()
     LIMIT 3`,
     (err, data) => {
       if (err || data.length === 0) {

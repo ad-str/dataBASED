@@ -1,52 +1,85 @@
 import React, { useEffect, useState } from "react";
 import ArtworkDropdown from "../components/DropdownButton";
 import config from "../config.json";
+import { Box, Container } from "@mui/material";
 
 const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function StealLike() {
-  const [selectedArtworkType, setSelectedArtworkType] = useState("");
-  const [selectedMedium, setSelectedMedium] = useState("");
-  const artworkTypes = [
-    "Drawing and Watercolor",
-    "Photograph",
-    "Sculpture",
-    "Painting",
-    "Ceramics",
+  const artwork = [
+    {
+      type: "Drawing and Watercolor",
+      mediums: ["watercolor", "pencil and pen", "crayon and chalk"],
+    },
+    {
+      type: "Photograph",
+      mediums: ["portrait"],
+    },
+    {
+      type: "Sculpture",
+      mediums: [
+        "earthenware",
+        "figure",
+        "wood",
+        "porcelain",
+        "marble",
+        "bronze",
+        "textile",
+      ],
+    },
+    {
+      type: "Painting",
+      mediums: ["oil", "acrylic"],
+    },
+    {
+      type: "Ceramics",
+      mediums: ["vase", "bowl", "teapot", "drinking vessel", "everything else"],
+    },
   ];
 
-  const getMediumTypes = (artworkType) => {
-    switch (artworkType) {
-      case "Drawing and Watercolor":
-        return ["Watercolor", "Pencil and Pen", "Crayon and Chalk"];
-      case "Photograph":
-        return ["Portrait", "Not Portrait"];
-      case "Painting":
-        return ["Oil", "Acrylic", "Other"];
-      case "Sculpture":
-        return [
-          "Earthenware/Terracotta",
-          "Figure",
-          "Wood",
-          "Porcelain",
-          "Marble",
-          "Bronze",
-          "Textile",
-        ];
-      case "Ceramics":
-        return ["vase", "bowl", "teapot", "drinking vessel", "everything else"];
-      default:
-        return [];
-    }
+  const [ArtworkType, setArtworkType] = useState("--Artwork Type--");
+  const [mediumType, setMediumType] = useState("--Medium--");
+  const [mediums, setMediums] = useState([]);
+  // const [classification, setClasification] = useState([]);
+  const [artworks, setArtworks] = useState([]);
+
+  const changeArtworkType = (event) => {
+    const selectedType = event.target.value;
+    console.log("Selected Artwork Type:", selectedType);
+    setArtworkType(selectedType);
+    setMediums(artwork.find((ctr) => ctr.type === selectedType).mediums);
   };
 
-  const handleArtworkTypeSelect = (selectedArtworkType) => {
-    setSelectedArtworkType(selectedArtworkType);
-    setSelectedMedium("");
+  const changeMediumType = (event) => {
+    const selectedType = event.target.value;
+    setMediumType(selectedType);
+    console.log("Selected Medium Type:", selectedType);
   };
 
-  const handleMediumSelect = (medium) => {
-    setSelectedMedium(medium);
+  useEffect(() => {
+    const fetchThreePieces = async () => {
+      try {
+        const response = await fetch(
+          `${url}/three_artworks/${ArtworkType}/${mediumType}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setArtworks(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchThreePieces();
+  }, [ArtworkType, mediumType]);
+
+  const flexFormat = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
   };
 
   return (
@@ -59,24 +92,40 @@ export default function StealLike() {
         art you want to make and what medium you specialize in. Happy art
         making!
       </p>
-      <h2> Select Artwork Type </h2>
-      <ArtworkDropdown
-        id="artworkTypeDropdown"
-        title="Select Artwork Type"
-        options={artworkTypes}
-        onSelect={handleArtworkTypeSelect} // Added onSelect prop
-      />
-      {/* {selectedArtworkType && ( // Conditionally render the second dropdown */}
-      <div>
-        <h2> Select Medium </h2>
-        <ArtworkDropdown
-          id="mediumDropdown"
-          title="Select Medium"
-          getMediumOptions={getMediumTypes}
-          onSelect={handleMediumSelect} // Added onSelect prop
-        />
+      <div className="Cascading">
+        <h2> Select Artwork Type & Medium </h2>
+        <select
+          className="form-control"
+          value={ArtworkType}
+          onChange={changeArtworkType}
+        >
+          <option>--Artwork Type--</option>
+          {artwork.map((ctr) => (
+            <option value={ctr.type}>{ctr.type}</option>
+          ))}
+        </select>
+        <br />
+        <select
+          className="form-control"
+          value={mediumType}
+          onChange={changeMediumType}
+        >
+          <option>--Medium--</option>
+          {mediums.map((medium) => (
+            <option value={medium}>{medium}</option>
+          ))}
+        </select>
       </div>
-      {/* )} */}
+      <div>
+        <h3> Pick an art piece below </h3>
+      </div>
+      <Container style={flexFormat}>
+        {artworks.map((artwork) => (
+          <img
+            src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
+          />
+        ))}
+      </Container>
     </>
   );
 }

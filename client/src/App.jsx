@@ -5,6 +5,7 @@ import "./App.css";
 import config from "./config.json"; // Import the config JSON file from client folder
 import NavBar from "./components/NavBar"; // Import Navigation bar
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 //Styling from HW2 - we can change this
 

@@ -36,7 +36,7 @@ const author = async function (req, res) {
   }
 };
 
-// Route: GET /artist 
+// Route: GET /artist
 const artist = async function (req, res) {
   connection.query(
     `
@@ -75,7 +75,7 @@ const random = async (req, res) => {
       if (err || data.length === 0) {
         console.log(err);
         console.error("Error fetching random image:", err);
-        res.status(500).json({err: "Internal Server Error" });
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         const imageId = data[0].image_id;
         res.json(imageId);
@@ -97,7 +97,7 @@ const artwork = async (req, res) => {
       if (err || data.length === 0) {
         console.log(err);
         console.error("Error fetching image IDs:", err);
-        res.status(500).json({err: "Internal Server Error" });
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         const imageId = data[0].image_id;
         res.json(imageId);
@@ -124,7 +124,7 @@ const artist_descriptors = async (req, res) => {
       if (err || data.length === 0) {
         console.log(err);
         console.error("Error fetching artist descriptors:", err);
-        res.status(500).json({err: "Internal Server Error" });
+        res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
       }
@@ -203,7 +203,7 @@ const time_periods = async (req, res) => {
     WHERE death_year <  ${deathYear} AND birth_year > ${birthYear}`,
     (err, data) => {
       //return empty array for ranges where there are no artist
-      if (err||data.length === 0) {
+      if (err || data.length === 0) {
         console.log(err);
         console.error("Error fetching time periods:", err);
         res.status(500).json({ err: "Internal Server Error" });
@@ -261,7 +261,7 @@ LIMIT 1;
 `,
     (err, data) => {
       //return empty array for ranges where there are no artist
-       if (err || data.length === 0) {
+      if (err || data.length === 0) {
         console.log(err);
         console.error("Error fetching colorful artists:", err);
         res.status(500).json({ err: "Internal Server Error" });

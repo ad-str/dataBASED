@@ -46,20 +46,24 @@ export default function ArtAtlas() {
 
   const countryStyles = (countryName) => ({
     default: { 
-      fill: countryName === activeCountry ? "#E42" : "#D6D6DA", // Active country gets a different fill
+      fill: countryName === activeCountry ? "#E42" : "#00c04b", // Active country gets a different fill
       stroke: "#FFFFFF", 
-      strokeWidth: 0.75 
+      strokeWidth: 0.75 ,
+      outline: "none"
     },
     hover: { 
       fill: "#F53", 
       stroke: "#FFFFFF", 
-      strokeWidth: 1.5 
+      strokeWidth: 1.5 ,
+      outline: "none"
     },
     pressed: { 
       fill: "#E42", 
       stroke: "#FFFFFF", 
-      strokeWidth: 1.5 
+      strokeWidth: 1.5,
+      outline: "none"
     }
+
   });  
 
   const handleMouseMove = (event) => {
@@ -82,9 +86,9 @@ export default function ArtAtlas() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'start', height: '80vh' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'start', height: '120vh',  padding: "10px", borderRadius: "5px", boxShadow: "0 2px 4px rgba(0,0,0,0.1)"  }}>
       {/* The map container */}
-      <div style={{ flex: 3, position: 'relative' }} onMouseMove={handleMouseMove}>
+      <div style={{ display: 'flex' ,flex: 3, position: 'relative',  backgroundColor: "blue", padding: "20px", boxSizing: "border-box",  borderRadius: "10px", }} onMouseMove={handleMouseMove}>
         <ComposableMap>
           <Geographies geography="/features.json">
             {({ geographies }) =>
@@ -112,7 +116,8 @@ export default function ArtAtlas() {
             background: 'white',
             border: '1px solid black',
             borderRadius: '3px',
-            fontSize: '0.9em'
+            fontSize: '0.9em',
+            outline: 'none'
           }}>
             {hoveredCountry}
           </div>
@@ -120,13 +125,15 @@ export default function ArtAtlas() {
       </div>
 
       {/* The artworks container */}
-      <div style={{ flex: 1, margin: '1rem', overflowY: 'auto', maxHeight: '80vh'}}>
+      <div style={{ flex: 1, margin: '1rem', maxHeight: '80vh'}}>
         <h2 id="countryArtworks">Artworks:</h2>
+        <p>Click on any location on the map to get started!</p>
         {artworks.map((artwork) => (
           <div key={artwork.id}>
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={`${artwork.title} Artwork`}
+              style={{ width: "50%", height: "50%", objectFit: "contain" }}
             />
             <h4 key={artwork.id}>
               <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>

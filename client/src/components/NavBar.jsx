@@ -1,4 +1,10 @@
-import { AppBar, Container, Toolbar, Typography, useTheme } from "@mui/material";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 function NavText({ href, text, isMain }) {
@@ -29,14 +35,13 @@ function NavText({ href, text, isMain }) {
 }
 // Need to decide // change name of website
 export default function NavBar() {
-
   const theme = useTheme();
   return (
     <AppBar position="static" style={{ background: "transparent" }}>
       <Container maxWidth="l">
         <Toolbar disableGutters>
           <NavText href="/" text="ArtBased" isMain />
-          <NavText href="/stories" text="The Artist's Story" />
+          {/* <NavText href="/stories" text="The Artist's Story" /> */}
           <NavText href="/map" text="Art Atlas" />
           <NavText href="/nameless" text="The Nameless" />
           <NavText href="/steal" text='"Steal Like An Arist"' />

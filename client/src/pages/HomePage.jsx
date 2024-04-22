@@ -8,7 +8,6 @@ import config from "../config.json";
 const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function HomePage() {
-  const [count, setCount] = useState(0);
   const [artists, setArtists] = useState([]);
   const [randomImage, setRandomImage] = useState([]);
   const [author, setAuthor] = useState("");
@@ -40,19 +39,10 @@ export default function HomePage() {
       <div>
         <h1>An art haven for art lovers </h1>
         <h3>
-          Explore art from every corner of the globe, get inspiration from
-          unique stories, honor forgotten artists, and unleash your inner
-          artist.
+          Explore art from every corner of the globe, honor forgotten artists,
+          and unleash your inner artist.
         </h3>
       </div>
-      {/* <div>
-        {/* <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a> */}
-      {/* </div> */}
       <div className="image-container">
         {randomImage.length > 0 && (
           <img
@@ -66,7 +56,10 @@ export default function HomePage() {
       <ul>
         {artists.map((artist, index) => (
           //<h4 key={index}>{artist.name}</h4>
-          <h4 key={artist.id}> <NavLink to={`/artist/${artist.id}`}>{artist.name}</NavLink></h4>
+          <h4 key={artist.id}>
+            {" "}
+            <NavLink to={`/artist/${artist.id}`}>{artist.name}</NavLink>
+          </h4>
         ))}
       </ul>
       <p> {author} </p>

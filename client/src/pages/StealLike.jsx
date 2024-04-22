@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ArtworkDropdown from "../components/DropdownButton";
 import config from "../config.json";
 import { Box, Container } from "@mui/material";
-
+import ArtworkCard from "../components/ArtworkCard";
 const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function StealLike() {
@@ -42,6 +42,8 @@ export default function StealLike() {
   const [mediums, setMediums] = useState([]);
   // const [classification, setClasification] = useState([]);
   const [artworks, setArtworks] = useState([]);
+  const [showArtworkCard, setShowArtworkCard] = useState(false);
+  const [selectedArtworkID, setSelectedArtworkID] = useState(null);
 
   const changeArtworkType = (event) => {
     const selectedType = event.target.value;
@@ -74,6 +76,15 @@ export default function StealLike() {
 
     fetchThreePieces();
   }, [ArtworkType, mediumType]);
+
+  const handleArtworkClick = (artworkID) => {
+    setSelectedArtworkID(artworkID);
+    setShowArtworkCard(true);
+  };
+
+  const handleCloseArtworkCard = () => {
+    setShowArtworkCard(false);
+  };
 
   const flexFormat = {
     display: "flex",
@@ -117,15 +128,24 @@ export default function StealLike() {
         </select>
       </div>
       <div>
-        <h3> Pick an art piece below </h3>
+        <h3> Then click on an a piece</h3>
       </div>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <img
+            key={artwork.id}
             src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
+            onClick={() => handleArtworkClick(artwork.id)}
+            style={{ cursor: "pointer", marginRight: "10px" }}
           />
         ))}
       </Container>
+      {showArtworkCard && (
+        <ArtworkCard
+          artworkID={selectedArtworkID}
+          handleClose={handleCloseArtworkCard}
+        />
+      )}
     </>
   );
 }

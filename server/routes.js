@@ -214,6 +214,7 @@ const time_periods = async (req, res) => {
   );
 };
 
+
 // GET /artworks_location/:location
 const artworks_location = async (req, res) => {
   const place = req.params.location;
@@ -239,6 +240,28 @@ const artworks_location = async (req, res) => {
     }
   );
 };
+
+// GET /map/:country
+// Given a country, return 10 random artworks from that country
+const map_country = async (req, res) => {
+  const country = req.params.country;
+  connection.query(
+    `SELECT title, id, image_id
+    FROM Artwork
+    WHERE place_of_origin LIKE '%${country}%' AND image_id IS NOT NULL
+    ORDER BY RAND()
+    LIMIT 3`,
+    (err, data) => {
+      if (err || data.length === 0) {
+        console.log(err);
+        console.error("Error fetching map country:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+}
 
 // GET colorful_artists/:location
 const colorful_artists = async (req, res) => {
@@ -531,4 +554,5 @@ module.exports = {
   artwork_materials, //for Steal Like An Artist
   artwork_description, //for Steal Like An Artist
   three_artworks, //for Steal Like An Artist
+  map_country, //for ArtAtlas
 };

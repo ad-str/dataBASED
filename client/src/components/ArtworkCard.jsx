@@ -9,22 +9,22 @@ export default function ArtworkCard({ artworkID, handleClose }) {
   const [artworkInfo, setArtworkInfo] = useState({});
   const [artworkMaterials, setArtworkMaterials] = useState({});
 
-  // useEffect(() => {
-  //   const fetchInfo = async () => {
-  //     try {
-  //       const response = await fetch(`${url}/artwork_description/${artworkID}`);
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const data = await response.json();
-  //       setArtworkInfo(data);
-  //     } catch (error) {
-  //       console.error("Error fetching artwork info:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const response = await fetch(`${url}/artwork_description/${artworkID}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setArtworkInfo(data);
+      } catch (error) {
+        console.error("Error fetching artwork info:", error);
+      }
+    };
 
-  //   fetchInfo();
-  // }, []);
+    fetchInfo();
+  }, [artworkID]);
 
   useEffect(() => {
     const fetchMaterials = async () => {

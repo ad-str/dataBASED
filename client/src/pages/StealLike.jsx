@@ -9,33 +9,77 @@ export default function StealLike() {
   const artwork = [
     {
       type: "Drawing and Watercolor",
-      mediums: ["watercolor", "pencil and pen", "crayon and chalk"],
+      mediums: [
+        "Watercolor",
+        "Graphite",
+        "Pen and Ink",
+        "Charcoal",
+        "Crayon",
+        "Chalk",
+      ],
     },
     {
       type: "Photograph",
-      mediums: ["portrait"],
+      mediums: [
+        "Gelatin Silver",
+        "Color",
+        "Dye Imbibition",
+        "Silver Dye",
+        "Platinum",
+        "Stereograph",
+        "Portrait",
+      ],
     },
     {
       type: "Sculpture",
       mediums: [
-        "earthenware",
-        "figure",
-        "wood",
-        "porcelain",
-        "marble",
-        "bronze",
-        "textile",
+        "Earthenware",
+        "Figure",
+        "Wood",
+        "Porcelain",
+        "Marble",
+        "Bronze",
+        "Textile",
       ],
     },
     {
       type: "Painting",
-      mediums: ["oil", "acrylic"],
+      mediums: ["Oil", "Acrylic"],
     },
     {
       type: "Ceramics",
-      mediums: ["vase", "bowl", "teapot", "drinking vessel", "everything else"],
+      mediums: ["Vase", "Bowl", "Teapot", "Drinking Vessel"],
     },
   ];
+
+  const artwork_classification = {
+    Watercolor: "watercolor",
+    Graphite: "graphite",
+    "Pen and Ink": "pen and ink",
+    Charcoal: "charcoal",
+    Crayon: "crayon",
+    Chalk: "chalk",
+    "Gelatin Silver": "gelatin silver",
+    Color: "color",
+    "Dye Imbibition": "dye imbibition",
+    "Silver Dye": "silver-dye",
+    Platinum: "platinum",
+    Stereograph: "stereograph",
+    Portrait: "portrait",
+    Earthenware: "earthenware",
+    Figure: "figure",
+    Wood: "wood",
+    Porcelain: "porcelain",
+    Marble: "marble",
+    Bronze: "bronze",
+    Textile: "textile",
+    Oil: "oil",
+    Acrylic: "acrylic",
+    Vase: "vase",
+    Bowl: "bowl",
+    Teapot: "teapot",
+    "Drinking Vessel": "drinking vessel",
+  };
 
   const [ArtworkType, setArtworkType] = useState("--Artwork Type--");
   const [mediumType, setMediumType] = useState("--Medium--");
@@ -44,6 +88,7 @@ export default function StealLike() {
   const [artworks, setArtworks] = useState([]);
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+  const [mediumClassification, setMediumClassification] = useState(null);
 
   const changeArtworkType = (event) => {
     const selectedType = event.target.value;
@@ -55,6 +100,7 @@ export default function StealLike() {
   const changeMediumType = (event) => {
     const selectedType = event.target.value;
     setMediumType(selectedType);
+    setMediumClassification(artwork_classification[selectedType]);
     console.log("Selected Medium Type:", selectedType);
   };
 
@@ -62,7 +108,7 @@ export default function StealLike() {
     const fetchThreePieces = async () => {
       try {
         const response = await fetch(
-          `${url}/three_artworks/${ArtworkType}/${mediumType}`
+          `${url}/three_artworks/${ArtworkType}/${mediumClassification}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -75,7 +121,7 @@ export default function StealLike() {
     };
 
     fetchThreePieces();
-  }, [ArtworkType, mediumType]);
+  }, [ArtworkType, mediumClassification]);
 
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);

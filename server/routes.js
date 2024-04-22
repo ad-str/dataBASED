@@ -403,12 +403,19 @@ const unknown_artists = async function (req, res) {
 // Route: GET /artwork_materials/:artwork_id
 /* Given an artworkID get materials */
 const artwork_materials = async (req, res) => {
-  const artworkId = req.params.artwork_id;
-  console.log("Received artworkID for materials:", artworkID);
+  const artworkID = req.params.artwork_id;
+  if (!artworkID) {
+    console.error("Artwork ID missing from request parameters!", {
+      artworkID,
+    });
+    res.status(400).json({ err: "Missing artwork ID" });
+    return;
+  }
+
   connection.query(
     `SELECT title AS materials
     FROM Descriptor
-    WHERE aspect = 'material' AND artwork_id = ${artworkId}`,
+    WHERE aspect = 'material' AND artwork_id = ${artworkID}`,
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);

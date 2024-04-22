@@ -27,6 +27,7 @@ app.get('/unknownArtists', routes.unknown_artists);
 app.get('/artwork_materials/:artist_id', routes.artwork_materials);
 app.get('/artwork_description/:artwork_id', routes.artwork_description);
 app.get('/three_artworks/:artworkType/:medium', routes.three_artworks);
+app.get('/map/:country', routes.map_country);
 
 app.listen(config.server_port, () => {
   console.log(

@@ -42,9 +42,9 @@ export default function NavBar() {
         <Toolbar disableGutters>
           <NavText href="/" text="ArtBased" isMain />
           {/* <NavText href="/stories" text="The Artist's Story" /> */}
-          <NavText href="/map" text="Art Atlas" />
+          <NavText href="/map" text="Art Map" />
           <NavText href="/nameless" text="The Nameless" />
-          <NavText href="/steal" text='"Steal Like An Arist"' />
+          <NavText href="/steal" text='"Steal Like An Artist"' />
         </Toolbar>
       </Container>
     </AppBar>

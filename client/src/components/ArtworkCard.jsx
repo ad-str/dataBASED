@@ -9,22 +9,22 @@ export default function ArtworkCard({ artworkID, handleClose }) {
   const [artworkInfo, setArtworkInfo] = useState({});
   const [artworkMaterials, setArtworkMaterials] = useState({});
 
-  useEffect(() => {
-    const fetchInfo = async () => {
-      try {
-        const response = await fetch(`${url}/artwork_description/${artworkID}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setArtworkInfo(data);
-      } catch (error) {
-        console.error("Error fetching artwork info:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchInfo = async () => {
+  //     try {
+  //       const response = await fetch(`${url}/artwork_description/${artworkID}`);
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       const data = await response.json();
+  //       setArtworkInfo(data);
+  //     } catch (error) {
+  //       console.error("Error fetching artwork info:", error);
+  //     }
+  //   };
 
-    fetchInfo();
-  }, []);
+  //   fetchInfo();
+  // }, []);
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -42,7 +42,47 @@ export default function ArtworkCard({ artworkID, handleClose }) {
     };
 
     fetchMaterials();
-  }, []);
+  }, [artworkID]);
+
+  const [isArtworkInfoFetched, setIsArtworkInfoFetched] = useState(false);
+
+  //   useEffect(() => {
+  //     const fetchInfo = async () => {
+  //       try {
+  //         const response = await fetch(`${url}/artwork_description/${artworkID}`);
+  //         if (!response.ok) {
+  //           throw new Error("Network response was not ok");
+  //         }
+  //         const data = await response.json();
+  //         setArtworkInfo(data);
+  //         setIsArtworkInfoFetched(true);
+  //       } catch (error) {
+  //         console.error("Error fetching artwork info:", error);
+  //       }
+  //     };
+
+  //     fetchInfo();
+  //   }, [artworkID]);
+
+  //   useEffect(() => {
+  //     if (isArtworkInfoFetched && artworkID) {
+  //       const fetchMaterials = async () => {
+  //         try {
+  //           console.log("Artwork ID for materials:", artworkID);
+  //           const response = await fetch(`${url}/artwork_materials/${artworkID}`);
+  //           if (!response.ok) {
+  //             throw new Error("Network response was not ok");
+  //           }
+  //           const data = await response.json();
+  //           setArtworkMaterials(data);
+  //         } catch (error) {
+  //           console.error("Error fetching materials:", error);
+  //         }
+  //       };
+
+  //       fetchMaterials();
+  //     }
+  //   }, [artworkID, isArtworkInfoFetched]);
 
   return (
     <Modal

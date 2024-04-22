@@ -14,20 +14,20 @@ app.use(
 // provide their handlers that we implemented in routes.js
 app.get("/author/:type", routes.author);
 app.get("/artist", routes.artist);
-app.get('/random', routes.random);
-app.get('/artwork/:id', routes.artwork);
-app.get('/artist-descriptors/:artist_id', routes.artist_descriptors);
-app.get('/era-descriptors/:start_year/:end_year', routes.era_descriptors);
-app.get('/proportion-unknown', routes.proportion_unknown);
-app.get('/time-periods', routes.time_periods);
-app.get('/artworks-locations/:location', routes.artworks_location);
-app.get('/colorful-artists', routes.colorful_artists);
-app.get('/minimalViews', routes.minimal_views);
-app.get('/unknownArtists', routes.unknown_artists);
-app.get('/artwork_materials/:artwork_id', routes.artwork_materials);
-app.get('/artwork_description/:artwork_id', routes.artwork_description);
-app.get('/three_artworks/:artworkType/:medium', routes.three_artworks);
-app.get('/map/:country', routes.map_country);
+app.get("/random", routes.random);
+app.get("/artwork/:id", routes.artwork);
+app.get("/artist-descriptors/:artist_id", routes.artist_descriptors);
+app.get("/era-descriptors/:start_year/:end_year", routes.era_descriptors);
+app.get("/proportion-unknown", routes.proportion_unknown);
+app.get("/time-periods", routes.time_periods);
+app.get("/artworks-locations/:location", routes.artworks_location);
+app.get("/colorful-artists", routes.colorful_artists);
+app.get("/minimalViews", routes.minimal_views);
+app.get("/unknownArtists", routes.unknown_artists);
+app.get("/artwork_materials/:artwork_id", routes.artwork_materials);
+app.get("/artwork_description/:artwork_id", routes.artwork_description);
+app.get("/three_artworks/:artworkType/:medium", routes.three_artworks);
+app.get("/map/:country", routes.map_country);
 
 app.listen(config.server_port, () => {
   console.log(

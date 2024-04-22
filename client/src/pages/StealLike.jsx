@@ -98,10 +98,9 @@ export default function StealLike() {
       <p>
         Coined by Austin Kleon, steal like an artist is the idea that all art is
         connected, built off each other. Steal like an artist encourages
-        creatives to borrowing from what others have created to make something
-        original and authentic. Use our art generator to indicate which type of
-        art you want to make and what medium you specialize in. Happy art
-        making!
+        creatives to borrowing from others to make something original and
+        authentic. Use our art generator to indicate which type of art you want
+        to make and what medium you specialize in. Happy art making!
       </p>
       <div className="Cascading">
         <h2> Select Artwork Type & Medium </h2>

@@ -382,10 +382,15 @@ const unknown_artists = async function (req, res) {
 /* Given an artworkID get materials */
 const artwork_materials = async (req, res) => {
   const artworkId = req.params.artwork_id;
+  if (!artworkId) {
+    return res.status(400).json({ error: "Artwork ID is missing" });
+  }
+
   connection.query(
     `SELECT title AS materials
     FROM Descriptor
-    WHERE aspect = 'material' AND artwork_id = ${artworkId}`,
+    WHERE aspect = 'material' AND artwork_id = ?`,
+    [artworkId],
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);

@@ -19,7 +19,9 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        console.log("Artwork Info Data:", data);
         setArtworkInfo(data);
+        // fetchMaterials();
       } catch (error) {
         console.error("Error fetching artwork info:", error);
       }
@@ -27,11 +29,13 @@ export default function ArtworkCard({ artworkID, handleClose }) {
 
     // const fetchMaterials = async () => {
     //   try {
+    //     console.log("Artwork ID for materials:", artworkID);
     //     const response = await fetch(`${url}/artwork_materials/${artworkID}`);
     //     if (!response.ok) {
     //       throw new Error("Network response was not ok");
     //     }
     //     const data = await response.json();
+    //     console.log("Artwork Materials Data:", data);
     //     setArtworkMaterials(data);
     //   } catch (error) {
     //     console.error("Error fetching materials:", error);
@@ -39,8 +43,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
     // };
 
     fetchInfo();
-    // fetchMaterials();
-  }, [artworkID]);
+  }, []);
 
   return (
     <Modal

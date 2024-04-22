@@ -400,10 +400,9 @@ const unknown_artists = async function (req, res) {
   }
 };
 
-// Route: GET /artwork_materials/:artwork_id
 /* Given an artworkID get materials */
 const artwork_materials = async (req, res) => {
-  const artworkID = req.params.artwork_id;
+  const artworkID = req.params.artworkid;
   if (!artworkID) {
     console.error("Artwork ID missing from request parameters!", {
       artworkID,

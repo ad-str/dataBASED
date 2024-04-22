@@ -37,7 +37,7 @@ export default function HomePage() {
   return (
     <>
       <div>
-        <h1>An art haven for art lovers </h1>
+        <h1 className="text-3xl font-bold underline" >An art haven for art lovers </h1>
         <h3>
           Explore art from every corner of the globe, honor forgotten artists,
           and unleash your inner artist.

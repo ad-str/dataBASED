@@ -6,8 +6,7 @@ import config from "./config.json"; // Import the config JSON file from client f
 import NavBar from "./components/NavBar"; // Import Navigation bar
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-//Styling from HW2 - we can change this
+// import "tailwindcss/tailwind.css";
 
 // Import Pages
 import HomePage from "./pages/HomePage";

@@ -378,26 +378,41 @@ const unknown_artists = async function (req, res) {
   }
 };
 
+// const artwork_materials = async (req, res) => {
+//   const artworkId = req.params.artwork_id;
+//   console.log("Artwork ID in materials:", artworkId);
+//   connection.query(
+//     `SELECT title AS materials
+//     FROM Descriptor
+//     WHERE aspect = 'material' AND artwork_id = ${artworkId}`,
+//     (err, data) => {
+//       if (err || data.length === 0) {
+//         console.log(err);
+//         console.error("Error fetching artwork materials:", err);
+//         res.status(500).json({ err: "Internal Server Error" });
+//       } else {
+//         res.json(data);
+//       }
+//     }
+//   );
+// };
 // Route: GET /artwork_materials/:artwork_id
 /* Given an artworkID get materials */
 const artwork_materials = async (req, res) => {
   const artworkId = req.params.artwork_id;
-  console.log("Artwork ID in materials:", artworkId);
-
-  if (typeof artworkId === "undefined") {
-    return res.status(400).json({ error: "Artwork ID is missing" });
-  }
   connection.query(
-    `SELECT title AS materials
-    FROM Descriptor
-    WHERE aspect = 'material' AND artwork_id = ${artworkId}`,
+    `SELECT AT.title AS title, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
+    FROM Artwork AS AT
+    JOIN Made M ON M.artwork_id = AT.id
+    JOIN Artist AR ON AR.id = M.artist_id
+    WHERE AT.id = ${artworkId}`,
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);
-        console.error("Error fetching artwork materials:", err);
+        console.error("Error fetching materials:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
-        res.json(data);
+        res.json(data[0]); //as an array
       }
     }
   );

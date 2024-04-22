@@ -52,7 +52,7 @@ export default function HomePage() {
           />
         )}
       </div>
-      <p>Artists to explore:</p>
+      {/* <p>Artists to explore:</p>
       <ul>
         {artists.map((artist, index) => (
           //<h4 key={index}>{artist.name}</h4>
@@ -61,7 +61,7 @@ export default function HomePage() {
             <NavLink to={`/artist/${artist.id}`}>{artist.name}</NavLink>
           </h4>
         ))}
-      </ul>
+      </ul> */}
       <p> {author} </p>
     </>
   );

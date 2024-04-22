@@ -10,8 +10,6 @@ export default function ArtworkCard({ artworkID, handleClose }) {
   const [artworkMaterials, setArtworkMaterials] = useState({});
 
   useEffect(() => {
-    console.log("Artwork ID:", artworkID);
-
     const fetchInfo = async () => {
       try {
         const response = await fetch(`${url}/artwork_description/${artworkID}`);
@@ -19,15 +17,16 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        // console.log("Artwork Info Data:", data);
         setArtworkInfo(data);
-        // console.log("Artwork Info Set:", artworkInfo);
-        fetchMaterials();
       } catch (error) {
         console.error("Error fetching artwork info:", error);
       }
     };
 
+    fetchInfo();
+  }, []);
+
+  useEffect(() => {
     const fetchMaterials = async () => {
       try {
         console.log("Artwork ID for materials:", artworkID);
@@ -36,15 +35,14 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log("Artwork Materials Data:", data);
         setArtworkMaterials(data);
       } catch (error) {
         console.error("Error fetching materials:", error);
       }
     };
 
-    fetchInfo();
-  }, [artworkID]);
+    fetchMaterials();
+  }, []);
 
   return (
     <Modal
@@ -66,7 +64,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
         }}
       >
         <h2>{artworkInfo.title}</h2>
-        <h2>Materials: {artworkMaterials.materials}</h2>
+        <h2>Materials: {artworkMaterials.title}</h2>
         <h4>Artist: {artworkInfo.artist}</h4>
         <h4>Year: {artworkInfo.year}</h4>
         <Button onClick={handleClose}>Close</Button>

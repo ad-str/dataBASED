@@ -127,7 +127,7 @@ export default function StealLike() {
         </select>
       </div>
       <div>
-        <h3> Then click on an a piece</h3>
+        <h3> Then click on a piece</h3>
       </div>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (

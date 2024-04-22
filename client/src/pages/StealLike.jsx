@@ -125,6 +125,7 @@ export default function StealLike() {
 
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);
+    
     setShowArtworkCard(true);
   };
 

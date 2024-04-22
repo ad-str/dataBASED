@@ -410,6 +410,7 @@ const artwork_materials = async (req, res) => {
     res.status(400).json({ err: "Missing artwork ID" });
     return;
   }
+  
 
   connection.query(
     `SELECT title AS materials
@@ -469,7 +470,7 @@ const artwork_description = async (req, res) => {
   );
 };
 
-// Route: GET /three_artworks/:artworkType/:artworktype/:medium
+// Route: GET /three_artworks/:artworkType/:medium
 /* Given an artwork type and medium, get 3 pieces */
 const three_artworks = async (req, res) => {
   const artworkType = req.params.artworkType;

@@ -33,6 +33,7 @@ export default function ArtAtlas() {
   const [activeCountry, setActiveCountry] = useState("");
   const [hoveredCountry, setHoveredCountry] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showArtworkCard, setShowArtworkCard] = useState(false);
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
@@ -43,6 +44,16 @@ export default function ArtAtlas() {
       console.error("Failed to fetch artworks", error);
     }
   };
+
+  const handleArtworkClick = (artworkID) => {
+    setSelectedArtworkID(artworkID);
+    setShowArtworkCard(true);
+  };
+
+  const handleCloseArtworkCard = () => {
+    setShowArtworkCard(false);
+  };
+
 
   const countryStyles = (countryName) => ({
     default: { 
@@ -134,6 +145,7 @@ export default function ArtAtlas() {
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={`${artwork.title} Artwork`}
               style={{ width: "50%", height: "50%", objectFit: "contain" }}
+              onClick={() => handleArtworkClick(artwork.id)}
             />
             <h4 key={artwork.id}>
               <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>

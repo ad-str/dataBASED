@@ -19,31 +19,32 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log("Artwork Info Data:", data);
+        // console.log("Artwork Info Data:", data);
         setArtworkInfo(data);
-        // fetchMaterials();
+        // console.log("Artwork Info Set:", artworkInfo);
+        fetchMaterials();
       } catch (error) {
         console.error("Error fetching artwork info:", error);
       }
     };
 
-    // const fetchMaterials = async () => {
-    //   try {
-    //     console.log("Artwork ID for materials:", artworkID);
-    //     const response = await fetch(`${url}/artwork_materials/${artworkID}`);
-    //     if (!response.ok) {
-    //       throw new Error("Network response was not ok");
-    //     }
-    //     const data = await response.json();
-    //     console.log("Artwork Materials Data:", data);
-    //     setArtworkMaterials(data);
-    //   } catch (error) {
-    //     console.error("Error fetching materials:", error);
-    //   }
-    // };
+    const fetchMaterials = async () => {
+      try {
+        console.log("Artwork ID for materials:", artworkID);
+        const response = await fetch(`${url}/artwork_materials/${artworkID}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log("Artwork Materials Data:", data);
+        setArtworkMaterials(data);
+      } catch (error) {
+        console.error("Error fetching materials:", error);
+      }
+    };
 
     fetchInfo();
-  }, []);
+  }, [artworkID]);
 
   return (
     <Modal
@@ -64,7 +65,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           width: 600,
         }}
       >
-        <h1>{artworkInfo.title}</h1>
+        <h2>{artworkInfo.title}</h2>
         <h2>Materials: {artworkMaterials.materials}</h2>
         <h4>Artist: {artworkInfo.artist}</h4>
         <h4>Year: {artworkInfo.year}</h4>

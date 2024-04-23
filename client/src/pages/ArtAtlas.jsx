@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import ArtworkCard from "../components/ArtworkCard";
 import axios from "axios";
 
 import config from "../config.json";
@@ -34,6 +35,7 @@ export default function ArtAtlas() {
   const [hoveredCountry, setHoveredCountry] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArtworkCard, setShowArtworkCard] = useState(false);
+  const [selectedArtworkID, setSelectedArtworkID] = useState(null);
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
@@ -144,16 +146,21 @@ export default function ArtAtlas() {
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={`${artwork.title} Artwork`}
-              style={{ width: "50%", height: "50%", objectFit: "contain" }}
+              style={{ width: "75%", height: "75%", objectFit: "contain" , cursor: "pointer", margin : "30px"}}
               onClick={() => handleArtworkClick(artwork.id)}
             />
             <h4 key={artwork.id}>
-              <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>
+             {artwork.title}
             </h4>
           </div>
         ))}
       </div>
-
+      {showArtworkCard && (
+        <ArtworkCard
+          artworkID={selectedArtworkID}
+          handleClose={handleCloseArtworkCard}
+        />
+      )}
     </div>
   );
 }

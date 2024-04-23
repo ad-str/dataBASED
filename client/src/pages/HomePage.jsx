@@ -51,7 +51,7 @@ export default function HomePage() {
           <img
             src={`https://www.artic.edu/iiif/2/${randomImage}/full/200,/0/default.jpg`}
             alt={`Artwork ${randomImage}`}
-            class=".object-center"
+            class="mx-auto"
           />
         )}
       </div>

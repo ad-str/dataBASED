@@ -37,18 +37,21 @@ export default function HomePage() {
   return (
     <>
       <div>
-        <h1 className="text-3xl font-bold underline" >An art haven for art lovers </h1>
-        <h3>
+        <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          An art haven for{" "}
+          <span class="text-blue-600 dark:text-blue-500">art lovers.</span>
+        </h1>
+        <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
           Explore art from every corner of the globe, honor forgotten artists,
           and unleash your inner artist.
-        </h3>
+        </p>
       </div>
       <div className="image-container">
         {randomImage.length > 0 && (
           <img
             src={`https://www.artic.edu/iiif/2/${randomImage}/full/200,/0/default.jpg`}
             alt={`Artwork ${randomImage}`}
-            className="artwork-image"
+            class="mx-auto"
           />
         )}
       </div>

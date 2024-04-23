@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import config from "../config.json";
-//import { Box, Container } from '@mui/material';
-import { Pagination, Button, Box, Checkbox, Container, FormControlLabel, Grid, Link, Slider, TextField } from '@mui/material';
+import { Button, Box, Container, FormControlLabel, Grid, Link, TextField } from '@mui/material';
 
 import ArtworkCard from '../components/ArtworkCard';
 import AppPagination from "../components/Pagination"; //fetches artwork from here
@@ -13,8 +12,8 @@ export default function Nameless() {
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
 
+  // this section is for if we can add a search feature
   //const [title, setTitle] = useState('');
-
   /*
   const search = () => {
     fetch(`${url}/search_artworks?title=${title}`)
@@ -27,6 +26,15 @@ export default function Nameless() {
       });
   }
 */
+  // add a matrials column?
+  /*
+  const columns = [
+    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
+      <Link onClick={() => setSelectedArtworkID(params.row.artwork.id)}>{params.value}</Link>
+  ) },
+  ]
+  */
+
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);
     
@@ -37,14 +45,6 @@ export default function Nameless() {
     setShowArtworkCard(false);
   };
 
-  // add a matrials column?
-  /*
-  const columns = [
-    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
-      <Link onClick={() => setSelectedArtworkID(params.row.artwork.id)}>{params.value}</Link>
-  ) },
-  ]
-  */
 
 
   //flexFormat for a UI friendly page formatting
@@ -94,6 +94,16 @@ export default function Nameless() {
       )}
     </>
   );
+}
+
+/*B- grabbing images
+It would be nice to have the artwork pop up. At a minimum, the image should 
+link to a new page. Using this tutorial as a starter:
+https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-in-React-Router
+
+If we have time to make it sexy, we can use this site as reference:
+https://mui.com/material-ui/react-image-list/ */
+
 
   /*B- implementing a search feature
 The code snippet uses DataGrid. It might be helpful to use LazyTable component instead?
@@ -118,12 +128,3 @@ The code snippet uses DataGrid. It might be helpful to use LazyTable component i
         autoHeight
       />
   */ 
-}
-
-/*B- grabbing images
-It would be nice to have the artwork pop up. At a minimum, the image should 
-link to a new page. Using this tutorial as a starter:
-https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-in-React-Router
-
-If we have time to make it sexy, we can use this site as reference:
-https://mui.com/material-ui/react-image-list/ */

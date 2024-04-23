@@ -1,14 +1,18 @@
 import { Pagination, Container } from "@mui/material";
 import { useEffect, useState } from "react";
-// import Service from "../components/Service";
 import config from "../config.json";
+
+/**
+ * Handy video guide to material UI pagination!
+ * https://www.youtube.com/watch?v=37xPlDBaA4A
+ */
 
 const pageSize = 10;
 const flexFormat = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' };
 const url = `http://${config.server_host}:${config.server_port}`;
 
-export default function AppPagination({setArtworks}) {
-    
+// receives setArtworks from the nameless page
+export default function AppPagination({setArtworks}) { 
     const [artworkCount, setArtworkCount] = useState([]);
     const [pagination, setPagination] = useState({
         count: 0,

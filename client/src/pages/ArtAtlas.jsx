@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import ArtworkCard from "../components/ArtworkCard";
 import axios from "axios";
 import { Slider, Typography, Button} from "@mui/material";
 //import Slider from 'rc-slider';
@@ -38,6 +39,8 @@ export default function ArtAtlas() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [yearRange, setYearRange] = useState([-5800, 2023]);
+  const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+  const [topArtists, setTopArtists] = useState([]);
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
@@ -51,6 +54,11 @@ export default function ArtAtlas() {
         }
       });
       setArtworks(response.data);
+
+      // gets the top artists for the selected country
+      const topArtistsResponse = await axios.get(`${url}/top-artists/${countryName}`);
+      setTopArtists(topArtistsResponse.data);
+      console.log(topArtistsResponse.data)
     } catch (error) {
       console.error("Failed to fetch artworks", error);
     }
@@ -192,30 +200,57 @@ export default function ArtAtlas() {
         {/* The artworks container */}
           <div style={{ flex: 1}} class="m-4 mt-0">
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-            <Typography variant="h6" style={{ flexGrow: 1 }}>
-              Artworks
-            </Typography>
-            {activeCountry && <Button style={{marginLeft: '20px'}} variant="contained" color="primary" onClick={regenerateArtworks}>Regenerate</Button>}
-          </div>
+              <h2 id="countryArtworks" style={{ marginRight: "30px", fontFamily: "Fira Sans", fontWeight: "bold", fontSize: "2em", textDecoration: "none", }}> Artworks : </h2>
+              {activeCountry && <Button style={{marginLeft: '20px'}} variant="contained" color="primary" onClick={regenerateArtworks}>Regenerate</Button>}
+            </div>
           {/* <h2 class="text-2xl mb-2 mt-0 text-left leading-none tracking-tight text-gray-900 dark:text-white">Artworks:</h2> */}
-          {activeCountry === "" && <p>Select a country to get started!</p>}
-          {artworks.length === 0 && activeCountry && <p>No artworks found for this country and year range.</p>}
+          {activeCountry === "" && <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 " >Click on any location on the map to get started!</p>}
+          {artworks.length === 0 && activeCountry && <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ">No artworks found for this country and year range.</p>}
           {artworks.map((artwork) => (
             <div key={artwork.id}>
               <img
                 src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
                 alt={`${artwork.title} Artwork`}
-                style={{ width: "50%", height: "50%", objectFit: "contain" }}
+                style={{ width: "75%", height: "75%", objectFit: "contain" , cursor: "pointer", margin : "30px"}}
                 onClick={() => handleArtworkClick(artwork.id)}
-                class="mt-4"
               />
               <h4 key={artwork.id}>
-                <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>
+               {artwork.title}
               </h4>
             </div>
           ))}
         </div>
       </div>
+      
+      {showArtworkCard && (
+        <ArtworkCard
+          artworkID={selectedArtworkID}
+          handleClose={handleCloseArtworkCard}
+        />
+      )}
+
+      {/* TODO 
+      - move this section to be underneath the map
+      - delete artists count
+      -if  we have time make a bar chart using the counts?
+      */}
+                        {/* Top Artists Section */}
+                        <div style={{ flex: 1, width: '100%', maxWidth: '800px', marginTop: '20px' }}>
+        <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400" >Prominent Artists in {activeCountry}:</h2>
+        <ul>
+          {topArtists.map((artist) => (
+            <li key={artist.name}>
+              {artist.name} {artist.count} pieces
+            
+            </li>
+          ))}
+        </ul>
+        </div>
+
+      
+    </div>
+    
+
     </>
   );
 }

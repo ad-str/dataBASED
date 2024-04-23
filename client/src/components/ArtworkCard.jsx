@@ -76,15 +76,15 @@ export default function ArtworkCard({ artworkID, handleClose }) {
         <ul>
           {artworkMaterials.length === 0 ||
           artworkMaterials[0] === "Unknown" ? (
-            <li>Unknown</li>
+            <li>Unknown Materials</li> // I think we should add logic that puts this on same line as materials: if its unknown
           ) : (
             artworkMaterials.map((material, index) => (
               <li key={index}>{material.materials}</li>
             ))
           )}
         </ul>
-        <h4>Artist: {artworkInfo.artist}</h4>
-        <h4>Year: {artworkInfo.year}</h4>
+        <h4>Artist: {artworkInfo.artist ? artworkInfo.artist : 'Unknown Artist'}</h4>
+        <h4>Year: {artworkInfo.year ? artworkInfo.year : 'Unknown Year'}</h4>
         <Button onClick={handleClose}>Close</Button>
       </Box>
     </Modal>

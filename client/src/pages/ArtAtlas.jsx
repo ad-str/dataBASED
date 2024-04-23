@@ -149,8 +149,8 @@ export default function ArtAtlas() {
 
       {/* The artworks container */}
       <div style={{ flex: 1, margin: '1rem', maxHeight: '80vh'}}>
-        <h2 id="countryArtworks">Artworks:</h2>
-        <p>Click on any location on the map to get started!</p>
+        <h2 id="countryArtworks" style={{ marginRight: "30px", fontFamily: "Fira Sans", fontWeight: "bold", fontSize: "2em", textDecoration: "none", }}> Artworks : </h2>
+        <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 " >Click on any location on the map to get started!</p>
         {artworks.map((artwork) => (
           <div key={artwork.id}>
             <img
@@ -171,13 +171,20 @@ export default function ArtAtlas() {
           handleClose={handleCloseArtworkCard}
         />
       )}
+
+      {/* TODO 
+      - move this section to be underneath the map
+      - delete artists count
+      -if  we have time make a bar chart using the counts?
+      */}
                         {/* Top Artists Section */}
                         <div style={{ flex: 1, width: '100%', maxWidth: '800px', marginTop: '20px' }}>
-        <h2>Prominent Artists in {activeCountry}:</h2>
+        <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400" >Prominent Artists in {activeCountry}:</h2>
         <ul>
           {topArtists.map((artist) => (
             <li key={artist.name}>
               {artist.name} {artist.count} pieces
+            
             </li>
           ))}
         </ul>

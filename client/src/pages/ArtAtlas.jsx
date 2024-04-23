@@ -198,27 +198,27 @@ export default function ArtAtlas() {
         </div>
 
         {/* The artworks container */}
-          <div style={{ flex: 1}} class="m-4 mt-0">
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-              <h2 id="countryArtworks" style={{ marginRight: "30px", fontFamily: "Fira Sans", fontWeight: "bold", fontSize: "2em", textDecoration: "none", }}> Artworks : </h2>
-              {activeCountry && <Button style={{marginLeft: '20px'}} variant="contained" color="primary" onClick={regenerateArtworks}>Regenerate</Button>}
-            </div>
-          {/* <h2 class="text-2xl mb-2 mt-0 text-left leading-none tracking-tight text-gray-900 dark:text-white">Artworks:</h2> */}
-          {activeCountry === "" && <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 " >Click on any location on the map to get started!</p>}
-          {artworks.length === 0 && activeCountry && <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ">No artworks found for this country and year range.</p>}
-          {artworks.map((artwork) => (
-            <div key={artwork.id}>
-              <img
-                src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
-                alt={`${artwork.title} Artwork`}
-                style={{ width: "75%", height: "75%", objectFit: "contain" , cursor: "pointer", margin : "30px"}}
-                onClick={() => handleArtworkClick(artwork.id)}
-              />
-              <h4 key={artwork.id}>
-               {artwork.title}
-              </h4>
-            </div>
-          ))}
+        <div style={{ flex: 1}} class="m-4 mt-0">
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 id="countryArtworks" style={{ marginRight: "30px", fontFamily: "Fira Sans", fontWeight: "bold", fontSize: "2em", textDecoration: "none", }}> Artworks: </h2>
+            {activeCountry && <Button style={{marginLeft: '20px'}} variant="contained" color="primary" onClick={regenerateArtworks}>Regenerate</Button>}
+          </div>
+        {/* <h2 class="text-2xl mb-2 mt-0 text-left leading-none tracking-tight text-gray-900 dark:text-white">Artworks:</h2> */}
+        {activeCountry === "" && <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 " >Click on any location on the map to get started!</p>}
+        {artworks.length === 0 && activeCountry && <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ">No artworks found for this country and year range.</p>}
+        {artworks.map((artwork) => (
+          <div key={artwork.id}>
+            <img
+              src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
+              alt={`${artwork.title} Artwork`}
+              style={{ width: "75%", height: "75%", objectFit: "contain" , cursor: "pointer", margin : "30px", marginBottom: "10px"}}
+              onClick={() => handleArtworkClick(artwork.id)}
+            />
+            <h4 key={artwork.id} class="mt-0">
+              {artwork.title}
+            </h4>
+          </div>
+        ))}
         </div>
       </div>
       
@@ -246,11 +246,6 @@ export default function ArtAtlas() {
           ))}
         </ul>
         </div>
-
-      
-    </div>
-    
-
     </>
   );
 }

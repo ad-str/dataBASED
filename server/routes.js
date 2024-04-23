@@ -214,8 +214,8 @@ const time_periods = async (req, res) => {
   );
 };
 
-// GET /artworks_location/:location
-const artworks_location = async (req, res) => {
+// GET /top_artists/:location
+const top_artists = async (req, res) => {
   const place = req.params.location;
 
   connection.query(
@@ -223,10 +223,10 @@ const artworks_location = async (req, res) => {
      FROM Artwork AT
      JOIN Made M ON M.artwork_id = AT.id
      JOIN Artist AR ON AR.id = M.artist_id
-     WHERE AT.place_of_origin LIKE '%${place}%'
+     WHERE AT.place_of_origin LIKE '%${place}%' AND AR.name  IS NOT NULL
      GROUP BY AR.name, AR.id
      ORDER BY COUNT(AR.id) DESC
-     LIMIT 10
+     LIMIT 5
 `,
     (err, data) => {
       if (err || data.length === 0) {
@@ -262,7 +262,7 @@ const map_country = async (req, res) => {
   );
 };
 
-// GET colorful_artists/:location
+// GET colorful_artists/:colorfulness
 const colorful_artists = async (req, res) => {
   const colorfulness = req.query.color ? req.query.color : 15;
 
@@ -530,8 +530,8 @@ module.exports = {
   era_descriptors, //for which page?
   proportion_unknown, // for which page?
   time_periods, //for which page?
-  artworks_location, //for map
-  colorful_artists, //for which page?
+  top_artists, //for ArtAtlas
+  colorful_artists, //for home page
   minimal_views, // for which page? maybe nameless?
   unknown_artists, // for Nameless page
   artwork_materials, //for Steal Like An Artist

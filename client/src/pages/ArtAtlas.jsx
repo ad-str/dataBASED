@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import axios from "axios";
+import { Slider, Typography, Button} from "@mui/material";
+//import Slider from 'rc-slider';
+//import 'rc-slider/assets/index.css';
 
 import config from "../config.json";
 
@@ -34,11 +37,19 @@ export default function ArtAtlas() {
   const [hoveredCountry, setHoveredCountry] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArtworkCard, setShowArtworkCard] = useState(false);
+  const [yearRange, setYearRange] = useState([-5800, 2023]);
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
     try {
-      const response = await axios.get(`${url}/map/${countryName}`);
+      const [startYear, endYear] = yearRange.toString().split(",");
+      const response = await axios.get(`${url}/map`, {
+        params: {
+          country: countryName,
+          startYear: startYear,
+          endYear: endYear,
+        }
+      });
       setArtworks(response.data);
     } catch (error) {
       console.error("Failed to fetch artworks", error);
@@ -96,64 +107,115 @@ export default function ArtAtlas() {
     setHoveredCountry("");
   };
 
+  const handleSliderChange = (event, newValue) => {
+    setYearRange(newValue);
+  };
+
+  const handleSliderChangeCommitted = (event, newValue) => {
+    // Call the function to update the artworks based on the selected year range
+    if (activeCountry) {
+      handleCountryClick(activeCountry);
+    }
+  };
+
+  const regenerateArtworks = () => {
+    handleCountryClick(activeCountry);
+  };
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'start', height: '120vh',  padding: "10px", borderRadius: "5px", boxShadow: "0 2px 4px rgba(0,0,0,0.1)"  }}>
-      {/* The map container */}
-      <div style={{ display: 'flex' ,flex: 3, position: 'relative',  backgroundColor: "blue", padding: "20px", boxSizing: "border-box",  borderRadius: "10px", }} onMouseMove={handleMouseMove}>
-        <ComposableMap>
-          <Geographies geography="/features.json">
-            {({ geographies }) =>
-              geographies.map((geo) => (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  onClick={() => handleCountryClick(geo.properties.name)}
-                  onMouseEnter={() => handleMouseEnter(geo.properties.name)}
-                  onMouseLeave={handleMouseLeave}
-                  style={countryStyles(geo.properties.name)}
-                />
-              ))
-            }
-          </Geographies>
-        </ComposableMap>
-        {hoveredCountry && (
-          <div style={{
-            position: 'absolute',
-            left: `${mousePosition.x + 10}px`,
-            top: `${mousePosition.y + 10}px`,
-            pointerEvents: 'none',
-            zIndex: 9999,
-            padding: '5px',
-            background: 'white',
-            border: '1px solid black',
-            borderRadius: '3px',
-            fontSize: '0.9em',
-            outline: 'none'
-          }}>
-            {hoveredCountry}
-          </div>
-        )}
+    <>
+      <h1 class="pt-3 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Art Atlas
+      </h1>
+
+      {/* The slider container */}
+      <div style={{ margin: '10px 0' }}>
+        <Typography id="range-slider" gutterBottom>
+          Year Range
+        </Typography>
+        <Slider
+          getAriaLabel={() => 'Year range'}
+          value={yearRange}
+          onChange={handleSliderChange}
+          onChangeCommitted={handleSliderChangeCommitted}
+          valueLabelDisplay="auto"
+          min={-5800}
+          max={2023}
+          step={1}
+          marks={[
+            { value: -5800, label: '-5800' },
+            { value: 2023, label: '2023' }
+          ]}
+        />
+        <Typography>
+          Selected range: {yearRange[0]} to {yearRange[1]}
+        </Typography>
       </div>
 
-      {/* The artworks container */}
-      <div style={{ flex: 1, margin: '1rem', maxHeight: '80vh'}}>
-        <h2 id="countryArtworks">Artworks:</h2>
-        <p>Click on any location on the map to get started!</p>
-        {artworks.map((artwork) => (
-          <div key={artwork.id}>
-            <img
-              src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
-              alt={`${artwork.title} Artwork`}
-              style={{ width: "50%", height: "50%", objectFit: "contain" }}
-              onClick={() => handleArtworkClick(artwork.id)}
-            />
-            <h4 key={artwork.id}>
-              <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>
-            </h4>
-          </div>
-        ))}
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'start', height: '100%',  padding: "10px", borderRadius: "5px", boxShadow: "0 2px 4px rgba(0,0,0,0.1)"}}>
+        <div style={{ display: 'flex' ,flex: 3, position: 'relative',  backgroundColor: "blue", padding: "20px", boxSizing: "border-box",  borderRadius: "10px", }} onMouseMove={handleMouseMove}>
+          <ComposableMap>
+            <Geographies geography="/features.json">
+              {({ geographies }) =>
+                geographies.map((geo) => (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    onClick={() => handleCountryClick(geo.properties.name)}
+                    onMouseEnter={() => handleMouseEnter(geo.properties.name)}
+                    onMouseLeave={handleMouseLeave}
+                    style={countryStyles(geo.properties.name)}
+                  />
+                ))
+              }
+            </Geographies>
+          </ComposableMap>
+          {hoveredCountry && (
+            <div style={{
+              position: 'absolute',
+              left: `${mousePosition.x + 10}px`,
+              top: `${mousePosition.y + 10}px`,
+              pointerEvents: 'none',
+              zIndex: 9999,
+              padding: '5px',
+              background: 'white',
+              border: '1px solid black',
+              borderRadius: '3px',
+              fontSize: '0.9em',
+              outline: 'none'
+            }}>
+              {hoveredCountry}
+            </div>
+          )}
+        </div>
 
-    </div>
+        {/* The artworks container */}
+          <div style={{ flex: 1}} class="m-4 mt-0">
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+            <Typography variant="h6" style={{ flexGrow: 1 }}>
+              Artworks
+            </Typography>
+            {activeCountry && <Button style={{marginLeft: '20px'}} variant="contained" color="primary" onClick={regenerateArtworks}>Regenerate</Button>}
+          </div>
+          {/* <h2 class="text-2xl mb-2 mt-0 text-left leading-none tracking-tight text-gray-900 dark:text-white">Artworks:</h2> */}
+          {activeCountry === "" && <p>Select a country to get started!</p>}
+          {artworks.length === 0 && activeCountry && <p>No artworks found for this country and year range.</p>}
+          {artworks.map((artwork) => (
+            <div key={artwork.id}>
+              <img
+                src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
+                alt={`${artwork.title} Artwork`}
+                style={{ width: "50%", height: "50%", objectFit: "contain" }}
+                onClick={() => handleArtworkClick(artwork.id)}
+                class="mt-4"
+              />
+              <h4 key={artwork.id}>
+                <NavLink to={`/artwork/${artwork.id}`}>{artwork.title}</NavLink>
+              </h4>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

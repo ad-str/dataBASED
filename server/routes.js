@@ -240,14 +240,19 @@ const artworks_location = async (req, res) => {
   );
 };
 
-// GET /map/:country
-// Given a country, return 10 random artworks from that country
+// GET /map
+// Given a country and a year range, return artworks where the year range overlaps with the specified range in the query
 const map_country = async (req, res) => {
-  const country = req.params.country;
+  const country = req.query.country;
+  const startYear = req.query.startYear;
+  const endYear = req.query.endYear;
   connection.query(
     `SELECT title, id, image_id
     FROM Artwork
-    WHERE place_of_origin LIKE '%${country}%' AND image_id IS NOT NULL
+    WHERE place_of_origin LIKE '%${country}%' 
+    AND image_id IS NOT NULL 
+    AND start_year <= ${endYear} 
+    AND end_year >= ${startYear}
     ORDER BY RAND()
     LIMIT 3`,
     (err, data) => {

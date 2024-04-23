@@ -1,50 +1,31 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import config from "../config.json";
 //import { Box, Container } from '@mui/material';
-import { Button, Box, Checkbox, Container, FormControlLabel, Grid, Link, Slider, TextField } from '@mui/material';
-import { TablePagination } from '@mui/base/TablePagination';
+import { Pagination, Button, Box, Checkbox, Container, FormControlLabel, Grid, Link, Slider, TextField } from '@mui/material';
 
 import ArtworkCard from '../components/ArtworkCard';
+import AppPagination from "../components/Pagination"; //fetches artwork from here
 
 const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function Nameless() {
   const [artworks, setArtworks] = useState([]);
- // const [pageSize, setPageSize] = useState(10);
-const [showArtworkCard, setShowArtworkCard] = useState(false);
-const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+  const [showArtworkCard, setShowArtworkCard] = useState(false);
+  const [selectedArtworkID, setSelectedArtworkID] = useState(null);
 
+  //const [title, setTitle] = useState('');
 
-  useEffect(() => {
-    const fetchArtworks = async () => {
-      try {
-        const response = await fetch(`${url}/unknownArtists`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setArtworks(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchArtworks();
-  }, []);
-
-  /*const search = async () => {
-    try {
-      const response = await fetch(`${url}/search_artworks?title=${artworks.title}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setArtworks(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  /*
+  const search = () => {
+    fetch(`${url}/search_artworks?title=${title}`)
+      .then(res => res.json())
+      .then(resJson => {
+        // DataGrid expects an array of objects with a unique id.
+        // To accomplish this, we use a map with spread syntax (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+        const artworksWithId = resJson.map((artwork) => ({ id: artwork.id, ...artwork }));
+        setArtworks(artworksWithId);
+      });
+  }
 */
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);
@@ -56,12 +37,20 @@ const [selectedArtworkID, setSelectedArtworkID] = useState(null);
     setShowArtworkCard(false);
   };
 
+  // add a matrials column?
+  /*
+  const columns = [
+    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
+      <Link onClick={() => setSelectedArtworkID(params.row.artwork.id)}>{params.value}</Link>
+  ) },
+  ]
+  */
+
 
   //flexFormat for a UI friendly page formatting
   const flexFormat = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' };
 
 // error fetching artwork description
-// How do we get pagination????
   return (
     <>
       <h2>Why Art History Needs a Rewrite</h2>
@@ -95,6 +84,7 @@ const [selectedArtworkID, setSelectedArtworkID] = useState(null);
           <h4 key={artwork.id}>{artwork.title}</h4>
           </Box>
         ))}
+      <AppPagination setArtworks={(a) => setArtworks(a)}/>  
       </Container>
       {showArtworkCard && (
         <ArtworkCard
@@ -105,19 +95,28 @@ const [selectedArtworkID, setSelectedArtworkID] = useState(null);
     </>
   );
 
-  /*B- implementing page size
+  /*B- implementing a search feature
 The code snippet uses DataGrid. It might be helpful to use LazyTable component instead?
 
-  <Container>
-  <DataGrid
-        rows={data}
+      {selectedArtworkID && <ArtworkCard artworkID={selectedArtworkID} handleClose={() => setSelectedArtworkID(null)} />}
+      <h2>Search Songs</h2>
+      <Grid container spacing={6}>
+        <Grid item xs={8}>
+          <TextField label='Title' value={title} onChange={(e) => setTitle(e.target.value)} style={{ width: "100%" }}/>
+        </Grid>
+      </Grid>
+      <Button onClick={() => search() } style={{ left: '50%', transform: 'translateX(-50%)' }}>
+        Search
+      </Button>
+      <h2>Results</h2>
+      <DataGrid
+        rows={artworks}
         columns={columns}
         pageSize={pageSize}
         rowsPerPageOptions={[5, 10, 25]}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         autoHeight
       />
-  </Container>
   */ 
 }
 
@@ -128,51 +127,3 @@ https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-
 
 If we have time to make it sexy, we can use this site as reference:
 https://mui.com/material-ui/react-image-list/ */
-
-
-/*
-<Container>
-      {showArtworkCard && <ArtworkCard artworkID={selectedArtworkID} handleClose={() => setSelectedArtworkID(null)} />}
-      <h2>Search Artwork</h2>
-      <Grid container spacing={6}>
-        <Grid item xs={8}>
-          <TextField label='Title' value={title} onChange={(e) => setTitle(e.target.value)} style={{ width: "100%" }}/>
-        </Grid>
-
-      </Grid>
-      <Button onClick={() => search() } style={{ left: '50%', transform: 'translateX(-50%)' }}>
-        Search
-      </Button>
-      <h2>Results</h2>
-      <td class="base-TablePagination-root">
-  <div class="base-TablePagination-toolbar">
-    <div class="base-TablePagination-spacer"></div>
-    <p class="base-TablePagination-selectLabel" id="mui-48">Rows per page:</p>
-    <select class="base-TablePagination-select">
-      <option class="base-TablePagination-menuItem">All</option>
-    </select>
-    <p class="base-TablePagination-displayedRows">1–5 of 13</p>
-    <div class="base-TablePagination-actions">
-      <button disabled="" aria-label="Go to first page" title="Go to first page">
-        <span>|⇽</span>
-      </button>
-      <button
-        disabled=""
-        aria-label="Go to previous page"
-        title="Go to previous page"
-      >
-        <span>⇽</span>
-      </button>
-      <button aria-label="Go to next page" title="Go to next page">
-        <span>⇾</span>
-      </button>
-      <button aria-label="Go to last page" title="Go to last page">
-        <span>⇾|</span>
-      </button>
-    </div>
-  </div>
-</td>
-
-    </Container>  
-
-*/

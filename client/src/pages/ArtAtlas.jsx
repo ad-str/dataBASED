@@ -36,12 +36,20 @@ export default function ArtAtlas() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+  const [topArtists, setTopArtists] = useState([]);
+  
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
     try {
+      // gets the 3 randomartworks for the selected country
       const response = await axios.get(`${url}/map/${countryName}`);
       setArtworks(response.data);
+
+      // gets the top artists for the selected country
+      const topArtistsResponse = await axios.get(`${url}/top-artists/${countryName}`);
+      setTopArtists(topArtistsResponse.data);
+      console.log(topArtistsResponse.data)
     } catch (error) {
       console.error("Failed to fetch artworks", error);
     }
@@ -137,6 +145,8 @@ export default function ArtAtlas() {
         )}
       </div>
 
+
+
       {/* The artworks container */}
       <div style={{ flex: 1, margin: '1rem', maxHeight: '80vh'}}>
         <h2 id="countryArtworks">Artworks:</h2>
@@ -161,6 +171,19 @@ export default function ArtAtlas() {
           handleClose={handleCloseArtworkCard}
         />
       )}
+                        {/* Top Artists Section */}
+                        <div style={{ flex: 1, width: '100%', maxWidth: '800px', marginTop: '20px' }}>
+        <h2>Prominent Artists in {activeCountry}:</h2>
+        <ul>
+          {topArtists.map((artist) => (
+            <li key={artist.name}>
+              {artist.name} {artist.count} pieces
+            </li>
+          ))}
+        </ul>
+        </div>
+
+      
     </div>
   );
 }

@@ -223,10 +223,10 @@ const top_artists = async (req, res) => {
     FROM Artwork AT
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id
-    WHERE AT.country LIKE '${location}%' AND AR.name  IS NOT NULL
-    GROUP BY AR.name, AR.id
+    WHERE AT.country LIKE '%${location}%'  AND AR.name NOT LIKE  'Artist unknown'
+    GROUP BY AR.name
     ORDER BY COUNT(AR.id) DESC
-    LIMIT 5
+    LIMIT 5;
 `,
     (err, data) => {
       if (err || data.length === 0) {
@@ -284,7 +284,7 @@ const colorful_artists = async (req, res) => {
         JOIN Artwork ON Artwork.id = Made.artwork_id
         WHERE Artwork.image_id IS NOT NULL
         GROUP BY Artist.id
-        HAVING AVG(Artwork.colorfulness) >= 10
+        HAVING AVG(Artwork.colorfulness) >= ${colorfulness}
       )
     ORDER BY RAND()
     LIMIT 1;

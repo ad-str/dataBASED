@@ -71,6 +71,15 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           width: 600,
         }}
       >
+        <img
+          src={`https://www.artic.edu/iiif/2/${artworkInfo.image}/full/200,/0/default.jpg`}
+          style={{
+            cursor: "pointer",
+            marginRight: "10px",
+            width: "500px",
+            height: "auto",
+          }}
+        />
         <h2>{artworkInfo.title}</h2>
         <h2>Materials:</h2>
         <ul>
@@ -83,8 +92,10 @@ export default function ArtworkCard({ artworkID, handleClose }) {
             ))
           )}
         </ul>
-        <h4>Artist: {artworkInfo.artist ? artworkInfo.artist : 'Unknown Artist'}</h4>
-        <h4>Year: {artworkInfo.year ? artworkInfo.year : 'Unknown Year'}</h4>
+        <h4>
+          Artist: {artworkInfo.artist ? artworkInfo.artist : "Unknown Artist"}
+        </h4>
+        <h4>Year: {artworkInfo.year ? artworkInfo.year : "Unknown Year"}</h4>
         <Button onClick={handleClose}>Close</Button>
       </Box>
     </Modal>

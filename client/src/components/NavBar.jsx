@@ -43,8 +43,8 @@ export default function NavBar() {
           <NavText href="/" text="ArtBased" isMain />
           {/* <NavText href="/stories" text="The Artist's Story" /> */}
           <NavText href="/map" text="Art Map" />
-          <NavText href="/nameless" text="The Nameless" />
-          <NavText href="/steal" text='"Steal Like An Artist"' />
+          <NavText href="/nameless" text="Nameless Artists" />
+          <NavText href="/steal" text="Steal Like An Artist" />
         </Toolbar>
       </Container>
     </AppBar>

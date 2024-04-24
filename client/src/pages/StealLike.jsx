@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ArtworkDropdown from "../components/DropdownButton";
 import config from "../config.json";
 import { Box, Container } from "@mui/material";
 import ArtworkCard from "../components/ArtworkCard";
 const url = `http://${config.server_host}:${config.server_port}`;
+import many_versions_gif from "../assets/many_versions.gif";
 
 export default function StealLike() {
   const artwork = [
@@ -152,27 +152,25 @@ export default function StealLike() {
   const flexFormat = {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     justifyContent: "space-evenly",
   };
 
   return (
     <>
-      <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Use the art generator
-      </h1>
+      <div>
+        <img
+          src={many_versions_gif}
+          alt="Your GIF"
+          width="300"
+          height="200"
+        ></img>
+      </div>
       <div>
         <div>
-          <img
-            class="w-full h-auto max-w-xl rounded-lg"
-            src={paintingImage} // Use the `default` property of the imported module
-            alt="Painting Versions" // Provide a meaningful alt text
-          />
-        </div>
-        <div>
-          <h5 class=" p-2 text-xl font-bold dark:text-white">
+          <h2 class=" p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Steal Like An Artist
-          </h5>
+          </h2>
 
           <p class="pt-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             Coined by Austin Kleon, 'steal like an artist' highlights how
@@ -183,10 +181,14 @@ export default function StealLike() {
       </div>
       <div>
         <div>
+          <h2 class="p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Use the artwork generator
+          </h2>
           <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             {" "}
             Indicate which type of art you want to make and what medium you
-            specialize in.
+            specialize in. Use the artwork as inspiration and mimic materials if
+            they are known.
           </p>
         </div>
         <div>
@@ -216,14 +218,21 @@ export default function StealLike() {
           </div>
         </div>
       </div>
-      <h3 class="p-4 text-3xl font-bold dark:text-white">Click on a piece</h3>
+      <h5 class="p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Click on a piece
+      </h5>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <img
             key={artwork.id}
             src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
             onClick={() => handleArtworkClick(artwork.id)}
-            style={{ cursor: "pointer", marginRight: "10px" }}
+            style={{
+              cursor: "pointer",
+              marginRight: "10px",
+              maxWidth: "300px",
+              height: "auto",
+            }}
           />
         ))}
       </Container>

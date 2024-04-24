@@ -240,7 +240,6 @@ const top_artists = async (req, res) => {
   );
 };
 
-
 // GET /map
 // Given a country and a year range, return artworks where the year range overlaps with the specified range in the query
 const map_country = async (req, res) => {
@@ -393,7 +392,7 @@ const artwork_materials = async (req, res) => {
 const artwork_description = async (req, res) => {
   const artworkId = req.params.artwork_id;
   connection.query(
-    `SELECT AT.title AS title, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
+    `SELECT AT.title AS title, AT.image_id as image, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
     FROM Artwork AS AT
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id

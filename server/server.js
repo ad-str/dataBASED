@@ -22,7 +22,6 @@ app.get("/proportion-unknown", routes.proportion_unknown);
 app.get("/time-periods", routes.time_periods);
 app.get("/top-artists/:location", routes.top_artists);
 app.get("/colorful-artists", routes.colorful_artists);
-app.get("/minimalViews", routes.minimal_views);
 app.get("/unknownArtists", routes.unknown_artists);
 app.get("/artwork_materials/:artwork_id", routes.artwork_materials);
 app.get("/artwork_description/:artwork_id", routes.artwork_description);

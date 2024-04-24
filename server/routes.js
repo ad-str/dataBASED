@@ -300,58 +300,6 @@ LIMIT 1;
   );
 };
 
-// Route: GET /minimal_views
-/*This is a dedicated page for artwork that hasn't been viewed as much and its artist. 
-It implements page functionality for simplified browsing*/
-const minimal_views = async function (req, res) {
-  const page = req.query.page;
-  const pageSize = req.query.page_size ? req.query.page_size : 10; // default 10 items per page
-  const offset = (page - 1) * pageSize; // calculates the appropriate offset amount based on selected page
-
-  if (!page) {
-    // page not specified
-    connection.query(
-      `
-      SELECT a.title, m.artist_id
-      FROM Artwork a
-      JOIN Made m ON a.id = m.artwork_id
-      WHERE a.not_viewed_much = TRUE
-      
-    `,
-      (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          console.error("Error fetching minimal views:", err);
-          res.status(500).json({ err: "Internal Server Error" });
-        } else {
-          res.json(data);
-        }
-      }
-    );
-  } else {
-    // specified pages
-    connection.query(
-      `
-      SELECT a.title, m.artist_id
-      FROM Artwork a
-      JOIN Made m ON a.artwork_id = m.artwork_id
-      WHERE a.has_not_been_viewed_much = TRUE      
-      LIMIT ${pageSize}
-      OFFSET ${offset}
-    `,
-      (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          console.error("Error fetching minimal views:", err);
-          res.status(500).json({ err: "Internal Server Error" });
-        } else {
-          res.json(data);
-        }
-      }
-    );
-  }
-};
-
 // Route: GET /unknown_artists
 /*This is a dedicated page for unknown artists. It showcases ones within the last
 century. This route implements page functionality for simplified browsing*/

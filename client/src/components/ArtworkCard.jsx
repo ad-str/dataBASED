@@ -77,7 +77,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
             cursor: "pointer",
             marginRight: "10px",
             width: "500px",
-            height: "auto",
+            height: "500px",
           }}
         /> */}
         {artworkInfo.length > 0 && (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
+
+import ArtworkCard from "../components/ArtworkCard";
 
 import config from "../config.json";
 
@@ -9,8 +9,11 @@ const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function HomePage() {
   const [artists, setArtists] = useState([]);
-  const [randomImage, setRandomImage] = useState([]);
+  const [colorfulImage, setColorfulImage] = useState([]);
   const [author, setAuthor] = useState("");
+  const [showArtworkCard, setShowArtworkCard] = useState(false);
+  const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+
 
   useEffect(() => {
     fetch(`${url}/artist`)
@@ -25,14 +28,23 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetch(`${url}/random`)
+    fetch(`${url}/colorful-artists`)
       .then((res) => res.json())
-      .then((resJson) => setRandomImage(resJson));
+      .then((resJson) => setColorfulImage(resJson));
 
-    fetch(`http://${config.server_host}:${config.server_port}/author/names`)
+    fetch(`${url}/author/names`)
       .then((res) => res.text())
       .then((resText) => setAuthor(resText));
   }, []);
+
+  const handleArtworkClick = (artworkID) => {
+    setSelectedArtworkID(artworkID);
+    setShowArtworkCard(true);
+  };
+
+  const handleCloseArtworkCard = () => {
+    setShowArtworkCard(false);
+  };
 
   return (
     <>
@@ -48,18 +60,40 @@ export default function HomePage() {
           and unleash your inner artist.
         </p>
       </div>
-      <div
-        className="p-4 image-container"
-        style={{ display: "flex", justifyContent: "center" }}
-      >
-        {randomImage.length > 0 && (
-          <img
-            src={`https://www.artic.edu/iiif/2/${randomImage}/full/200,/0/default.jpg`}
-            alt={`Artwork ${randomImage}`}
-            style={{ width: "50%", height: "auto" }}
-          />
-        )}
+      <div className="image-container">
+
+      {(colorfulImage.map((artwork) => (
+          <div key={artwork.id}>
+            <img
+              src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
+              alt={` 3 Colorful Artworks`}
+              style={{
+                width: "400px",
+                height: "400px",
+                objectFit: "contain",
+                cursor: "pointer",
+                margin: "20px",
+                padding: "20px",
+                marginBottom: "10px",
+                border: "5px solid #3c84f4", 
+                borderRadius: "20px",
+                background : "#C1c7d0"
+              }}
+              onClick={() => handleArtworkClick(artwork.id)}
+            />
+          </div>
+        )))}
+              {showArtworkCard && (
+        <ArtworkCard
+          artworkID={selectedArtworkID}
+          handleClose={handleCloseArtworkCard}
+        />
+      )}
+
+
       </div>
+
+
       {/* <p>Artists to explore:</p>
       <ul>
         {artists.map((artist, index) => (

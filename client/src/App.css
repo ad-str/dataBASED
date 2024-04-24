@@ -41,3 +41,11 @@
 .read-the-docs {
   color: #888;
 }
+
+.image-container {
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 20px; 
+}

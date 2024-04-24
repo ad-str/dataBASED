@@ -186,9 +186,8 @@ export default function StealLike() {
           </h2>
           <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             {" "}
-            Indicate which type of art you want to make and what medium you
-            specialize in. Use the artwork as inspiration and mimic materials if
-            they are known.
+            Indicate your preferred art type and medium medium. Use the artwork
+            as inspiration and mimic materials if they are known.
           </p>
         </div>
         <div>

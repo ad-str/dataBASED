@@ -1,8 +1,16 @@
 import { useState } from "react";
 import config from "../config.json";
-import { Button, Box, Container, FormControlLabel, Grid, Link, TextField } from '@mui/material';
+import {
+  Button,
+  Box,
+  Container,
+  FormControlLabel,
+  Grid,
+  Link,
+  TextField,
+} from "@mui/material";
 
-import ArtworkCard from '../components/ArtworkCard';
+import ArtworkCard from "../components/ArtworkCard";
 import AppPagination from "../components/Pagination"; //fetches artwork from here
 
 const url = `http://${config.server_host}:${config.server_port}`;
@@ -37,7 +45,7 @@ export default function Nameless() {
 
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);
-    
+
     setShowArtworkCard(true);
   };
 
@@ -45,12 +53,15 @@ export default function Nameless() {
     setShowArtworkCard(false);
   };
 
-
-
   //flexFormat for a UI friendly page formatting
-  const flexFormat = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' };
+  const flexFormat = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+  };
 
-// error fetching artwork description
+  // error fetching artwork description
   return (
     <>
       <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -60,31 +71,35 @@ export default function Nameless() {
         The art world hasn't always been a welcoming space. Throughout history,
         prejudice and bias have denied recognition to talented artists,
         particularly women and people of color. Their captivating work might
-        have been dismissed as mere "folk art," or simply not valued by the dominant art establishment. Without proper
-        records or critical analysis, these artists' legacies faded, their
-        stories lost to time. In museums, exhibit labels often bear a silent
-        testament to this injustice: "unknown."
+        have been dismissed as mere "folk art," or simply not valued by the
+        dominant art establishment. Without proper records or critical analysis,
+        these artists' legacies faded, their stories lost to time. Museums
+        exhibit often label these artists as 'unkown.'"
       </p>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <Box
-          key={artwork.id}
-          p={3}
-          m={2}
-          style={{ background: 'white', borderRadius: '16px', border: '2px solid #000' }}
-        >
-          {
-          <img
-            src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
-            alt={`${artwork.title} Artwork`}
-            onClick={() => handleArtworkClick(artwork.id)}
-            style={{ cursor: "pointer", marginRight: "10px" }}
-          />
-          }
-          <h4 key={artwork.id}>{artwork.title}</h4>
+            key={artwork.id}
+            p={3}
+            m={2}
+            style={{
+              background: "white",
+              borderRadius: "16px",
+              border: "2px solid #000",
+            }}
+          >
+            {
+              <img
+                src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
+                alt={`${artwork.title} Artwork`}
+                onClick={() => handleArtworkClick(artwork.id)}
+                style={{ cursor: "pointer", marginRight: "10px" }}
+              />
+            }
+            <h4 key={artwork.id}>{artwork.title}</h4>
           </Box>
         ))}
-      <AppPagination setArtworks={(a) => setArtworks(a)}/>  
+        <AppPagination setArtworks={(a) => setArtworks(a)} />
       </Container>
       {showArtworkCard && (
         <ArtworkCard
@@ -104,8 +119,7 @@ https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-
 If we have time to make it sexy, we can use this site as reference:
 https://mui.com/material-ui/react-image-list/ */
 
-
-  /*B- implementing a search feature
+/*B- implementing a search feature
 The code snippet uses DataGrid. It might be helpful to use LazyTable component instead?
 
       {selectedArtworkID && <ArtworkCard artworkID={selectedArtworkID} handleClose={() => setSelectedArtworkID(null)} />}
@@ -127,4 +141,4 @@ The code snippet uses DataGrid. It might be helpful to use LazyTable component i
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         autoHeight
       />
-  */ 
+  */

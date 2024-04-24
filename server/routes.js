@@ -168,13 +168,13 @@ const era_descriptors = async (req, res) => {
 const proportion_unknown = async (req, res) => {
   connection.query(
     `SELECT
-      A.place_of_origin AS Country,
+      A.country AS Country,
       SUM(IF(M.artist_id IS NULL, 1, 0)) AS Artworks_Without_Artist,
       COUNT(A.id) AS Total_Artworks,
       (SUM(IF(M.artist_id IS NULL, 1, 0)) / COUNT(A.id)) * 100 AS Proportion_Unknown_Artist
     FROM Artwork A
     LEFT JOIN Made M ON A.id = M.artwork_id
-    GROUP BY A.place_of_origin
+    GROUP BY A.country
     HAVING Total_Artworks > 0
     ORDER BY Proportion_Unknown_Artist DESC`,
     (err, data) => {
@@ -223,7 +223,7 @@ const top_artists = async (req, res) => {
     FROM Artwork AT
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id
-    WHERE AT.place_of_origin LIKE '%${location}%' AND AR.name  IS NOT NULL
+    WHERE AT.country LIKE '${location}%' AND AR.name  IS NOT NULL
     GROUP BY AR.name, AR.id
     ORDER BY COUNT(AR.id) DESC
     LIMIT 5
@@ -249,7 +249,7 @@ const map_country = async (req, res) => {
   connection.query(
     `SELECT title, id, image_id
     FROM Artwork
-    WHERE place_of_origin LIKE '%${country}%' 
+    WHERE country LIKE '${country}%' 
     AND image_id IS NOT NULL 
     AND start_year <= ${endYear} 
     AND end_year >= ${startYear}

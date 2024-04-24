@@ -39,19 +39,24 @@ export default function HomePage() {
       <div>
         <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           An art haven for{" "}
-          <span class="text-blue-600 dark:text-blue-500">art lovers.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600">
+            art lovers.
+          </span>
         </h1>
-        <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+        <p class="p-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
           Explore art from every corner of the globe, honor forgotten artists,
           and unleash your inner artist.
         </p>
       </div>
-      <div className="image-container">
+      <div
+        className="p-4 image-container"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
         {randomImage.length > 0 && (
           <img
             src={`https://www.artic.edu/iiif/2/${randomImage}/full/200,/0/default.jpg`}
             alt={`Artwork ${randomImage}`}
-            class="mx-auto"
+            style={{ width: "50%", height: "auto" }}
           />
         )}
       </div>
@@ -65,7 +70,10 @@ export default function HomePage() {
           </h4>
         ))}
       </ul> */}
-      <p> {author} </p>
+      <p class="pt-18 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400">
+        {" "}
+        {author}{" "}
+      </p>
     </>
   );
 }

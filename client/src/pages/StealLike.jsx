@@ -107,6 +107,7 @@ export default function StealLike() {
   useEffect(() => {
     const fetchThreePieces = async () => {
       try {
+        const startTime = performance.now();
         const response = await fetch(
           `${url}/three_artworks/${ArtworkType}/${mediumClassification}`
         );
@@ -115,6 +116,9 @@ export default function StealLike() {
         }
         const data = await response.json();
         setArtworks(data);
+        const endTime = performance.now();
+        const elapsedTime = endTime - startTime;
+        console.log(`Request took ${elapsedTime} milliseconds`);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -53,7 +53,9 @@ export default function Nameless() {
 // error fetching artwork description
   return (
     <>
-      <h2>Why Art History Needs a Rewrite</h2>
+      <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Why Art History Needs a Rewrite
+      </h1>
       <p>
         The art world hasn't always been a welcoming space. Throughout history,
         prejudice and bias have denied recognition to talented artists,

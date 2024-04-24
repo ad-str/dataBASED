@@ -272,19 +272,22 @@ const colorful_artists = async (req, res) => {
   const colorfulness = req.query.color ? req.query.color : 15;
 
   connection.query(
-    `WITH ColorfulArtists AS (
-SELECT Artist.name AS Name, Artist.id AS IdNum, AVG(Artwork.colorfulness) AS avg_colorfulness
-FROM Artist
-JOIN Made ON Made.artist_id = Artist.id JOIN Artwork ON Artwork.id = Made.artwork_id
-WHERE Artwork.image_id IS NOT NULL
-GROUP BY Artist.id, Artist.name
-HAVING AVG(Artwork.colorfulness) >= ${colorfulness})
-SELECT AT.name AS ArtistName, AR.title AS Piece, AR.image_id
-FROM Artist AS AT JOIN Made AS M ON M.artist_id = AT.id JOIN Artwork AS AR ON AR.id = M.artwork_id
-WHERE AT.id IN (SELECT IdNum FROM ColorfulArtists) 
-ORDER BY 
-RAND()
-LIMIT 1;
+    `SELECT AR.id, AR.image_id
+    FROM Artist AS AT
+    JOIN Made AS M ON M.artist_id = AT.id
+    JOIN Artwork AS AR ON AR.id = M.artwork_id
+    WHERE AR.image_id IS NOT NULL
+      AND AT.id IN (
+        SELECT Artist.id
+        FROM Artist
+        JOIN Made ON Made.artist_id = Artist.id
+        JOIN Artwork ON Artwork.id = Made.artwork_id
+        WHERE Artwork.image_id IS NOT NULL
+        GROUP BY Artist.id
+        HAVING AVG(Artwork.colorfulness) >= 10
+      )
+    ORDER BY RAND()
+    LIMIT 1;
 `,
     (err, data) => {
       //return empty array for ranges where there are no artist

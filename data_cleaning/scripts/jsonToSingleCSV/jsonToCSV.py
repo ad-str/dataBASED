@@ -37,9 +37,9 @@ def save_to_csv(data, output_file):
 if __name__ == "__main__":
 
     start = time.time()
-    # specify paths and filenames
-    json_folder_path = '/Users/daunel/Desktop/CIT /550 Project/artic-api-data/json/places'
-    output_filename = '/Users/daunel/Desktop/CIT /550 Project/artic-api-data/places.csv'
+    # specify your folder paths and filenames
+    json_folder_path = ''
+    output_filename = ''
 
 
     merged_data = merge_json_files(json_folder_path)

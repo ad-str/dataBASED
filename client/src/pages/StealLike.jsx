@@ -160,6 +160,7 @@ export default function StealLike() {
     <>
       <div>
         <img
+          class="h-auto max-w-lg mx-auto"
           src={many_versions_gif}
           alt="Your GIF"
           width="300"
@@ -181,43 +182,48 @@ export default function StealLike() {
       </div>
       <div>
         <div>
-          <h2 class="p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          <h2 class="pt-6 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Use the artwork generator
           </h2>
-          <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <p class="p-1 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             {" "}
-            Indicate your preferred art type and medium medium. Use the artwork
-            as inspiration and mimic materials if they are known.
+            Indicate your preferred art type and medium. Use the artwork as
+            inspiration and mimic materials if they are known.
           </p>
         </div>
         <div>
           <div className="p-4 w-100 mt-5n">
-            <h2> Select Artwork Type & Medium </h2>
-            <select
-              className="form-control"
-              value={ArtworkType}
-              onChange={changeArtworkType}
-            >
-              <option>--Artwork Type--</option>
-              {artwork.map((ctr) => (
-                <option value={ctr.type}>{ctr.type}</option>
-              ))}
-            </select>
-            <br />
-            <select
-              className="form-control"
-              value={mediumType}
-              onChange={changeMediumType}
-            >
-              <option>--Medium--</option>
-              {mediums.map((medium) => (
-                <option value={medium}>{medium}</option>
-              ))}
-            </select>
+            <h5 class="text-l font-bold dark:text-white">
+              {" "}
+              Select Artwork Type & Medium{" "}
+            </h5>
+            <div class="p-4">
+              <select
+                className="form-control"
+                value={ArtworkType}
+                onChange={changeArtworkType}
+              >
+                <option>--Artwork Type--</option>
+                {artwork.map((ctr) => (
+                  <option value={ctr.type}>{ctr.type}</option>
+                ))}
+              </select>
+              <br />
+              <select
+                className="form-control"
+                value={mediumType}
+                onChange={changeMediumType}
+              >
+                <option>--Medium--</option>
+                {mediums.map((medium) => (
+                  <option value={medium}>{medium}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      <h5 class="p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <h5 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         Click on a piece
       </h5>
       <Container style={flexFormat}>

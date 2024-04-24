@@ -80,8 +80,14 @@ export default function ArtworkCard({ artworkID, handleClose }) {
             height: "auto",
           }}
         />
-        <h2>{artworkInfo.title}</h2>
-        <h2>Materials:</h2>
+        <h2 class="text-2xl 	font-style: italic font-bold dark:text-white">
+          {artworkInfo.title}
+        </h2>
+        <h4>{artworkInfo.year ? artworkInfo.year : "Unknown Year"}</h4>
+        <h4>
+          Artist: {artworkInfo.artist ? artworkInfo.artist : "Unknown Artist"}
+        </h4>
+        <h2 class="pt-2 font-bold">Materials:</h2>
         <ul>
           {artworkMaterials.length === 0 ||
           artworkMaterials[0] === "Unknown" ? (
@@ -92,10 +98,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
             ))
           )}
         </ul>
-        <h4>
-          Artist: {artworkInfo.artist ? artworkInfo.artist : "Unknown Artist"}
-        </h4>
-        <h4>Year: {artworkInfo.year ? artworkInfo.year : "Unknown Year"}</h4>
+
         <Button onClick={handleClose}>Close</Button>
       </Box>
     </Modal>

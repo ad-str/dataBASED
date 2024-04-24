@@ -287,7 +287,7 @@ const colorful_artists = async (req, res) => {
         HAVING AVG(Artwork.colorfulness) >= ${colorfulness}
       )
     ORDER BY RAND()
-    LIMIT 1;
+    LIMIT 4;
 `,
     (err, data) => {
       //return empty array for ranges where there are no artist

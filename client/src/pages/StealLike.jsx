@@ -161,7 +161,7 @@ export default function StealLike() {
       <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         Use the art generator
       </h1>
-      <div class="flex justify-between ...">
+      <div>
         <div>
           <img
             class="w-full h-auto max-w-xl rounded-lg"
@@ -170,18 +170,18 @@ export default function StealLike() {
           />
         </div>
         <div>
-          <h5 class="text-xl font-bold dark:text-white">
+          <h5 class=" p-2 text-xl font-bold dark:text-white">
             Steal Like An Artist
           </h5>
 
-          <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <p class="pt-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             Coined by Austin Kleon, 'steal like an artist' highlights how
             artists draw inspiration from each other, creating a continuous flow
             of creativity.{" "}
           </p>
         </div>
       </div>
-      <div class="flex justify-between ...">
+      <div>
         <div>
           <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             {" "}
@@ -189,32 +189,34 @@ export default function StealLike() {
             specialize in.
           </p>
         </div>
-        <div className="Cascading">
-          <h2> Select Artwork Type & Medium </h2>
-          <select
-            className="form-control"
-            value={ArtworkType}
-            onChange={changeArtworkType}
-          >
-            <option>--Artwork Type--</option>
-            {artwork.map((ctr) => (
-              <option value={ctr.type}>{ctr.type}</option>
-            ))}
-          </select>
-          <br />
-          <select
-            className="form-control"
-            value={mediumType}
-            onChange={changeMediumType}
-          >
-            <option>--Medium--</option>
-            {mediums.map((medium) => (
-              <option value={medium}>{medium}</option>
-            ))}
-          </select>
+        <div>
+          <div className="p-4 w-100 mt-5n">
+            <h2> Select Artwork Type & Medium </h2>
+            <select
+              className="form-control"
+              value={ArtworkType}
+              onChange={changeArtworkType}
+            >
+              <option>--Artwork Type--</option>
+              {artwork.map((ctr) => (
+                <option value={ctr.type}>{ctr.type}</option>
+              ))}
+            </select>
+            <br />
+            <select
+              className="form-control"
+              value={mediumType}
+              onChange={changeMediumType}
+            >
+              <option>--Medium--</option>
+              {mediums.map((medium) => (
+                <option value={medium}>{medium}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-      <h3 class="text-3xl font-bold dark:text-white">Click on a piece</h3>
+      <h3 class="p-4 text-3xl font-bold dark:text-white">Click on a piece</h3>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <img

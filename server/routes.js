@@ -365,11 +365,16 @@ const unknown_artists = async function (req, res) {
     // page not specified
     connection.query(
       `
-      SELECT DISTINCT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
-      FROM Artwork art
-      LEFT JOIN Made made ON art.id = made.artwork_id
-      JOIN Descriptor D ON art.id = D.artwork_id
-      WHERE made.artist_id is NULL AND art.end_year > ${lastCentury} AND D.aspect = 'style'
+      WITH MadeArtworkDescriptor AS (
+        SELECT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
+        FROM Artwork art
+        LEFT JOIN Made made ON art.id = made.artwork_id
+        JOIN Descriptor D ON art.id = D.artwork_id
+        WHERE D.aspect = 'style' AND made.artist_id is NULL
+    )
+    SELECT DISTINCT id, image, title, location, year
+    FROM MadeArtworkDescriptor
+    WHERE year > ${lastCentury} AND image IS NOT NULL 
     `,
       (err, data) => {
         if (err || data.length === 0) {
@@ -385,11 +390,16 @@ const unknown_artists = async function (req, res) {
     // specified pages
     connection.query(
       `
-      SELECT DISTINCT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
-      FROM Artwork AS art LEFT 
-      JOIN Made AS made ON art.id = made.artwork_id
-      JOIN Descriptor AS D ON art.id = D.artwork_id
-      WHERE made.artist_id is NULL AND art.year_end > ${lastCentury} AND D.aspect = 'style'  
+      WITH MadeArtworkDescriptor AS (
+        SELECT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
+        FROM Artwork art
+        LEFT JOIN Made made ON art.id = made.artwork_id
+        JOIN Descriptor D ON art.id = D.artwork_id
+        WHERE D.aspect = 'style' AND made.artist_id is NULL
+    )
+    SELECT DISTINCT id, image, title, location, year
+    FROM MadeArtworkDescriptor
+    WHERE year > ${lastCentury} AND image IS NOT NULL       
       LIMIT ${pageSize}
       OFFSET ${offset}
     `,

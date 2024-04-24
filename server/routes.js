@@ -436,55 +436,6 @@ const three_artworks = async (req, res) => {
   );
 };
 
-// Route: GET /artistStories/:artworkType/:medium
-/* Given an artwork type and medium, get 3 pieces */
-// const artistStories = async function (req, res) {
-//   const page = req.query.page;
-//   const pageSize = req.query.page_size || 10;
-//   let limit = pageSize;
-//   let offset = page * pageSize - pageSize;
-
-//   if (!page) {
-//     connection.query(
-//       `
-//       SELECT A.title AS album, S.album_id, S.plays AS plays, S.song_id, S.title AS title
-//       FROM Albums A JOIN Songs S on A.album_id = S.album_id
-//       ORDER BY S.plays DESC;
-//     `,
-//       (err, data) => {
-//         if (err || data.length == 0) {
-//           // res.send(`There is an error`);
-//           console.log(err);
-//           res.json({});
-//         } else {
-//           res.json(data);
-//         }
-//       }
-//     );
-//   } else {
-//     // TODO (TASK 10): reimplement TASK 9 with pagination
-//     // Hint: use LIMIT and OFFSET (see https://www.w3schools.com/php/php_mysql_select_limit.asp)
-//     connection.query(
-//       `
-//       SELECT A.title AS album, S.album_id, S.plays AS plays, S.song_id, S.title AS title
-//       FROM Albums A JOIN Songs S on A.album_id = S.album_id
-//       ORDER BY S.plays DESC
-//       LIMIT ${limit} OFFSET ${offset};
-//   `,
-//       (err, data) => {
-//         if (err || data.length == 0) {
-//           // res.send(`There is an error`);
-//           // console.log(err);
-//           res.json({ limit, offset, page, pageSize });
-//         } else {
-//           // res.json({limit,offset});
-//           res.json(data);
-//         }
-//       }
-//     );
-//   }
-// };
-
 module.exports = {
   author, //for home page
   artist, //for ArtistStories
@@ -496,7 +447,6 @@ module.exports = {
   time_periods, //for which page?
   top_artists, //for ArtAtlas
   colorful_artists, //for home page and then a checkbox to switch to random images
-  minimal_views, // for which page? maybe nameless?
   unknown_artists, // for Nameless page
   artwork_materials, //for Steal Like An Artist
   artwork_description, //for Steal Like An Artist

@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import config from "../config.json";
-import {
-  Button,
-  Box,
-  Container,
-  FormControlLabel,
-  Grid,
-  Link,
-  TextField,
-} from "@mui/material";
+import { Pagination, Box, Container } from "@mui/material";
 
+/**
+ * Handy video guide to material UI pagination!
+ * https://www.youtube.com/watch?v=37xPlDBaA4A
+ */
+const pageSize = 10;
 import ArtworkCard from "../components/ArtworkCard";
-import AppPagination from "../components/Pagination"; //fetches artwork from here
 
 const url = `http://${config.server_host}:${config.server_port}`;
 
@@ -19,29 +15,40 @@ export default function Nameless() {
   const [artworks, setArtworks] = useState([]);
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+  const [artworkCount, setArtworkCount] = useState([]);
+  const [pagination, setPagination] = useState({
+        count: 0,
+        from: 0,
+        to: pageSize
+    });
 
-  // this section is for if we can add a search feature
-  //const [title, setTitle] = useState('');
-  /*
-  const search = () => {
-    fetch(`${url}/search_artworks?title=${title}`)
-      .then(res => res.json())
-      .then(resJson => {
-        // DataGrid expects an array of objects with a unique id.
-        // To accomplish this, we use a map with spread syntax (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
-        const artworksWithId = resJson.map((artwork) => ({ id: artwork.id, ...artwork }));
-        setArtworks(artworksWithId);
-      });
-  }
-*/
-  // add a matrials column?
-  /*
-  const columns = [
-    { field: 'title', headerName: 'Title', width: 300, renderCell: (params) => (
-      <Link onClick={() => setSelectedArtworkID(params.row.artwork.id)}>{params.value}</Link>
-  ) },
-  ]
-  */
+    useEffect(() => {
+        const fetchArtworks = async ({from, to}) => {
+            try {
+              const response = await fetch(`${url}/unknownArtists`);
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              const data = await response.json();
+              const slicedArtworks = data.slice(from, to);
+              setArtworks(slicedArtworks);
+              setArtworkCount(data.length);
+              setPagination({...pagination, count: artworkCount});
+            } catch (error) {
+              console.error("Error fetching unknown artists:", error);
+            }
+          };
+
+        fetchArtworks({from: pagination.from, to: pagination.to});
+      }, [pagination.from, pagination.to]);
+
+    const handlePageChange = (event, page) => {
+        const from = (page - 1) * pageSize;
+        const to = (page - 1) * pageSize + pageSize;
+
+        setPagination({ ...pagination, from: from, to: to});
+    }
+
 
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);
@@ -99,8 +106,14 @@ export default function Nameless() {
             <h4 key={artwork.id}>{artwork.title}</h4>
           </Box>
         ))}
-        <AppPagination setArtworks={(a) => setArtworks(a)} />
+            
       </Container>
+      <Box display="flex" justifyContent="center">
+          <Pagination
+            count = {79}
+            onChange= {handlePageChange}
+          />     
+        </Box> 
       {showArtworkCard && (
         <ArtworkCard
           artworkID={selectedArtworkID}
@@ -111,6 +124,7 @@ export default function Nameless() {
   );
 }
 
+
 /*B- grabbing images
 It would be nice to have the artwork pop up. At a minimum, the image should 
 link to a new page. Using this tutorial as a starter:
@@ -118,27 +132,3 @@ https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-
 
 If we have time to make it sexy, we can use this site as reference:
 https://mui.com/material-ui/react-image-list/ */
-
-/*B- implementing a search feature
-The code snippet uses DataGrid. It might be helpful to use LazyTable component instead?
-
-      {selectedArtworkID && <ArtworkCard artworkID={selectedArtworkID} handleClose={() => setSelectedArtworkID(null)} />}
-      <h2>Search Songs</h2>
-      <Grid container spacing={6}>
-        <Grid item xs={8}>
-          <TextField label='Title' value={title} onChange={(e) => setTitle(e.target.value)} style={{ width: "100%" }}/>
-        </Grid>
-      </Grid>
-      <Button onClick={() => search() } style={{ left: '50%', transform: 'translateX(-50%)' }}>
-        Search
-      </Button>
-      <h2>Results</h2>
-      <DataGrid
-        rows={artworks}
-        columns={columns}
-        pageSize={pageSize}
-        rowsPerPageOptions={[5, 10, 25]}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        autoHeight
-      />
-  */

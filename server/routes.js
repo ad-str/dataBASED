@@ -317,7 +317,7 @@ const unknown_artists = async function (req, res) {
     connection.query(
       `
       WITH MadeArtworkDescriptor AS (
-        SELECT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
+        SELECT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.country AS Location, D.title AS style
         FROM Artwork art
         LEFT JOIN Made made ON art.id = made.artwork_id
         JOIN Descriptor D ON art.id = D.artwork_id
@@ -342,7 +342,7 @@ const unknown_artists = async function (req, res) {
     connection.query(
       `
       WITH MadeArtworkDescriptor AS (
-        SELECT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.place_of_origin AS Location, D.title AS style
+        SELECT art.id AS id, art.image_id AS image, art.title AS title, art.end_year AS year,	art.country AS Location, D.title AS style
         FROM Artwork art
         LEFT JOIN Made made ON art.id = made.artwork_id
         JOIN Descriptor D ON art.id = D.artwork_id

@@ -18,7 +18,8 @@ CREATE TABLE Artwork
     image_id        VARCHAR(36),
     color           VARCHAR(100),
     colorfulness    DECIMAL(8, 4),
-    not_viewed_much BOOLEAN
+    not_viewed_much BOOLEAN,
+    country         VARCHAR(255),
 );
 
 CREATE TABLE Descriptor (

@@ -6,7 +6,7 @@ import config from "../config.json";
 const url = `http://${config.server_host}:${config.server_port}`;
 
 export default function ArtworkCard({ artworkID, handleClose }) {
-  const [artworkInfo, setArtworkInfo] = useState({});
+  const [artworkInfo, setArtworkInfo] = useState([]);
   const [artworkMaterials, setArtworkMaterials] = useState([]);
 
   useEffect(() => {
@@ -71,29 +71,45 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           width: 600,
         }}
       >
-        <img
-          src={`https://www.artic.edu/iiif/2/${artworkInfo.image}/full/200,/0/default.jpg`}
+        {/* <img
+          src={`https://www.artic.edu/iiif/2/${artworkInfo[0].image}/full/200,/0/default.jpg`}
           style={{
             cursor: "pointer",
             marginRight: "10px",
             width: "500px",
             height: "500px",
           }}
-        />
-        <h2 class="text-2xl 	font-style: italic font-bold dark:text-white">
-          {artworkInfo.title}
-        </h2>
-        <h4>{artworkInfo.year ? artworkInfo.year : "Unknown Year"}</h4>
-        <h4>
-          Artist: {artworkInfo.artist ? artworkInfo.artist : "Unknown Artist"}
-        </h4>
+        /> */}
+        {artworkInfo.length > 0 && (
+          <div>
+            <img
+              src={`https://www.artic.edu/iiif/2/${artworkInfo[0].image}/full/200,/0/default.jpg`}
+              style={{
+                cursor: "pointer",
+                marginRight: "10px",
+                width: "500px",
+                height: "auto",
+              }}
+            />
+            <h2 class="text-2xl font-style: italic font-bold dark:text-white">
+              {artworkInfo[0].title}
+            </h2>
+            <h4>
+              {artworkInfo[0].year ? artworkInfo[0].year : "Unknown Year"}
+            </h4>
+            <h4>
+              Artist:{" "}
+              {artworkInfo[0].artist ? artworkInfo[0].artist : "Unknown Artist"}
+            </h4>
+          </div>
+        )}
         <h2 class="pt-2 font-bold">Materials:</h2>
         <ul>
-          {artworkMaterials.length === 0 ||
-          artworkMaterials[0] === "Unknown" ? (
+          {artworkInfo.length === 0 ||
+          artworkInfo[0].materials === "Unknown" ? (
             <li>Unknown Materials</li> // I think we should add logic that puts this on same line as materials: if its unknown
           ) : (
-            artworkMaterials.map((material, index) => (
+            artworkInfo.map((material, index) => (
               <li key={index}>{material.materials}</li>
             ))
           )}

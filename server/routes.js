@@ -396,10 +396,11 @@ const artwork_materials = async (req, res) => {
 const artwork_description = async (req, res) => {
   const artworkId = req.params.artwork_id;
   connection.query(
-    `SELECT AT.title AS title, AT.image_id as image, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
-    FROM Artwork AS AT
-    JOIN Made M ON M.artwork_id = AT.id
-    JOIN Artist AR ON AR.id = M.artist_id
+    `SELECT AT.title AS title, D.title AS materials, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
+    FROM Descriptor AS D
+    JOIN Artwork AS AT ON AT.id = D.artwork_id
+    JOIN Made AS M ON M.artwork_id = AT.id
+    JOIN Artist AS AR ON AR.id = M.artist_id
     WHERE AT.id = ${artworkId}`,
     (err, data) => {
       if (err || data.length === 0) {
@@ -407,7 +408,7 @@ const artwork_description = async (req, res) => {
         console.error("Error fetching artwork description:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
-        res.json(data[0]);
+        res.json(data);
       }
     }
   );
@@ -420,11 +421,11 @@ const three_artworks = async (req, res) => {
   const medium = req.params.medium;
 
   connection.query(
-    `SELECT DISTINCT AT.id AS id, AT.image_id AS image
+    `SELECT AT.id AS id, AT.image_id AS image
     FROM Artwork AT
     JOIN Descriptor D1 ON D1.artwork_id = AT.id
     JOIN Descriptor D2 ON D2.artwork_id = AT.id
-    WHERE D1.aspect = 'artwork_type' AND D1.title = '${artworkType}' AND D2.aspect = 'classification' AND D2.title LIKE '%${medium}%'
+    WHERE D1.aspect = 'artwork_type' AND D1.title = '${artworkType}' AND D2.aspect = 'classification' AND D2.title LIKE '%${medium}%' AND AT.image_id IS NOT NULL
     ORDER BY RAND()
     LIMIT 3`,
     (err, data) => {

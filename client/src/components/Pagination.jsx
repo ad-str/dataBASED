@@ -33,7 +33,7 @@ export default function AppPagination({setArtworks}) {
               setArtworkCount(data.length);
               setPagination({...pagination, count: artworkCount});
             } catch (error) {
-              console.error("Error fetching data:", error);
+              console.error("Error fetching unknown artists:", error);
             }
           };
 

@@ -322,7 +322,7 @@ const unknown_artists = async function (req, res) {
     )
     SELECT DISTINCT id, image, title, location, year
     FROM MadeArtworkDescriptor
-    WHERE year > ${lastCentury} AND image IS NOT NULL 
+    WHERE year > ${lastCentury} AND image IS NOT NULL
     `,
       (err, data) => {
         if (err || data.length === 0) {
@@ -347,7 +347,7 @@ const unknown_artists = async function (req, res) {
     )
     SELECT DISTINCT id, image, title, location, year
     FROM MadeArtworkDescriptor
-    WHERE year > ${lastCentury} AND image IS NOT NULL       
+    WHERE year > ${lastCentury} AND image IS NOT NULL    
       LIMIT ${pageSize}
       OFFSET ${offset}
     `,

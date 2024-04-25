@@ -1,6 +1,13 @@
 import { NavBar } from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
+
 
 function Welcome() {
+    const navigate = useNavigate()
+
+  const goHome=()=>{
+    navigate("/home");
+  }
   return (
     <div className="min-h-screen flex justify-center p-5 items-center">
       <NavBar />
@@ -12,7 +19,7 @@ function Welcome() {
           This was created to highlight the countless artists that don't get the recognition 
           they deserve. We see you and we honor you.
         </p>
-        <button className="px-5 py-3 bg-neutral-300 rounded-md text-sm text-stone-800">
+        <button onClick={() => goHome()} className="px-5 py-3 bg-neutral-300 rounded-md text-sm text-stone-800">
           Get Started
         </button>
       </div>

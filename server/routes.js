@@ -269,7 +269,8 @@ const map_country = async (req, res) => {
 
 // GET colorful_artists/:colorfulness
 const colorful_artists = async (req, res) => {
-  const colorfulness = req.query.color ? req.query.color : 15;
+  const colorfulnessHigh = req.query.colorfulnessHigh ? req.query.colorfulnessHigh : 100;
+  const colorfulnessLow = req.query.colorfulnessLow ? req.query.colorfulnessLow  : 50;
 
   connection.query(
     `SELECT AR.id, AR.image_id
@@ -284,7 +285,7 @@ const colorful_artists = async (req, res) => {
         JOIN Artwork ON Artwork.id = Made.artwork_id
         WHERE Artwork.image_id IS NOT NULL
         GROUP BY Artist.id
-        HAVING AVG(Artwork.colorfulness) >= ${colorfulness}
+        HAVING AVG(Artwork.colorfulness) <= ${colorfulnessHigh} AND AVG(Artwork.colorfulness) >= ${colorfulnessLow} 
       )
     ORDER BY RAND()
     LIMIT 4;

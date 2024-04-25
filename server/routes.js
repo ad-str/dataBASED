@@ -168,13 +168,13 @@ const era_descriptors = async (req, res) => {
 const proportion_unknown = async (req, res) => {
   connection.query(
     `SELECT
-      A.place_of_origin AS Country,
+      A.country AS Country,
       SUM(IF(M.artist_id IS NULL, 1, 0)) AS Artworks_Without_Artist,
       COUNT(A.id) AS Total_Artworks,
       (SUM(IF(M.artist_id IS NULL, 1, 0)) / COUNT(A.id)) * 100 AS Proportion_Unknown_Artist
     FROM Artwork A
     LEFT JOIN Made M ON A.id = M.artwork_id
-    GROUP BY A.place_of_origin
+    GROUP BY A.country
     HAVING Total_Artworks > 0
     ORDER BY Proportion_Unknown_Artist DESC`,
     (err, data) => {
@@ -223,10 +223,10 @@ const top_artists = async (req, res) => {
     FROM Artwork AT
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id
-    WHERE AT.place_of_origin LIKE '%${location}%' AND AR.name  IS NOT NULL
-    GROUP BY AR.name, AR.id
+    WHERE AT.country LIKE '%${location}%'  AND AR.name NOT LIKE  'Artist unknown'
+    GROUP BY AR.name
     ORDER BY COUNT(AR.id) DESC
-    LIMIT 5
+    LIMIT 5;
 `,
     (err, data) => {
       if (err || data.length === 0) {
@@ -240,7 +240,6 @@ const top_artists = async (req, res) => {
   );
 };
 
-
 // GET /map
 // Given a country and a year range, return artworks where the year range overlaps with the specified range in the query
 const map_country = async (req, res) => {
@@ -250,7 +249,7 @@ const map_country = async (req, res) => {
   connection.query(
     `SELECT title, id, image_id
     FROM Artwork
-    WHERE place_of_origin LIKE '%${country}%' 
+    WHERE country LIKE '${country}%' 
     AND image_id IS NOT NULL 
     AND start_year <= ${endYear} 
     AND end_year >= ${startYear}
@@ -270,22 +269,26 @@ const map_country = async (req, res) => {
 
 // GET colorful_artists/:colorfulness
 const colorful_artists = async (req, res) => {
-  const colorfulness = req.query.color ? req.query.color : 15;
+  const colorfulnessHigh = req.query.colorfulnessHigh ? req.query.colorfulnessHigh : 100;
+  const colorfulnessLow = req.query.colorfulnessLow ? req.query.colorfulnessLow  : 50;
 
   connection.query(
-    `WITH ColorfulArtists AS (
-SELECT Artist.name AS Name, Artist.id AS IdNum, AVG(Artwork.colorfulness) AS avg_colorfulness
-FROM Artist
-JOIN Made ON Made.artist_id = Artist.id JOIN Artwork ON Artwork.id = Made.artwork_id
-WHERE Artwork.image_id IS NOT NULL
-GROUP BY Artist.id, Artist.name
-HAVING AVG(Artwork.colorfulness) >= ${colorfulness})
-SELECT AT.name AS ArtistName, AR.title AS Piece, AR.image_id
-FROM Artist AS AT JOIN Made AS M ON M.artist_id = AT.id JOIN Artwork AS AR ON AR.id = M.artwork_id
-WHERE AT.id IN (SELECT IdNum FROM ColorfulArtists) 
-ORDER BY 
-RAND()
-LIMIT 1;
+    `SELECT AR.id, AR.image_id
+    FROM Artist AS AT
+    JOIN Made AS M ON M.artist_id = AT.id
+    JOIN Artwork AS AR ON AR.id = M.artwork_id
+    WHERE AR.image_id IS NOT NULL
+      AND AT.id IN (
+        SELECT Artist.id
+        FROM Artist
+        JOIN Made ON Made.artist_id = Artist.id
+        JOIN Artwork ON Artwork.id = Made.artwork_id
+        WHERE Artwork.image_id IS NOT NULL
+        GROUP BY Artist.id
+        HAVING AVG(Artwork.colorfulness) <= ${colorfulnessHigh} AND AVG(Artwork.colorfulness) >= ${colorfulnessLow} 
+      )
+    ORDER BY RAND()
+    LIMIT 4;
 `,
     (err, data) => {
       //return empty array for ranges where there are no artist
@@ -393,10 +396,11 @@ const artwork_materials = async (req, res) => {
 const artwork_description = async (req, res) => {
   const artworkId = req.params.artwork_id;
   connection.query(
-    `SELECT AT.title AS title, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
-    FROM Artwork AS AT
-    JOIN Made M ON M.artwork_id = AT.id
-    JOIN Artist AR ON AR.id = M.artist_id
+    `SELECT AT.title AS title, D.title AS materials, AT.end_year AS year, AR.name AS artist, AT.image_id AS image
+    FROM Descriptor AS D
+    JOIN Artwork AS AT ON AT.id = D.artwork_id
+    JOIN Made AS M ON M.artwork_id = AT.id
+    JOIN Artist AS AR ON AR.id = M.artist_id
     WHERE AT.id = ${artworkId}`,
     (err, data) => {
       if (err || data.length === 0) {
@@ -404,7 +408,7 @@ const artwork_description = async (req, res) => {
         console.error("Error fetching artwork description:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
-        res.json(data[0]);
+        res.json(data);
       }
     }
   );
@@ -417,11 +421,11 @@ const three_artworks = async (req, res) => {
   const medium = req.params.medium;
 
   connection.query(
-    `SELECT DISTINCT AT.id AS id, AT.image_id AS image
+    `SELECT AT.id AS id, AT.image_id AS image
     FROM Artwork AT
     JOIN Descriptor D1 ON D1.artwork_id = AT.id
     JOIN Descriptor D2 ON D2.artwork_id = AT.id
-    WHERE D1.aspect = 'artwork_type' AND D1.title = '${artworkType}' AND D2.aspect = 'classification' AND D2.title LIKE '%${medium}%'
+    WHERE D1.aspect = 'artwork_type' AND D1.title = '${artworkType}' AND D2.aspect = 'classification' AND D2.title LIKE '%${medium}%' AND AT.image_id IS NOT NULL
     ORDER BY RAND()
     LIMIT 3`,
     (err, data) => {

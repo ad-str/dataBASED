@@ -60,6 +60,7 @@ export default function ArtAtlas() {
       setTopArtists(topArtistsResponse.data);
       console.log(topArtistsResponse.data)
     } catch (error) {
+      setArtworks([]);
       console.error("Failed to fetch artworks", error);
     }
   };
@@ -234,18 +235,20 @@ export default function ArtAtlas() {
       - delete artists count
       -if  we have time make a bar chart using the counts?
       */}
-                        {/* Top Artists Section */}
-                        <div style={{ flex: 1, width: '100%', maxWidth: '800px', marginTop: '20px' }}>
-        <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400" >Prominent Artists in {activeCountry}:</h2>
-        <ul>
-          {topArtists.map((artist) => (
-            <li key={artist.name}>
-              {artist.name} {artist.count} pieces
-            
-            </li>
-          ))}
-        </ul>
+      {/* Top Artists Section */}
+      {artworks.length != 0 &&
+        <div style={{ flex: 1, width: '100%', maxWidth: '800px', marginTop: '20px' }}>
+          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400" >Prominent Artists in {activeCountry}:</h2>
+          <ul>
+            {topArtists.map((artist) => (
+              <li key={artist.name}>
+                {artist.name} {artist.count} pieces
+              
+              </li>
+            ))}
+          </ul>
         </div>
+      }
     </>
   );
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ArtworkDropdown from "../components/DropdownButton";
 import config from "../config.json";
 import { Box, Container } from "@mui/material";
 import ArtworkCard from "../components/ArtworkCard";
 const url = `http://${config.server_host}:${config.server_port}`;
+import many_versions_gif from "../assets/many_versions.gif";
 
 export default function StealLike() {
   const artwork = [
@@ -107,6 +107,7 @@ export default function StealLike() {
   useEffect(() => {
     const fetchThreePieces = async () => {
       try {
+        const startTime = performance.now();
         const response = await fetch(
           `${url}/three_artworks/${ArtworkType}/${mediumClassification}`
         );
@@ -115,6 +116,9 @@ export default function StealLike() {
         }
         const data = await response.json();
         setArtworks(data);
+        const endTime = performance.now();
+        const elapsedTime = endTime - startTime;
+        console.log(`Request took ${elapsedTime} milliseconds`);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -152,76 +156,92 @@ export default function StealLike() {
   const flexFormat = {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     justifyContent: "space-evenly",
   };
 
   return (
     <>
-      <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Use the art generator
-      </h1>
-      <div class="flex justify-between ...">
+      <div>
+        <img
+          class="h-auto max-w-lg mx-auto"
+          src={many_versions_gif}
+          alt="Your GIF"
+          width="300"
+          height="200"
+        ></img>
+      </div>
+      <div>
         <div>
-          <img
-            class="w-full h-auto max-w-xl rounded-lg"
-            src={paintingImage} // Use the `default` property of the imported module
-            alt="Painting Versions" // Provide a meaningful alt text
-          />
-        </div>
-        <div>
-          <h5 class="text-xl font-bold dark:text-white">
+          <h2 class=" p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Steal Like An Artist
-          </h5>
+          </h2>
 
-          <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <p class="pt-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             Coined by Austin Kleon, 'steal like an artist' highlights how
             artists draw inspiration from each other, creating a continuous flow
             of creativity.{" "}
           </p>
         </div>
       </div>
-      <div class="flex justify-between ...">
+      <div>
         <div>
-          <p class="pt-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <h2 class="pt-6 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Use the artwork generator
+          </h2>
+          <p class="p-1 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
             {" "}
-            Indicate which type of art you want to make and what medium you
-            specialize in.
+            Indicate your preferred art type and medium. Use the artwork as
+            inspiration and mimic materials if they are known.
           </p>
         </div>
-        <div className="Cascading">
-          <h2> Select Artwork Type & Medium </h2>
-          <select
-            className="form-control"
-            value={ArtworkType}
-            onChange={changeArtworkType}
-          >
-            <option>--Artwork Type--</option>
-            {artwork.map((ctr) => (
-              <option value={ctr.type}>{ctr.type}</option>
-            ))}
-          </select>
-          <br />
-          <select
-            className="form-control"
-            value={mediumType}
-            onChange={changeMediumType}
-          >
-            <option>--Medium--</option>
-            {mediums.map((medium) => (
-              <option value={medium}>{medium}</option>
-            ))}
-          </select>
+        <div>
+          <div className="p-4 w-100 mt-5n">
+            <h5 class="text-l font-bold dark:text-white">
+              {" "}
+              Select Artwork Type & Medium{" "}
+            </h5>
+            <div class="p-4">
+              <select
+                className="form-control"
+                value={ArtworkType}
+                onChange={changeArtworkType}
+              >
+                <option>--Artwork Type--</option>
+                {artwork.map((ctr) => (
+                  <option value={ctr.type}>{ctr.type}</option>
+                ))}
+              </select>
+              <br />
+              <select
+                className="form-control"
+                value={mediumType}
+                onChange={changeMediumType}
+              >
+                <option>--Medium--</option>
+                {mediums.map((medium) => (
+                  <option value={medium}>{medium}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
-      <h3 class="text-3xl font-bold dark:text-white">Click on a piece</h3>
+      <h5 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Click on a piece
+      </h5>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <img
             key={artwork.id}
             src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
             onClick={() => handleArtworkClick(artwork.id)}
-            style={{ cursor: "pointer", marginRight: "10px" }}
+            style={{
+              cursor: "pointer",
+              marginRight: "10px",
+              maxWidth: "300px",
+              height: "auto",
+            }}
           />
         ))}
       </Container>

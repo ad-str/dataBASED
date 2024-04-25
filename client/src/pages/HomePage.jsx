@@ -89,7 +89,7 @@ export default function HomePage() {
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={` 3 Colorful Artworks`}
-              style={{width: "400px", height: "400px", objectFit: "contain", cursor: "pointer", margin: "20px", padding: "20px", marginBottom: "10px", border: "5px solid #3c84f4",  borderRadius: "20px", background : "#C1c7d0"}}
+              style={{width: "400px", height: "400px", objectFit: "contain", cursor: "pointer", margin: "20px", padding: "20px", marginBottom: "10px", boxShadow: "0 0 0 5px #3c84f4, 0 0 0 10px #833ab4",  borderRadius: "20px", background : "#fbeaf3"}}
               onClick={() => handleArtworkClick(artwork.id)}
             />
           </div>

@@ -14,7 +14,6 @@ CREATE TABLE Artwork
     title           TEXT,
     start_year      INT,
     end_year        INT,
-    place_of_origin VARCHAR(255),
     image_id        VARCHAR(36),
     color           VARCHAR(100),
     colorfulness    DECIMAL(8, 4),

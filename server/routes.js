@@ -249,7 +249,7 @@ const map_country = async (req, res) => {
   connection.query(
     `SELECT title, id, image_id
     FROM Artwork
-    WHERE country LIKE '${country}%' 
+    WHERE country = '${country}' 
     AND image_id IS NOT NULL 
     AND start_year <= ${endYear} 
     AND end_year >= ${startYear}

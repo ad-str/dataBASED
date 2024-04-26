@@ -16,7 +16,7 @@ export default function HomePage() {
   const [colorfulnessRange, setColorfulnessRange] = useState("");
 
   useEffect(() => {
-    fetch(`${url}/artist`)
+    fetch(`${url}/featured-artists`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");

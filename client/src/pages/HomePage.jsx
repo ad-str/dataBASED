@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import ArtworkCard from "../components/ArtworkCard";
+import ArtistCard from "../components/ArtistCard";
 
 import config from "../config.json";
 
@@ -12,11 +13,13 @@ export default function HomePage() {
   const [author, setAuthor] = useState("");
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
+  const [showArtistCard, setShowArtistCard] = useState(false);
+  const [selectedArtistInfo, setSelectedArtistInfo] = useState(null);
   const [error, setError] = useState("");
   const [colorfulnessRange, setColorfulnessRange] = useState("");
 
   useEffect(() => {
-    fetch(`${url}/artist`)
+    fetch(`${url}/featured-artists`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");
@@ -44,6 +47,15 @@ export default function HomePage() {
 
   const handleCloseArtworkCard = () => {
     setShowArtworkCard(false);
+  };
+
+  const handleArtistClick = (artist) => {
+    setSelectedArtistInfo(artist);
+    setShowArtistCard(true);
+  };
+
+  const handleCloseArtistCard = () => {
+    setShowArtistCard(false);
   };
 
   const handleColorfulnessRangeChange = (e) => {
@@ -93,20 +105,27 @@ export default function HomePage() {
           unleash your inner artist.
         </p>
       </div>
-      <div className="image-container" style={{
-                margin: "50px"}}>
+      <div
+        className="image-container"
+        style={{
+          margin: "50px",
+        }}
+      >
         {colorfulImage.map((artwork) => (
-          <div key={artwork.id} className="flex justify-center" 
-               style={{
-                margin: "50px", 
-                textAlign: "center" 
-                }}>
+          <div
+            key={artwork.id}
+            className="flex justify-center"
+            style={{
+              margin: "50px",
+              textAlign: "center",
+            }}
+          >
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={` 3 Colorful Artworks`}
               style={{
-                width: "300px",
-                height: "300px",
+                width: "200px",
+                height: "200px",
                 objectFit: "contain",
                 cursor: "pointer",
                 margin: "0px",
@@ -163,18 +182,23 @@ export default function HomePage() {
       {error && <p className="flex justify-center">{error}</p>}
 
       {/* TODO possibly add artist bios as a component? */}
-
-      {/* <p>Artists to explore:</p>
-      <ul>
-        {artists.map((artist, index) => (
-          //<h4 key={index}>{artist.name}</h4>
-          <h4 key={artist.id}>
-            {" "}
-            <NavLink to={`/artist/${artist.id}`}>{artist.name}</NavLink>
-          </h4>
-        ))}
-      </ul> */}
-      <p class="pt-18 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <div className="pb-4 flex justify-center">
+        <p>Featured Artists to explore: </p>
+        <ul>
+          {artists.map((artist, index) => (
+            <li key={index} onClick={() => handleArtistClick(artist)}>
+              {artist.name}
+            </li>
+          ))}
+        </ul>
+        {showArtistCard && (
+          <ArtistCard
+            artistInfo={selectedArtistInfo}
+            handleClose={handleCloseArtistCard}
+          />
+        )}
+      </div>
+      <p class="pt-10 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
         {" "}
         {author}{" "}
       </p>

@@ -10,7 +10,6 @@ function Welcome() {
   }
   return (
     <div className="min-h-screen flex justify-center p-5 items-center">
-      <NavBar />
       <div className="space-y-5 text-center gap-5">
         <h1 className="lg:text-4xl text-2xl  font-bold">
           Welcome to ArtBased

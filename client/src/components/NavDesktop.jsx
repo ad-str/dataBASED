@@ -1,17 +1,20 @@
 import { NavLink } from "react-router-dom";
 import { Container, Box } from '@mui/material'
+import { Squash as Hamburger } from "hamburger-react";
 
 export const NavDesktop = () => {
+  
   return (
-    <Container className="hidden lg:flex lg:items-center gap-5 text-sm">
-          <NavLink to="/home" className="flex items-center gap-1 hover:text-neutral-400 transition-all"
-          > ArtBased </NavLink>
-          <NavLink to="/map" className="flex items-center gap-1 hover:text-neutral-400 transition-all"
+    <div className="hidden lg:flex lg:items-center gap-1 text-lg">
+          <NavLink to="/home" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+          > Home 
+          </NavLink>
+          <NavLink to="/map" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
           > Art Map </NavLink>
-          <NavLink to="/nameless" className="flex items-center gap-1 hover:text-neutral-400 transition-all"
+          <NavLink to="/nameless" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
           > Nameless Artists </NavLink>
-          <NavLink to="/steal" className="flex items-center gap-1 hover:text-neutral-400 transition-all"
+          <NavLink to="/steal" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
           > Steal Like An Artist </NavLink>
-    </Container>
+    </div>
   );
 };

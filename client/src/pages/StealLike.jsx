@@ -162,15 +162,7 @@ export default function StealLike() {
 
   return (
     <>
-      <div>
-        <img
-          class="h-auto max-w-lg mx-auto"
-          src={many_versions_gif}
-          alt="Your GIF"
-          width="300"
-          height="200"
-        ></img>
-      </div>
+      
       <div>
         <div>
           <h2 class=" p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -183,6 +175,15 @@ export default function StealLike() {
             of creativity.{" "}
           </p>
         </div>
+        <div>
+        <img
+          class="h-auto max-w-lg mx-auto"
+          src={many_versions_gif}
+          alt="Your GIF"
+          width="300"
+          height="200"
+        ></img>
+      </div>
       </div>
       <div>
         <div>

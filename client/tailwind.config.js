@@ -16,4 +16,12 @@ export default {
     },
   },
   plugins: [],
+  animation: {
+    shine: "shine 1s",
+  },
+  keyframes: {
+    shine: {
+      "100%": { left: "125%" },
+    },
+  },
 };

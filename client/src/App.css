@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    font-size: 62.5%;
+    color: #121212;
+  }
+  
+  .utility__page {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    row-gap: 2rem;
+    flex-direction: column;
+    background: #e2dbd9;
+  }
+  
+  h1 {
+    font-size: 5rem;
+  }
+  
+  button {
+    padding: 1rem 4rem;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  button img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  span {
+    font-weight: bold;
+  }
+  
+  .user {
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+  }
+  
+  .logout {
+    background: rgb(208, 84, 84);
+    color: #fff;
+  }
+  
+  .profile_img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  }

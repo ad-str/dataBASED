@@ -80,13 +80,15 @@ export default function HomePage() {
   return (
     <>
       <div>
-        <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
-          An art haven for{" "}
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600">
-            art lovers.
-          </span>
-        </h1>
-        <p class="p-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
+        <div class="flex justify-center">
+          <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            An art haven for{" "}
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600">
+              art lovers.
+            </span>
+          </h1>
+        </div>
+        <p class="pt-2 pl-4 pr-4 pb-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
           Explore art from every corner of the globe, honor forgotten artists,
           and unleash your inner artist.
         </p>
@@ -105,7 +107,7 @@ export default function HomePage() {
                 margin: "20px",
                 padding: "20px",
                 marginBottom: "10px",
-                boxShadow: "0 0 0 5px #3c84f4, 0 0 0 10px #833ab4",
+                boxShadow: " 0 0 0 6px #833ab4",
                 borderRadius: "20px",
                 background: "#fbeaf3",
               }}
@@ -167,7 +169,7 @@ export default function HomePage() {
           </h4>
         ))}
       </ul> */}
-      <p class="pt-18 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <p class="pt-18 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
         {" "}
         {author}{" "}
       </p>

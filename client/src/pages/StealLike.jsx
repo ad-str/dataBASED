@@ -179,8 +179,7 @@ export default function StealLike() {
             class="h-auto max-w-lg mx-auto flex justify-center"
             src={many_versions_gif}
             alt="Your GIF"
-            width="300"
-            height="200"
+            width="375"
           ></img>
         </div>
       </div>

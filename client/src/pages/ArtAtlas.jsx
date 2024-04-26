@@ -55,7 +55,7 @@ export default function ArtAtlas() {
 
   const countryStyles = (countryName) => ({
     default: {
-      fill: countryName === activeCountry ? "#E42" : "#00c04b", // Active country gets a different fill
+      fill: countryName === activeCountry ? "#E42" : "#4ba44a", // Active country gets a different fill
       stroke: "#FFFFFF",
       strokeWidth: 0.75,
       outline: "none",
@@ -113,14 +113,17 @@ export default function ArtAtlas() {
         Art Atlas
       </h1>
 
-      <p class="pl-8 pr-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <p class="pt-2 pl-8 pr-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
         Unveil hidden connections between art and geography, get a new
         perspective on art history, or plan your own art adventure.
       </p>
 
       {/* The slider container */}
       <div class="m-5">
-        <p id="range-slider" class="pl-4 pr-4 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center">
+        <p
+          id="range-slider"
+          class="pl-4 pr-4 pb-2 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center"
+        >
           Year Range
         </p>
         <Slider
@@ -158,7 +161,7 @@ export default function ArtAtlas() {
             display: "flex",
             flex: 3,
             position: "relative",
-            backgroundColor: "blue",
+            backgroundColor: "#98d0ef",
             padding: "5px",
             boxSizing: "border-box",
             borderRadius: "60px",
@@ -220,7 +223,7 @@ export default function ArtAtlas() {
             </h2>
             {activeCountry && (
               <Button
-                style={{ marginLeft: "20px" }}
+                style={{ marginLeft: "20px", backgroundColor: "#9ca3af" }}
                 variant="contained"
                 color="primary"
                 onClick={regenerateArtworks}
@@ -284,7 +287,7 @@ export default function ArtAtlas() {
             marginTop: "20px",
           }}
         >
-          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ">
             Prominent Artists in {activeCountry}:
           </h2>
           <ul>

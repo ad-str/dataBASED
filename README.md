@@ -15,28 +15,66 @@ Welcome to our project setup guide! This guide is designed to help you get the p
 
 ## Prerequisites
 
-Before you begin, be sure that you have the following installed:
+Before you begin, be sure that you have the following installed to download the rest of our dependencies to run the application:
 
 - [Node.js (20.12 or newer)](https://nodejs.org/en)
-- npm (Node package manage)
+- npm (Node package manager, comes pre-installed with newer version of Node.js)
+- Google Chrome [(latest version)](https://www.google.com/chrome/)
+
+#### If you would you would like to run the Data cleaning scripts you will need Python
+
+- Python [(Version 3.10 or newer )](https://www.python.org/downloads/)
+
 
 ## Initial Setup
 
 1. **Clone the Repository**: Start by cloning the project repository to your local machine.
-2. **Navigate to the Project Directory**: After cloning, change into the project directory:`cd dataBASED/client/src`
-3. **Install Dependencies**:
+
+2. **Navigate to the Project Directory**: After cloning, change into the project directory through the terminal`cd dataBASED/client/src`
+
+3. **Open multiple Terminals**: Open a second terminal tab or split the terminal in the editor of your choosing
+
+4. **Navigate to the Server Side in Terminal 1** `cd dataBASED/server`
+
+5. **Navigate to the Client Side in Terminal 2** `cd dataBASED/client`
+   
+6. **Install  Dependencies on Terminal 1 & 2**: Installs dependencies on server side and client side
 ```
 npm i
 ```
-
-
-## Running the Client Side in React+Vite
-
-   ```
-   npm run dev
-   ```
-## Running the Server Side in Node js
+## Running the Server Side in Express + Node js 
+Runs the backend services for our web app in development mode, including routes to database and login
 
    ```
    npm start
    ```
+Click or enter [http://localhost:8080/](http://localhost:8080/) in your Google Chrome browser to test server side routes
+
+## Running the Client Side in React+Vite
+Runs the frontend services for our web app in development, including visual display with HMR
+
+   ```
+   npm run dev
+   ```
+Click or enter [http://localhost:5173/](http://localhost:5173/) in your Google Chrome browser to view front end display and interact with web app (ensure server side is running to experience full web app capability)
+
+## To close Server Side & Client Side
+Execute this command in each terminal seperately to stop the application
+
+   ```
+   Ctrl+C
+   ```
+
+# External Resources and Documentation
+
+[React](https://react.dev/blog/2023/03/16/introducing-react-dev)
+
+[Vite](https://vitejs.dev/)
+
+[Express](https://expressjs.com/)
+
+[Node](https://nodejs.org/docs/latest/api/)
+
+[Python](https://docs.python.org/3/)
+
+

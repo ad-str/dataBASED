@@ -10,6 +10,7 @@ export default function Welcome () {
     const navigate = useNavigate();
     const { user } = useAuthContext();
 
+    
     const fetchUserName = async () => {
         try {
           const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -26,7 +27,9 @@ export default function Welcome () {
     useEffect(() => {
         console.log(user);
         fetchUserName();
-    }, [user]);
+    }, [user]); 
+
+    //useEffect(() => console.log(user), [user]);
 
     const goHome=()=>{
         navigate("/home");
@@ -43,8 +46,6 @@ export default function Welcome () {
                 <p> You&apos;re logged in as: </p>
 
                 <span>{user.displayName} </span>
-                <img className="profile_img" src={user.photoURL} alt="" />
-                <div> {name}</div>
             </div>
 
             <input

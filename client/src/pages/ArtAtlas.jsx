@@ -113,13 +113,13 @@ export default function ArtAtlas() {
         Art Atlas
       </h1>
 
-      <p class="pl-4 pr-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <p class="pl-8 pr-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
         Unveil hidden connections between art and geography, get a new
         perspective on art history, or plan your own art adventure.
       </p>
 
       {/* The slider container */}
-      <div style={{ margin: "10px 0" }}>
+      <div class="p-10" style={{ margin: "10px 0" }}>
         <Typography id="range-slider" gutterBottom>
           Year Range
         </Typography>
@@ -137,7 +137,7 @@ export default function ArtAtlas() {
             { value: 2023, label: "2023" },
           ]}
         />
-        <Typography>
+        <Typography class="text-gray-900">
           Selected range: {yearRange[0]} to {yearRange[1]}
         </Typography>
       </div>
@@ -159,13 +159,13 @@ export default function ArtAtlas() {
             flex: 3,
             position: "relative",
             backgroundColor: "blue",
-            padding: "20px",
+            padding: "5px",
             boxSizing: "border-box",
-            borderRadius: "10px",
+            borderRadius: "60px",
           }}
           onMouseMove={handleMouseMove}
         >
-          <ComposableMap>
+          <ComposableMap class="p-6">
             <Geographies geography="/features.json">
               {({ geographies }) =>
                 geographies.map((geo) => (
@@ -296,7 +296,7 @@ export default function ArtAtlas() {
           <ul>
             {topArtists.map((artist) => (
               <li key={artist.name}>
-                {artist.name} {artist.count} pieces
+                {artist.name}, {artist.count} pieces
               </li>
             ))}
           </ul>

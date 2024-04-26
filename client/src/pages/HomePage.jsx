@@ -107,9 +107,9 @@ export default function HomePage() {
                 margin: "20px",
                 padding: "20px",
                 marginBottom: "10px",
-                boxShadow: " 0 0 0 6px #833ab4",
+                boxShadow: " 0 0 0 5px #833ab4",
                 borderRadius: "20px",
-                background: "#fbeaf3",
+                background: "#f3f4f6",
               }}
               onClick={() => handleArtworkClick(artwork.id)}
             />
@@ -132,11 +132,11 @@ export default function HomePage() {
           onChange={handleColorfulnessRangeChange}
           style={{
             padding: "10px",
-            border: "2px solid #3c84f4",
+            border: "2px solid #8a8f96",
             borderRadius: "5px",
             margin: "40px",
             width: "450px",
-            background: "#C1c7d0",
+            background: "#f3f4f6",
           }}
         />
         <button

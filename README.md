@@ -15,32 +15,40 @@ Welcome to our project setup guide! This guide is designed to help you get the p
 
 ## Prerequisites
 
-Before you begin, be sure that you have the following installed:
+Before you begin, be sure that you have the following installed to download the rest of our dependencies:
 
 - [Node.js (20.12 or newer)](https://nodejs.org/en)
-- npm (Node package manage)
+- npm (Node package manager, 10.0.6 or newer)
 
 ## Initial Setup
 
 1. **Clone the Repository**: Start by cloning the project repository to your local machine.
-2. **Navigate to the Project Directory**: After cloning, change into the project directory:`cd dataBASED/client/src`
-3. **Install Dependencies**:
+
+2. **Navigate to the Project Directory**: After cloning, change into the project directory through the terminal`cd dataBASED/client/src`
+
+3. **Open multiple Terminals**: Open a second terminal tab or split the terminal in the editor of your choosing
+
+4. **Navigate to the Server Side in Terminal 1** `cd dataBASED/server`
+
+5. **Navigate to the Client Side in Terminal 2** `cd dataBASED/client`
+   
+6. **Install  Dependencies on Terminal 1 & 2**: Installs dependencies on server side and client side
 ```
 npm i
 ```
-
-
-## Running the Client Side in React+Vite
-
-   ```
-   npm run dev
-   ```
-## Running the Server Side in Node js
+## Running the Server Side in Express + Node js 
+Runs the backend services for our web app, including routes to database and login
 
    ```
    npm start
    ```
+## Running the Client Side in React+Vite
+Runs the frontend services for our web app, including visual display with HMR
+   ```
+   npm run dev
+   ```
 ## To close Server Side & Client Side
+Execute this command in each terminal seperately to stop the application
 
    ```
    Ctrl+C

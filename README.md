@@ -15,10 +15,16 @@ Welcome to our project setup guide! This guide is designed to help you get the p
 
 ## Prerequisites
 
-Before you begin, be sure that you have the following installed to download the rest of our dependencies:
+Before you begin, be sure that you have the following installed to download the rest of our dependencies to run the application:
 
 - [Node.js (20.12 or newer)](https://nodejs.org/en)
-- npm (Node package manager, 10.0.6 or newer)
+- npm (Node package manager, comes pre-installed with newer version of Node.js)
+- Google Chrome [(latest version)](https://www.google.com/chrome/)
+
+#### If you would you would like to run the Data cleaning scripts you will need Python
+
+- Python [(Version 3.10 or newer )](https://www.python.org/downloads/)
+
 
 ## Initial Setup
 
@@ -37,21 +43,38 @@ Before you begin, be sure that you have the following installed to download the 
 npm i
 ```
 ## Running the Server Side in Express + Node js 
-Runs the backend services for our web app, including routes to database and login
+Runs the backend services for our web app in development mode, including routes to database and login
 
    ```
    npm start
    ```
+Click or enter [http://localhost:8080/](http://localhost:8080/) in your Google Chrome browser to test server side routes
+
 ## Running the Client Side in React+Vite
-Runs the frontend services for our web app, including visual display with HMR
+Runs the frontend services for our web app in development, including visual display with HMR
+
    ```
    npm run dev
    ```
+Click or enter [http://localhost:5173/](http://localhost:5173/) in your Google Chrome browser to view front end display and interact with web app (ensure server side is running to experience full web app capability)
+
 ## To close Server Side & Client Side
 Execute this command in each terminal seperately to stop the application
 
    ```
    Ctrl+C
    ```
+
+# External Resources and Documentation
+
+[React](https://react.dev/blog/2023/03/16/introducing-react-dev)
+
+[Vite](https://vitejs.dev/)
+
+[Express](https://expressjs.com/)
+
+[Node](https://nodejs.org/docs/latest/api/)
+
+[Python](https://docs.python.org/3/)
 
 

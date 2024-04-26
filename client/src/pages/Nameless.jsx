@@ -17,38 +17,37 @@ export default function Nameless() {
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
   const [artworkCount, setArtworkCount] = useState([]);
   const [pagination, setPagination] = useState({
-        count: 0,
-        from: 0,
-        to: pageSize
-    });
+    count: 0,
+    from: 0,
+    to: pageSize,
+  });
 
-    useEffect(() => {
-        const fetchArtworks = async ({from, to}) => {
-            try {
-              const response = await fetch(`${url}/unknownArtists`);
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              const data = await response.json();
-              const slicedArtworks = data.slice(from, to);
-              setArtworks(slicedArtworks);
-              setArtworkCount(data.length);
-              setPagination({...pagination, count: artworkCount});
-            } catch (error) {
-              console.error("Error fetching unknown artists:", error);
-            }
-          };
+  useEffect(() => {
+    const fetchArtworks = async ({ from, to }) => {
+      try {
+        const response = await fetch(`${url}/unknownArtists`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        const slicedArtworks = data.slice(from, to);
+        setArtworks(slicedArtworks);
+        setArtworkCount(data.length);
+        setPagination({ ...pagination, count: artworkCount });
+      } catch (error) {
+        console.error("Error fetching unknown artists:", error);
+      }
+    };
 
-        fetchArtworks({from: pagination.from, to: pagination.to});
-      }, [pagination.from, pagination.to]);
+    fetchArtworks({ from: pagination.from, to: pagination.to });
+  }, [pagination.from, pagination.to]);
 
-    const handlePageChange = (event, page) => {
-        const from = (page - 1) * pageSize;
-        const to = (page - 1) * pageSize + pageSize;
+  const handlePageChange = (event, page) => {
+    const from = (page - 1) * pageSize;
+    const to = (page - 1) * pageSize + pageSize;
 
-        setPagination({ ...pagination, from: from, to: to});
-    }
-
+    setPagination({ ...pagination, from: from, to: to });
+  };
 
   const handleArtworkClick = (artworkID) => {
     setSelectedArtworkID(artworkID);
@@ -71,18 +70,21 @@ export default function Nameless() {
   // error fetching artwork description
   return (
     <>
-      <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
         Why Art History Needs a Rewrite
       </h1>
-      <p>
+      <p class="pl-8 pr-8 pb-4 flex jtext-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-centerustify-center">
         The art world hasn't always been a welcoming space. Throughout history,
         prejudice and bias have denied recognition to talented artists,
-        particularly women and people of color. Their captivating work might
-        have been dismissed as mere "folk art," or simply not valued by the
-        dominant art establishment. Without proper records or critical analysis,
-        these artists' legacies faded, their stories lost to time. Museums
-        exhibit often label these artists as 'unkown.'"
+        particularly women and people of color. Their work might have been
+        dismissed as "folk art," or simply not valued. Without proper records or
+        critical analysis, these artists' legacies faded, their stories lost to
+        time. Museums exhibit often label these artists as 'unkown.'"
       </p>
+      <h3 class="pl-8 pr-8 font-extrabold flex justify-center">
+        Explore below to break from the traditional focus on the same well-known
+        artists!
+      </h3>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <Box
@@ -106,14 +108,10 @@ export default function Nameless() {
             <h4 key={artwork.id}>{artwork.title}</h4>
           </Box>
         ))}
-            
       </Container>
       <Box display="flex" justifyContent="center">
-          <Pagination
-            count = {79}
-            onChange= {handlePageChange}
-          />     
-        </Box> 
+        <Pagination count={79} onChange={handlePageChange} />
+      </Box>
       {showArtworkCard && (
         <ArtworkCard
           artworkID={selectedArtworkID}
@@ -123,7 +121,6 @@ export default function Nameless() {
     </>
   );
 }
-
 
 /*B- grabbing images
 It would be nice to have the artwork pop up. At a minimum, the image should 

@@ -208,9 +208,42 @@ export default function ArtAtlas() {
               }}
             >
               {hoveredCountry}
+              
             </div>
           )}
+
+          
         </div>
+
+              {/* Top Artists Section */}
+      {artworks.length != 0 && (
+        <div
+          style={{
+            flex: 1,
+            width: "100%",
+            maxWidth: "800px",
+            margin: "20px",
+            flexDirection: 'column'
+          }}
+        >
+          <h1 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"  style={{fontSize : "30px", margin : "20px", }}>
+            Prominent Artists in {activeCountry}
+          </h1>
+          <ul>
+            {topArtists.map((artist) => (
+              <li key={artist.name}           
+              style={{
+                width: "100%",
+                margin: "20px",
+                flexDirection: 'column',
+                fontSize : "30px"
+              }}>
+                {artist.name}: {artist.count} pieces
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
         {/* The artworks container */}
         <div style={{ flex: 1 }} class="m-4 mt-0">
@@ -269,6 +302,8 @@ export default function ArtAtlas() {
               </h4>
             </div>
           ))}
+
+          
         </div>
       </div>
 
@@ -284,28 +319,7 @@ export default function ArtAtlas() {
       - delete artists count
       -if  we have time make a bar chart using the counts?
       */}
-      {/* Top Artists Section */}
-      {artworks.length != 0 && (
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            maxWidth: "800px",
-            marginTop: "20px",
-          }}
-        >
-          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
-            Prominent Artists in {activeCountry} during this time period:
-          </h2>
-          <ul>
-            {topArtists.map((artist) => (
-              <li key={artist.name}>
-                {artist.name}: {artist.count} pieces
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
     </>
   );
 }

@@ -306,6 +306,77 @@ const colorful_artists = async (req, res) => {
   );
 };
 
+// GET featured_artists/:colorfulnessHigh/:colorfulnessLow
+const featured_artists = async (req, res) => {
+  const colorfulnessHigh = req.query.colorfulnessHigh ? req.query.colorfulnessHigh : 100;
+  const colorfulnessLow = req.query.colorfulnessLow ? req.query.colorfulnessLow  : 0;
+
+  // fetches artists bios who are not well known by default
+  if (colorfulnessLow === 0 && colorfulnessHigh ===100){
+
+    
+    connection.query(
+    `SELECT Artist.name AS name, COUNT(Artwork.id) AS counts, Artwork.country as country, Artist.biography
+FROM Artist
+JOIN Made ON Made.artist_id = Artist.id
+JOIN Artwork ON Artwork.id = Made.artwork_id
+WHERE Artist.biography IS NOT NULL
+GROUP BY Artist.name, Artwork.country
+HAVING COUNT(Artwork.id) <= 10
+ORDER BY
+RAND() LIMIT 5;
+`,
+    (err, data) => {
+      //return empty array for ranges where there are no artist
+      if (err || data.length === 0) {
+        console.log(err);
+        console.error("Error fetching colorful artists:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+
+ 
+}else{
+
+  // do colorful artist with artist bios if user selects colorfulness options
+
+    connection.query(
+    `SELECT AR.id, AR.image_id, AT.biography, AT.name, AR.country
+    FROM Artist AS AT
+    JOIN Made AS M ON M.artist_id = AT.id
+    JOIN Artwork AS AR ON AR.id = M.artwork_id
+    WHERE AR.image_id IS NOT NULL
+      AND AT.id IN (
+        SELECT Artist.id
+        FROM Artist
+        JOIN Made ON Made.artist_id = Artist.id
+        JOIN Artwork ON Artwork.id = Made.artwork_id
+        WHERE Artwork.image_id IS NOT NULL AND Artist.biography IS NOT NULL
+        GROUP BY Artist.id
+        HAVING AVG(Artwork.colorfulness) <= ${colorfulnessHigh} AND AVG(Artwork.colorfulness) >= ${colorfulnessLow} 
+      )
+    ORDER BY RAND()
+    LIMIT 5;
+`,
+    (err, data) => {
+      //return empty array for ranges where there are no artist
+      if (err || data.length === 0) {
+        console.log(err);
+        console.error("Error fetching colorful artists:", err);
+        res.status(500).json({ err: "Internal Server Error" });
+      } else {
+        res.json(data);
+      }
+    }
+  );
+
+}
+}
+
+
 // Route: GET /unknown_artists
 /*This is a dedicated page for unknown artists. It showcases ones within the last
 century. This route implements page functionality for simplified browsing*/
@@ -459,4 +530,5 @@ module.exports = {
   artwork_description, //for Steal Like An Artist
   three_artworks, //for Steal Like An Artist
   map_country, //for ArtAtlas
+  featured_artists, //gets featured artists for home page
 };

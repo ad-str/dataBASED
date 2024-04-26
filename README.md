@@ -40,3 +40,10 @@ npm i
    ```
    npm start
    ```
+## To close Server Side & Client Side
+
+   ```
+   Ctrl+C
+   ```
+
+

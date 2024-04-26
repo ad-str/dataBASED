@@ -21,8 +21,8 @@ export default function ArtAtlas() {
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
+    const [startYear, endYear] = yearRange.toString().split(",");
     try {
-      const [startYear, endYear] = yearRange.toString().split(",");
       const response = await axios.get(`${url}/map`, {
         params: {
           country: countryName,
@@ -31,16 +31,23 @@ export default function ArtAtlas() {
         },
       });
       setArtworks(response.data);
-
-      // gets the top artists for the selected country
-      const topArtistsResponse = await axios.get(
-        `${url}/top-artists/${countryName}`
-      );
-      setTopArtists(topArtistsResponse.data);
-      console.log(topArtistsResponse.data);
     } catch (error) {
       setArtworks([]);
       console.error("Failed to fetch artworks", error);
+    }
+
+    try {
+      const response = await axios.get(`${url}/top-artists`, {
+        params: {
+          country: countryName,
+          startYear: startYear,
+          endYear: startYear,
+        },
+      });
+      setTopArtists(response.data);
+    } catch (error) {
+      setTopArtists([]);
+      console.error("Failed to fetch top artists", error);
     }
   };
 
@@ -287,13 +294,13 @@ export default function ArtAtlas() {
             marginTop: "20px",
           }}
         >
-          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 ">
-            Prominent Artists in {activeCountry}:
+          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+            Prominent Artists in {activeCountry} during this time period:
           </h2>
           <ul>
             {topArtists.map((artist) => (
               <li key={artist.name}>
-                {artist.name}, {artist.count} pieces
+                {artist.name}: {artist.count} pieces
               </li>
             ))}
           </ul>

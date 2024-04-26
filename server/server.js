@@ -20,7 +20,7 @@ app.get("/artist-descriptors/:artist_id", routes.artist_descriptors);
 app.get("/era-descriptors/:start_year/:end_year", routes.era_descriptors);
 app.get("/proportion-unknown", routes.proportion_unknown);
 app.get("/time-periods", routes.time_periods);
-app.get("/top-artists/:location", routes.top_artists);
+app.get("/top-artists", routes.top_artists);
 app.get("/colorful-artists", routes.colorful_artists);
 app.get("/unknownArtists", routes.unknown_artists);
 app.get("/artwork_materials/:artwork_id", routes.artwork_materials);

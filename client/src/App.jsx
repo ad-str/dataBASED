@@ -9,6 +9,7 @@ import Nameless from "./pages/Nameless";
 import StealLike from "./pages/StealLike";
 import Welcome from "./pages/Welcome";
 import Auth from "./pages/Auth";
+import Signup from "./pages/Signup";
 import { useAuthContext } from "./context/AuthContext";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 {/* Authention routes */}
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<Navigate to="/auth" />} />
+                <Route path="/Signup" element={<Signup />} />
               </>
             )}
           </Routes>

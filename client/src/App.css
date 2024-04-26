@@ -24,22 +24,15 @@
   h1 {
     font-size: 5rem;
   }
-  
-  button {
-    padding: 1rem 4rem;
-    font-size: 2rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+
+  p {
+    font-size: 14px;
   }
   
   button img {
-    width: 20px;
-    height: 20px;
+    width: 50x;
+    height: 50px;
+    margin: 20x;
   }
   
   span {
@@ -57,9 +50,63 @@
     background: rgb(208, 84, 84);
     color: #fff;
   }
-  
-  .profile_img {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-  }
+
+
+  form{
+    display: inline-block;
+    align-items: center;
+    height: 270px;
+    width: 350px;
+    margin-bottom: 170px;
+}
+.text_area{
+    align-content: center;
+    border-radius: 22px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 50px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.text_input{
+    display: center;
+    font-family: 'Montserrat regular';
+    font-size: 20px;
+    border: none;
+    width: 80%;
+}
+
+.btn{
+    margin-top: 28px;
+    width: 165px;
+    height: 60px;
+    border-radius: 30px;
+    background: #B58DED;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    color: #FFFFFF;
+    box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7), 0 6px 20px 0 rgba(181, 141, 237, 0.9);
+    cursor: pointer;
+}
+
+.login{
+    display: inline-block;
+    background: #FFFFFF;
+    width: 434px;
+    height: 700px;
+    margin-top: 10%;
+    border-radius: 22px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.link{
+    color: #0E4579;
+    font-family: 'Montserrat light';
+    font-size: 18px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+}

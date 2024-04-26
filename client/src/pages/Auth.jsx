@@ -39,10 +39,6 @@ const Auth = () => {
         <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">
           ArtBased
         </h1>
-        <p>
-          This was created to highlight the countless artists that don't get the recognition 
-          they deserve. We see you and we honor you.
-        </p>
         <form>
         <div className="text_area">
             <input
@@ -74,12 +70,12 @@ const Auth = () => {
       <p> Or login with Google/Facebook</p>
         <button onClick={google.signInWithSocial}>
         <img src={GoogleIcon} alt="" />
-        <span>Google</span>
+        <span className="p-1 justify-center">Google</span>
       </button>
 
       <button onClick={facebook.signInWithSocial}>
         <img src={FacebookIcon} alt="" />
-        <span>Facebook</span>
+        <span className="p-1 justify-center">Facebook</span>
       </button>
       </div>
     </div>

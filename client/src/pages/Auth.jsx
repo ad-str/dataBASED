@@ -2,43 +2,35 @@ import "../App.css";
 import GoogleIcon from "../assets/icon-google.svg";
 import FacebookIcon from "../assets/icon-facebook.svg";
 
-
 import {
-  auth,
   googleProvider,
-  facebookProvider,
+  facebookProvider, 
+  logInWithEmailAndPassword
 } from "../firebase/config";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useSocialSignup } from "../hooks/useSocialSignup";
 import { useAuthContext } from "../context/AuthContext";
 import { useState, useEffect } from "react";
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom';
 
-export default function Auth() {
+const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const {user} = useAuthContext();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
-      const user = userCredential.user;
-      localStorage.setItem('token', user.accessToken);
-      localStorage.setItem('user', JSON.stringify(user));
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  }
   const google = useSocialSignup(googleProvider);
   const facebook = useSocialSignup(facebookProvider);
 
-  const { user } = useAuthContext();
-
   useEffect(() => console.log(user), [user]);
+  /*useEffect(() => {
+    if (user) navigate("/welcome");
+  }, [user]);*/
+
+
+  const login=()=>{
+    logInWithEmailAndPassword(email, password);
+    navigate("/welcome");
+  }
 
   return (
     <div className="min-h-screen flex justify-center p-5 items-center">
@@ -50,10 +42,7 @@ export default function Auth() {
           This was created to highlight the countless artists that don't get the recognition 
           they deserve. We see you and we honor you.
         </p>
-        <h2 className="lg:text-4xl text-2xl  font-bold">
-          Sign In
-        </h2>
-        <form onSubmit={handleSubmit}>
+        <form>
         <div className="text_area">
             <input
             type="email"
@@ -74,13 +63,13 @@ export default function Auth() {
             onChange={(e) => setPassword(e.target.value)}
             />
         </div>
-        <input
-            type="submit"
-            value="SIGN IN"
+        <button 
             className="btn"
-          />
+            onClick={login}>
+                SIGN IN
+         </button>
       </form>
-      <p>Need to Signup? <Link to="/signup">Create Account</Link></p>
+      <p>Don't have an account? <Link to="/register">Register</Link></p>
       <p> Or login with Google/Facebook</p>
         <button onClick={google.signInWithSocial}>
         <img src={GoogleIcon} alt="" />
@@ -95,3 +84,5 @@ export default function Auth() {
     </div>
   );
 }
+
+export default Auth;

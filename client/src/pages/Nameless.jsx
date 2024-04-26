@@ -67,15 +67,15 @@ export default function Nameless() {
       <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
         Why Art History Needs a Rewrite
       </h1>
-      <p class="pl-8 pr-8 pb-4 flex jtext-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-centerustify-center">
+      <p class="pl-8 pr-8 pb-4  flextext-2xl font-normal text-gray-500 dark:text-gray-400 flex justify-centerustify-center">
         Art history has gaps. Many talented artists, particularly women and
         people of color, weren't recognized for their work. It might have been
         undervalued or dismissed as folk art. Without proper documentation,
         their stories and contributions faded over time. Museums sometimes label
         these artists as simply "unknown."
       </p>
-      <h3 class="text-2xl pl-8 pr-8 font-extrabold flex justify-center">
-        Explore below to break from the traditional focus on the same well-known
+      <h3 class="flex text-2xl pl-8 pr-8 font-extrabold flex justify-center">
+        View this gallery as a break from the traditional focus on the same well-known
         artists!
       </h3>
       <Container sx={flexFormat}>

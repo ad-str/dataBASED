@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { Container, Box } from "@mui/material";
-import { Squash as Hamburger } from "hamburger-react";
 import { useLogout } from "../hooks/useLogout";
+
 
 export const NavDesktop = () => {
   const { logout } = useLogout();
+
   return (
     <div className="hidden lg:flex lg:items-center gap-1 text-2xl">
       <NavLink

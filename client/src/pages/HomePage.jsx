@@ -14,7 +14,7 @@ export default function HomePage() {
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
   const [showArtistCard, setShowArtistCard] = useState(false);
-  const [selectedArtistID, setSelectedArtistID] = useState(null);
+  const [selectedArtistInfo, setSelectedArtistInfo] = useState(null);
   const [error, setError] = useState("");
   const [colorfulnessRange, setColorfulnessRange] = useState("");
 
@@ -49,8 +49,8 @@ export default function HomePage() {
     setShowArtworkCard(false);
   };
 
-  const handleArtistClick = (artistID) => {
-    setSelectedArtistID(artistID);
+  const handleArtistClick = (artist) => {
+    setSelectedArtistInfo(artist);
     setShowArtistCard(true);
   };
 
@@ -179,15 +179,15 @@ export default function HomePage() {
       <p>Featured Artists to explore:</p>
       <ul>
         {artists.map((artist, index) => (
-          <li key={index} onClick={() => handleArtistClick(artist.id)} >{artist.name}</li>
+          <li key={index} onClick={() => handleArtistClick(artist)} >{artist.name}</li>
         ))}
       </ul>
       {showArtistCard && (
-          <ArtistCard
-            artistID={setSelectedArtistID}
-            handleClose={handleCloseArtistCard}
-          />
-        )}
+        <ArtistCard
+          artistInfo={selectedArtistInfo}
+          handleClose={handleCloseArtistCard}
+        />
+      )}
       </div>
       <p class="pt-18 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
         {" "}

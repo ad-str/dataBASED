@@ -3,26 +3,8 @@ import { Box, Button, ButtonGroup, Modal } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import config from "../config.json";
 
-const url = `http://${config.server_host}:${config.server_port}`;
 
-export default function ArtistCard({ artistID, handleClose }) {
-  const [artistInfo, setArtistInfo] = useState({});
-
-  useEffect(() => {
-    const fetchArtistInfo = async () => {
-      try {
-        const response = await fetch(`${url}/featured-artists`); //change fetch
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setArtistInfo(data);
-      } catch (error) {
-        console.error("Error fetching artwork info:", error);
-      }
-    };
-    fetchArtistInfo();
-  }, [artistID]);
+export default function ArtistCard({artistInfo, handleClose }) {
 
   return (
     <Modal
@@ -41,15 +23,15 @@ export default function ArtistCard({ artistID, handleClose }) {
           borderRadius: "16px",
           border: "2px solid #000",
           width: 600,
+          height: "auto",
+          justifyContent: "center",
+
         }}
       >
         
         <div>
-            
-          <h2 class="text-2xl font-style:font-bold dark:text-black">
-            {artistInfo.name}
-          </h2>
-          <p class="font-normal text-gray-500">{artistInfo.bio}</p>
+        <h2 className="text-2xl font-style:font-bold dark:text-black"> <b>Artist</b> {artistInfo.name}</h2>
+         <p className="font-normal text-gray-500"> <b>Bio:</b> {artistInfo.biography}</p>
         </div>
         <Button onClick={handleClose}>Close</Button>
       </Box>

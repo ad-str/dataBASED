@@ -20,7 +20,8 @@ export default function ArtistCard({ artistInfo, handleClose }) {
           border: "2px solid #000",
           width : "1000px",
           height : "500px",
-          marginTop : "100px"
+          marginTop : "100px",
+          overflowY: "scroll"
         }}
       >
         

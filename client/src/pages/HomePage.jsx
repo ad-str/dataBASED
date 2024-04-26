@@ -65,7 +65,6 @@ export default function HomePage() {
 
   const handleClick = () => {
     const [lowColor, highColor] = colorfulnessRange.split("-").map(Number);
-
     if (
       isNaN(lowColor) ||
       isNaN(highColor) ||
@@ -87,20 +86,40 @@ export default function HomePage() {
       .catch((error) =>
         console.error("Error fetching colorful artists:", error)
       );
+
+    fetch(
+      `${url}/featured-artists?colorfulnessLow=${lowColor}&colorfulnessHigh=${highColor}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("404 Error Bad Request");
+        }
+        return res.json();
+      })
+      .then((resJson) => {
+        if (resJson.length === 0) {
+          throw new Error("No new artists to feature try reducing range.");
+        }
+        setArtists(resJson);
+      })
+      .catch((error) => {
+        console.error("Error fetching featured artists:", error);
+        setError("No new artists to feature try reducing range.");
+      });
   };
 
   return (
     <>
       <div>
         <div class="flex justify-center">
-          <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">
             An art haven for{" "}
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600">
               art lovers.
             </span>
           </h1>
         </div>
-        <p class="pt-2 pl-4 pr-4 pb-4 text-3xl font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
+        <p class="pt-2 pl-4 pr-4 pb-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
           Explore art from every corner of the globe, honor unknown artists, and
           unleash your inner artist.
         </p>
@@ -179,36 +198,47 @@ export default function HomePage() {
         </button>
       </div>
       {/* Displays an error message if the user inputs random stuff */}
-      {error && <p class="flex justify-center">{error}</p>}
+      {error && <p className="flex justify-center">{error}</p>}
 
       {/* TODO possibly add artist bios as a component? */}
-      <div class="flex justify-center">
-        <div class="flex justify-center">
-          <h5 class="text-center">Featured Artists to explore: </h5>
-        </div>
-        <br />
-        <br />
-        <div>
-          <ul className="mt-4 flex justify-center">
+      <div
+        style={{
+          margin: "80px",
+          textAlign: "center",
+        }}
+      >
+        <p class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-black">
+          ✨Featured Artists to explore, click on a name and learn more✨
+        </p>
+        {artists.length > 0 ? (
+          <ul>
             {artists.map((artist, index) => (
               <li
                 key={index}
                 onClick={() => handleArtistClick(artist)}
-                className="p-2"
+                style={{
+                  padding: "10px 10px",
+                  minWidth: "80px",
+                  height: "auto",
+                  cursor: "pointer",
+                  fontSize: "15px",
+                }}
               >
                 {artist.name}
               </li>
             ))}
           </ul>
-          {showArtistCard && (
-            <ArtistCard
-              artistInfo={selectedArtistInfo}
-              handleClose={handleCloseArtistCard}
-            />
-          )}
-        </div>
+        ) : (
+          <p>{error}</p>
+        )}
+        {showArtistCard && (
+          <ArtistCard
+            artistInfo={selectedArtistInfo}
+            handleClose={handleCloseArtistCard}
+          />
+        )}
       </div>
-      <p class="pt-10 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <p class="pt-18 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
         {" "}
         {author}{" "}
       </p>

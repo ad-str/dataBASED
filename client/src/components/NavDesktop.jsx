@@ -6,7 +6,7 @@ export const NavDesktop = () => {
   const { logout } = useLogout();
 
   return (
-    <div className="hidden lg:flex lg:items-center gap-1 text-2xl">
+    <div className="hidden lg:flex lg:items-center gap-1 text-lg">
       <NavLink
         to="/home"
         className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"

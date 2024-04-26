@@ -171,7 +171,7 @@ export default function StealLike() {
       </div>
       <div>
         <div>
-          <h2 class="pt-6 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
+          <h2 class="pt-6 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
             Use the artwork generator
           </h2>
           <p class="pl-10 pr-10 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
@@ -182,7 +182,7 @@ export default function StealLike() {
         </div>
         <div>
           <div className="p-4 pb-4 w-100 mt-5n">
-            <h5 class="text-lg font-bold dark:text-white flex justify-center">
+            <h5 class="text-lg font-bold dark:text-black flex justify-center">
               {" "}
               Select Artwork Type & Medium{" "}
             </h5>
@@ -214,7 +214,7 @@ export default function StealLike() {
           </div>
         </div>
       </div>
-      <h5 class="text-sm font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
+      <h5 class="text-sm font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
         Click on a piece
       </h5>
       <Container style={flexFormat}>

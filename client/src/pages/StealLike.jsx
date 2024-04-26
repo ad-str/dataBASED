@@ -164,7 +164,7 @@ export default function StealLike() {
     <>
       <div>
         <div>
-          <h2 class=" pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
+          <h2 class=" pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
             Steal Like An Artist
           </h2>
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import config from "../config.json";
 import { Pagination, Box, Container } from "@mui/material";
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
 
 /**
  * Handy video guide to material UI pagination!
@@ -52,7 +52,6 @@ export default function Nameless() {
     setPagination({ ...pagination, from: from, to: to });
   };
 
-
   //flexFormat for a UI friendly page formatting
   const flexFormat = {
     display: "flex",
@@ -74,35 +73,30 @@ export default function Nameless() {
         their stories and contributions faded over time. Museums sometimes label
         these artists as simply "unknown."
       </p>
-      <h3 class="flex text-2xl pl-8 pr-8 font-extrabold flex justify-center">
-        View this gallery as a break from the traditional focus on the same well-known
-        artists!
+      <h3 class="pb-2 flex text-2xl pl-8 pr-8 font-extrabold flex justify-center">
+        View this gallery as a break from the traditional focus on the same
+        well-known artists!
       </h3>
       <Container sx={flexFormat}>
-      <ImageList variant="masonry" cols={3} gap={8}>
-        {artworks.map((artwork) => (
-          <ImageListItem
-            key={artwork.id}
-          >
-            {
-              <img
-                src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
-                alt={`${artwork.title} Artwork`}
-                style={{ cursor: "pointer", marginRight: "10px" }}
-                loading="lazy"
-              />
-            }
-          <ImageListItemBar position="below" title={artwork.title}/>
-        </ImageListItem>
-        ))}
-        </ImageList> 
+        <ImageList variant="masonry" cols={3} gap={8}>
+          {artworks.map((artwork) => (
+            <ImageListItem key={artwork.id}>
+              {
+                <img
+                  src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
+                  alt={`${artwork.title} Artwork`}
+                  style={{ cursor: "pointer", marginRight: "10px" }}
+                  loading="lazy"
+                />
+              }
+              <ImageListItemBar position="below" title={artwork.title} />
+            </ImageListItem>
+          ))}
+        </ImageList>
       </Container>
       <Box display="flex" justifyContent="center">
-          <Pagination
-            count = {79}
-            onChange= {handlePageChange}
-          />     
-        </Box> 
+        <Pagination count={79} onChange={handlePageChange} />
+      </Box>
     </>
   );
 }

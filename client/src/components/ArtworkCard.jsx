@@ -127,7 +127,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
             {artist}
           </h4>
         </div>
-        <h2 class="pt-2 font-bold">Materials:</h2>
+        <h2 class="pt-2 font-bold">Descriptors:</h2>
         <ul>
           {artworkInfo.length === 0 ||
           artworkInfo[0].materials === "Unknown" ? (

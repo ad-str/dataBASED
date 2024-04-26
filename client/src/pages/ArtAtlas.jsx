@@ -15,7 +15,7 @@ export default function ArtAtlas() {
   const [hoveredCountry, setHoveredCountry] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArtworkCard, setShowArtworkCard] = useState(false);
-  const [yearRange, setYearRange] = useState([-5800, 2023]);
+  const [yearRange, setYearRange] = useState([1900, 2023]);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
   const [topArtists, setTopArtists] = useState([]);
 
@@ -129,7 +129,7 @@ export default function ArtAtlas() {
       <div class="m-5">
         <p
           id="range-slider"
-          class="pl-4 pr-4 pb-2 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center"
+          class="pl-4 pr-4 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center"
         >
           Year Range
         </p>
@@ -254,12 +254,11 @@ export default function ArtAtlas() {
               display: "flex",
               alignItems: "center",
               marginBottom: "20px",
-
             }}
           >
             <h2
               id="countryArtworks"
-              class="pt-3 mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white"
+              class="pt-3 mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-black"
             >
               {" "}
               Artworks:{" "}
@@ -298,11 +297,14 @@ export default function ArtAtlas() {
                   margin: "30px",
                   marginBottom: "10px",
                   boxShadow: " 0 0 0 5px #98d0ef",
-                  borderRadius: "25px"
+                  borderRadius: "25px",
                 }}
                 onClick={() => handleArtworkClick(artwork.id)}
               />
-              <h4 key={artwork.id} style={{display: "flex", justifyContent: "center"}}> 
+              <h4
+                key={artwork.id}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 {artwork.title}
               </h4>
             </div>

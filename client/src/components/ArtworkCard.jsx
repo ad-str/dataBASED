@@ -91,7 +91,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
                 height: "auto",
               }}
             />
-            <h2 class="text-2xl font-style: italic font-bold dark:text-white">
+            <h2 class="text-2xl font-style: italic font-bold dark:text-black">
               {artworkInfo[0].title}
             </h2>
             <h4>

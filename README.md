@@ -5,7 +5,7 @@ Our website will host a collection of artwork layered on a geographical map to g
 Art history represents where humans have been and where we’re going. For many, art history can require extensive memorization, where one must be able to identify significant art works, periods, artists, techniques and categories. The sheer volume of information can be overwhelming. We are solving the non-trivial problem of helping make art more digestible and accessible; our hope is to make learning about art immersive.
 
 
-
+![Home Page](/demo_images/artBASED.png?raw=true)
 
 
 
@@ -77,4 +77,7 @@ Execute this command in each terminal seperately to stop the application
 
 [Python](https://docs.python.org/3/)
 
+
+
+![Home Page mobile](/demo_images/artBASED_mobile.png?raw=true "Title")
 

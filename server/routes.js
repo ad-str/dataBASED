@@ -214,16 +214,19 @@ const time_periods = async (req, res) => {
   );
 };
 
-// GET /top_artists/:location
+// GET /top_artists 
 const top_artists = async (req, res) => {
-  const location = req.params.location;
+  const country = req.query.country;
+  const startYear = req.query.startYear;
+  const endYear = req.query.endYear;
 
   connection.query(
     `SELECT AR.name as name, COUNT(AT.id) as count
     FROM Artwork AT
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id
-    WHERE AT.country LIKE '%${location}%'  AND AR.name NOT LIKE  'Artist unknown'
+    WHERE AT.country = '${country}'  AND AR.name NOT LIKE  'Artist unknown'
+    AND (AR.birth_year <= ${endYear} OR AR.death_year >= ${startYear})
     GROUP BY AR.name
     ORDER BY COUNT(AR.id) DESC
     LIMIT 5;

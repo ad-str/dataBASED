@@ -119,10 +119,10 @@ export default function ArtAtlas() {
       </p>
 
       {/* The slider container */}
-      <div style={{ margin: "10px 0" }}>
-        <Typography id="range-slider" gutterBottom>
+      <div class="m-5">
+        <p id="range-slider" class="pl-4 pr-4 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center">
           Year Range
-        </Typography>
+        </p>
         <Slider
           getAriaLabel={() => "Year range"}
           value={yearRange}
@@ -137,9 +137,9 @@ export default function ArtAtlas() {
             { value: 2023, label: "2023" },
           ]}
         />
-        <Typography>
+        <p class="pl-4 pr-4 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center">
           Selected range: {yearRange[0]} to {yearRange[1]}
-        </Typography>
+        </p>
       </div>
 
       <div
@@ -213,13 +213,7 @@ export default function ArtAtlas() {
           >
             <h2
               id="countryArtworks"
-              style={{
-                marginRight: "30px",
-                fontFamily: "Fira Sans",
-                fontWeight: "bold",
-                fontSize: "2em",
-                textDecoration: "none",
-              }}
+              class="pt-3 mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white"
             >
               {" "}
               Artworks:{" "}

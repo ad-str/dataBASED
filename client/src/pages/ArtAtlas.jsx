@@ -310,12 +310,14 @@ export default function ArtAtlas() {
         </div>
       </div>
 
-      {showArtworkCard && (
-        <ArtworkCard
-          artworkID={selectedArtworkID}
-          handleClose={handleCloseArtworkCard}
-        />
-      )}
+      <div>
+        {showArtworkCard && (
+          <ArtworkCard
+            artworkID={selectedArtworkID}
+            handleClose={handleCloseArtworkCard}
+          />
+        )}
+      </div>
 
       {/* TODO 
       - move this section to be underneath the map

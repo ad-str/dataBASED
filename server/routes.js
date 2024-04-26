@@ -85,11 +85,11 @@ const random = async (req, res) => {
 };
 
 // Route: GET /artwork/:id
-// given an id, returns all information about the artwork
+// given an id, returns image id
 const artwork = async (req, res) => {
   connection.query(
     `
-    SELECT * 
+    SELECT image_id
     FROM Artwork 
     WHERE id = '${req.params.id}'
     `,

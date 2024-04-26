@@ -181,15 +181,16 @@ export default function StealLike() {
           </p>
         </div>
         <div>
-          <div className="p-4 w-100 mt-5n">
-            <h5 class="text-l font-bold dark:text-white flex justify-center">
+          <div className="p-4 pb-4 w-100 mt-5n">
+            <h5 class="text-lg font-bold dark:text-white flex justify-center">
               {" "}
               Select Artwork Type & Medium{" "}
             </h5>
-            <div class="p-4 flex justify-center">
+            <div class="pl-10 pr-10 pt-4 flex justify-center">
               <select
                 className="form-control"
                 value={ArtworkType}
+                style={{ width: "200px", textAlign: "center" }}
                 onChange={changeArtworkType}
               >
                 <option>--Artwork Type--</option>
@@ -201,6 +202,7 @@ export default function StealLike() {
               <select
                 className="form-control"
                 value={mediumType}
+                style={{ width: "200px", textAlign: "center" }}
                 onChange={changeMediumType}
               >
                 <option>--Medium--</option>
@@ -212,7 +214,7 @@ export default function StealLike() {
           </div>
         </div>
       </div>
-      <h5 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
+      <h5 class="text-sm font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
         Click on a piece
       </h5>
       <Container style={flexFormat}>

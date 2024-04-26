@@ -105,14 +105,21 @@ export default function HomePage() {
           unleash your inner artist.
         </p>
       </div>
-      <div className="image-container" style={{
-                margin: "50px"}}>
+      <div
+        className="image-container"
+        style={{
+          margin: "50px",
+        }}
+      >
         {colorfulImage.map((artwork) => (
-          <div key={artwork.id} className="flex justify-center" 
-               style={{
-                margin: "50px", 
-                textAlign: "center" 
-                }}>
+          <div
+            key={artwork.id}
+            className="flex justify-center"
+            style={{
+              margin: "50px",
+              textAlign: "center",
+            }}
+          >
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={` 3 Colorful Artworks`}
@@ -175,21 +182,23 @@ export default function HomePage() {
       {error && <p className="flex justify-center">{error}</p>}
 
       {/* TODO possibly add artist bios as a component? */}
-      <div className="flex justify-center">
-      <p>Featured Artists to explore:</p>
-      <ul>
-        {artists.map((artist, index) => (
-          <li key={index} onClick={() => handleArtistClick(artist)} >{artist.name}</li>
-        ))}
-      </ul>
-      {showArtistCard && (
-        <ArtistCard
-          artistInfo={selectedArtistInfo}
-          handleClose={handleCloseArtistCard}
-        />
-      )}
+      <div className="pb-4 flex justify-center">
+        <p>Featured Artists to explore: </p>
+        <ul>
+          {artists.map((artist, index) => (
+            <li key={index} onClick={() => handleArtistClick(artist)}>
+              {artist.name}
+            </li>
+          ))}
+        </ul>
+        {showArtistCard && (
+          <ArtistCard
+            artistInfo={selectedArtistInfo}
+            handleClose={handleCloseArtistCard}
+          />
+        )}
       </div>
-      <p class="pt-18 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <p class="pt-10 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
         {" "}
         {author}{" "}
       </p>

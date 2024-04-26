@@ -15,7 +15,7 @@ export default function ArtAtlas() {
   const [hoveredCountry, setHoveredCountry] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showArtworkCard, setShowArtworkCard] = useState(false);
-  const [yearRange, setYearRange] = useState([-5800, 2023]);
+  const [yearRange, setYearRange] = useState([1900, 2023]);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);
   const [topArtists, setTopArtists] = useState([]);
 

@@ -139,20 +139,6 @@ export default function StealLike() {
 
   const [paintingImage, setPaintingImage] = useState(null);
 
-  useEffect(() => {
-    // Dynamically import the painting image
-    const importImage = async () => {
-      try {
-        const importedImage = await import("../assets/painting_versions.png");
-        setPaintingImage(importedImage.default);
-      } catch (error) {
-        console.error("Error importing image:", error);
-      }
-    };
-
-    importImage();
-  }, []);
-
   const flexFormat = {
     display: "flex",
     flexDirection: "row",

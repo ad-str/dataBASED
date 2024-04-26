@@ -74,12 +74,11 @@ export default function Nameless() {
         Why Art History Needs a Rewrite
       </h1>
       <p class="pl-8 pr-8 pb-4 flex jtext-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-centerustify-center">
-        The art world hasn't always been a welcoming space. Throughout history,
-        prejudice and bias have denied recognition to talented artists,
-        particularly women and people of color. Their work might have been
-        dismissed as "folk art," or simply not valued. Without proper records or
-        critical analysis, these artists' legacies faded, their stories lost to
-        time. Museums exhibit often label these artists as 'unkown.'"
+        Art history has gaps. Many talented artists, particularly women and
+        people of color, weren't recognized for their work. It might have been
+        undervalued or dismissed as folk art. Without proper documentation,
+        their stories and contributions faded over time. Museums sometimes label
+        these artists as simply "unknown."
       </p>
       <h3 class="pl-8 pr-8 font-extrabold flex justify-center">
         Explore below to break from the traditional focus on the same well-known

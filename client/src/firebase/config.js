@@ -77,5 +77,5 @@ const logout = () => {
   signOut(auth);
 };
 
-export { auth, googleProvider, facebookProvider, logInWithEmailAndPassword, registerWithEmailAndPassword,
-sendPasswordReset, logout };
+export { auth, db, googleProvider, facebookProvider, logInWithEmailAndPassword, registerWithEmailAndPassword,
+sendPasswordReset, logout, };

@@ -93,9 +93,14 @@ export default function HomePage() {
           and unleash your inner artist.
         </p>
       </div>
-      <div className="image-container">
+      <div className="image-container" style={{
+                margin: "50px"}}>
         {colorfulImage.map((artwork) => (
-          <div key={artwork.id} className="flex justify-center">
+          <div key={artwork.id} className="flex justify-center" 
+               style={{
+                margin: "50px", 
+                textAlign: "center" 
+                }}>
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={` 3 Colorful Artworks`}
@@ -104,8 +109,8 @@ export default function HomePage() {
                 height: "300px",
                 objectFit: "contain",
                 cursor: "pointer",
-                margin: "20px",
-                padding: "20px",
+                margin: "0px",
+                padding: "0px",
                 marginBottom: "10px",
                 boxShadow: " 0 0 0 5px #833ab4",
                 borderRadius: "20px",

@@ -116,7 +116,7 @@ export default function ArtAtlas() {
 
   return (
     <>
-      <h1 class="pt-3 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
+      <h1 class="pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
         Art Atlas
       </h1>
 
@@ -208,43 +208,44 @@ export default function ArtAtlas() {
               }}
             >
               {hoveredCountry}
-              
             </div>
           )}
-
-          
         </div>
 
-              {/* Top Artists Section */}
-      {artworks.length != 0 && (
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            maxWidth: "800px",
-            marginRight: "40px",
-            marginLeft: "40px",
-            flexDirection: 'column'
-          }}
-        >
-          <h1 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"  style={{fontSize : "25px", margin : "20px", }}>
-            Prominent Artists in {activeCountry}:
-          </h1>
-          <ul>
-            {topArtists.map((artist) => (
-              <li key={artist.name}           
-              style={{
-                width: "100%",
-                margin: "20px",
-                flexDirection: 'column',
-                fontSize : "20px"
-              }}>
-                {artist.name}: {artist.count} pieces
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {/* Top Artists Section */}
+        {artworks.length != 0 && (
+          <div
+            style={{
+              flex: 1,
+              width: "100%",
+              maxWidth: "800px",
+              margin: "20px",
+              flexDirection: "column",
+            }}
+          >
+            <h1
+              class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"
+              style={{ fontSize: "30px", margin: "20px" }}
+            >
+              Prominent Artists in {activeCountry}
+            </h1>
+            <ul>
+              {topArtists.map((artist) => (
+                <li
+                  key={artist.name}
+                  style={{
+                    width: "100%",
+                    margin: "20px",
+                    flexDirection: "column",
+                    fontSize: "20px",
+                  }}
+                >
+                  {artist.name}: {artist.count} pieces
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* The artworks container */}
         <div style={{ flex: 1 }} class="m-4 mt-0">
@@ -253,6 +254,7 @@ export default function ArtAtlas() {
               display: "flex",
               alignItems: "center",
               marginBottom: "20px",
+
             }}
           >
             <h2
@@ -293,20 +295,18 @@ export default function ArtAtlas() {
                   height: "75%",
                   objectFit: "contain",
                   cursor: "pointer",
-                  margin: "40px",
+                  margin: "30px",
                   marginBottom: "10px",
                   boxShadow: " 0 0 0 5px #98d0ef",
-                  borderRadius: "20px",
+                  borderRadius: "25px"
                 }}
                 onClick={() => handleArtworkClick(artwork.id)}
               />
-              <h4 key={artwork.id} class="flex justify-center">
+              <h4 key={artwork.id} style={{display: "flex", justifyContent: "center"}}> 
                 {artwork.title}
               </h4>
             </div>
           ))}
-
-          
         </div>
       </div>
 
@@ -322,7 +322,6 @@ export default function ArtAtlas() {
       - delete artists count
       -if  we have time make a bar chart using the counts?
       */}
-
     </>
   );
 }

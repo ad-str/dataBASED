@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import config from "../config.json";
 import { Pagination, Box, Container } from "@mui/material";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 /**
  * Handy video guide to material UI pagination!
@@ -49,15 +52,6 @@ export default function Nameless() {
     setPagination({ ...pagination, from: from, to: to });
   };
 
-  const handleArtworkClick = (artworkID) => {
-    setSelectedArtworkID(artworkID);
-
-    setShowArtworkCard(true);
-  };
-
-  const handleCloseArtworkCard = () => {
-    setShowArtworkCard(false);
-  };
 
   //flexFormat for a UI friendly page formatting
   const flexFormat = {
@@ -84,39 +78,31 @@ export default function Nameless() {
         Explore below to break from the traditional focus on the same well-known
         artists!
       </h3>
-      <Container style={flexFormat}>
+      <Container sx={flexFormat}>
+      <ImageList variant="masonry" cols={3} gap={8}>
         {artworks.map((artwork) => (
-          <Box
+          <ImageListItem
             key={artwork.id}
-            p={3}
-            m={2}
-            style={{
-              background: "white",
-              borderRadius: "16px",
-              border: "2px solid #000",
-            }}
           >
             {
               <img
                 src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
                 alt={`${artwork.title} Artwork`}
-                onClick={() => handleArtworkClick(artwork.id)}
                 style={{ cursor: "pointer", marginRight: "10px" }}
+                loading="lazy"
               />
             }
-            <h4 key={artwork.id}>{artwork.title}</h4>
-          </Box>
+          <ImageListItemBar position="below" title={artwork.title}/>
+        </ImageListItem>
         ))}
+        </ImageList> 
       </Container>
       <Box display="flex" justifyContent="center">
-        <Pagination count={79} onChange={handlePageChange} />
-      </Box>
-      {showArtworkCard && (
-        <ArtworkCard
-          artworkID={selectedArtworkID}
-          handleClose={handleCloseArtworkCard}
-        />
-      )}
+          <Pagination
+            count = {79}
+            onChange= {handlePageChange}
+          />     
+        </Box> 
     </>
   );
 }

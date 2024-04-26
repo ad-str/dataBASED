@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { Container, Box } from "@mui/material";
 import { Squash as Hamburger } from "hamburger-react";
+import { useLogout } from "../hooks/useLogout";
 
 export const NavDesktop = () => {
+  const { logout } = useLogout();
   return (
     <div className="hidden lg:flex lg:items-center gap-1 text-lg">
       <NavLink
@@ -32,6 +34,13 @@ export const NavDesktop = () => {
       >
         {" "}
         Steal Like An Artist{" "}
+      </NavLink>
+      <NavLink
+        className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+        onClick={() => logout()}
+      >
+        {" "}
+        Logout{" "}
       </NavLink>
     </div>
   );

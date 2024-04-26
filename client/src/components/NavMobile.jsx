@@ -3,10 +3,12 @@ import { useRef } from "react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Squash as Hamburger } from "hamburger-react";
+import { useLogout } from "../hooks/useLogout";
 
 import { NavLink } from "react-router-dom";
 
 export const NavMobile = () => {
+  const { logout } = useLogout();
   const [isOpen, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -25,34 +27,16 @@ export const NavMobile = () => {
             className="fixed left-0 shadow right-0 top-[4rem] p-4 pt-2 bg-gray-200"
           >
             <ul className="grid gap-2">
-              <NavLink
-                to="/home"
-                className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
-              >
-                {" "}
-                Home{" "}
-              </NavLink>
-              <NavLink
-                to="/map"
-                className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
-              >
-                {" "}
-                Art Atlas{" "}
-              </NavLink>
-              <NavLink
-                to="/nameless"
-                className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
-              >
-                {" "}
-                Nameless Artists{" "}
-              </NavLink>
-              <NavLink
-                to="/steal"
-                className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
-              >
-                {" "}
-                Steal Like An Artist{" "}
-              </NavLink>
+          <NavLink to="/home" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+          > {" "}Home{" "} </NavLink>
+          <NavLink to="/map" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+          > {" "}Art Map{" "} </NavLink>
+          <NavLink to="/nameless" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+          > {" "}Nameless Artists{" "} </NavLink>
+          <NavLink to="/steal" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+          > {" "}Steal Like An Artist{" "} </NavLink>
+          <NavLink onClick={() => logout()} className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
+          > {" "}Logout{" "} </NavLink>
             </ul>
           </motion.div>
         )}

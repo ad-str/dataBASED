@@ -162,35 +162,34 @@ export default function StealLike() {
 
   return (
     <>
-      
       <div>
         <div>
-          <h2 class=" p-2 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          <h2 class=" pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
             Steal Like An Artist
           </h2>
 
-          <p class="pt-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <p class="pt-2 pl-10 pr-10 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
             Coined by Austin Kleon, 'steal like an artist' highlights how
             artists draw inspiration from each other, creating a continuous flow
             of creativity.{" "}
           </p>
         </div>
         <div>
-        <img
-          class="h-auto max-w-lg mx-auto"
-          src={many_versions_gif}
-          alt="Your GIF"
-          width="300"
-          height="200"
-        ></img>
-      </div>
+          <img
+            class="h-auto max-w-lg mx-auto flex justify-center"
+            src={many_versions_gif}
+            alt="Your GIF"
+            width="300"
+            height="200"
+          ></img>
+        </div>
       </div>
       <div>
         <div>
-          <h2 class="pt-6 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          <h2 class="pt-6 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
             Use the artwork generator
           </h2>
-          <p class="p-1 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+          <p class="pl-10 pr-10 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
             {" "}
             Indicate your preferred art type and medium. Use the artwork as
             inspiration and mimic materials if they are known.
@@ -198,11 +197,11 @@ export default function StealLike() {
         </div>
         <div>
           <div className="p-4 w-100 mt-5n">
-            <h5 class="text-l font-bold dark:text-white">
+            <h5 class="text-l font-bold dark:text-white flex justify-center">
               {" "}
               Select Artwork Type & Medium{" "}
             </h5>
-            <div class="p-4">
+            <div class="p-4 flex justify-center">
               <select
                 className="form-control"
                 value={ArtworkType}
@@ -228,12 +227,13 @@ export default function StealLike() {
           </div>
         </div>
       </div>
-      <h5 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <h5 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
         Click on a piece
       </h5>
       <Container style={flexFormat}>
         {artworks.map((artwork) => (
           <img
+            class="flex justify-center"
             key={artwork.id}
             src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
             onClick={() => handleArtworkClick(artwork.id)}

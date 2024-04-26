@@ -109,11 +109,11 @@ export default function ArtAtlas() {
 
   return (
     <>
-      <h1 class="pt-3 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <h1 class="pt-3 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
         Art Atlas
       </h1>
 
-      <p class="p-2 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+      <p class="pl-4 pr-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
         Unveil hidden connections between art and geography, get a new
         perspective on art history, or plan your own art adventure.
       </p>

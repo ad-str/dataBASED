@@ -77,7 +77,5 @@ Execute this command in each terminal seperately to stop the application
 
 [Python](https://docs.python.org/3/)
 
-
-
-![Home Page mobile](/demo_images/artBASED_mobile.png?raw=true "Title")
+<img src="/demo_images/artBASED_mobile.png" width="400" height = "600">
 

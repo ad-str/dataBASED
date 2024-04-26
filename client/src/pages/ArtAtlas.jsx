@@ -41,7 +41,7 @@ export default function ArtAtlas() {
         params: {
           country: countryName,
           startYear: startYear,
-          endYear: startYear,
+          endYear: endYear,
         },
       });
       setTopArtists(response.data);
@@ -227,7 +227,7 @@ export default function ArtAtlas() {
               class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"
               style={{ fontSize: "30px", margin: "20px" }}
             >
-              Prominent Artists in {activeCountry}
+              Prominent Artists in {activeCountry} during this period:
             </h1>
             <ul>
               {topArtists.map((artist) => (

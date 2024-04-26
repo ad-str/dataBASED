@@ -226,7 +226,7 @@ const top_artists = async (req, res) => {
     JOIN Made M ON M.artwork_id = AT.id
     JOIN Artist AR ON AR.id = M.artist_id
     WHERE AT.country = '${country}'  AND AR.name NOT LIKE  'Artist unknown'
-    AND (AR.birth_year <= ${endYear} OR AR.death_year >= ${startYear})
+    AND AR.birth_year <= ${endYear} AND AR.death_year >= ${startYear}
     GROUP BY AR.name
     ORDER BY COUNT(AR.id) DESC
     LIMIT 5;

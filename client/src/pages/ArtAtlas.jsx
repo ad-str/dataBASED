@@ -116,7 +116,7 @@ export default function ArtAtlas() {
 
   return (
     <>
-      <h1 class="pt-3 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
+      <h1 class="pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
         Art Atlas
       </h1>
 
@@ -208,42 +208,44 @@ export default function ArtAtlas() {
               }}
             >
               {hoveredCountry}
-              
             </div>
           )}
-
-          
         </div>
 
-              {/* Top Artists Section */}
-      {artworks.length != 0 && (
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            maxWidth: "800px",
-            margin: "20px",
-            flexDirection: 'column'
-          }}
-        >
-          <h1 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"  style={{fontSize : "30px", margin : "20px", }}>
-            Prominent Artists in {activeCountry}
-          </h1>
-          <ul>
-            {topArtists.map((artist) => (
-              <li key={artist.name}           
-              style={{
-                width: "100%",
-                margin: "20px",
-                flexDirection: 'column',
-                fontSize : "30px"
-              }}>
-                {artist.name}: {artist.count} pieces
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {/* Top Artists Section */}
+        {artworks.length != 0 && (
+          <div
+            style={{
+              flex: 1,
+              width: "100%",
+              maxWidth: "800px",
+              margin: "20px",
+              flexDirection: "column",
+            }}
+          >
+            <h1
+              class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"
+              style={{ fontSize: "30px", margin: "20px" }}
+            >
+              Prominent Artists in {activeCountry}
+            </h1>
+            <ul>
+              {topArtists.map((artist) => (
+                <li
+                  key={artist.name}
+                  style={{
+                    width: "100%",
+                    margin: "20px",
+                    flexDirection: "column",
+                    fontSize: "20px",
+                  }}
+                >
+                  {artist.name}: {artist.count} pieces
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* The artworks container */}
         <div style={{ flex: 1 }} class="m-4 mt-0">
@@ -302,8 +304,6 @@ export default function ArtAtlas() {
               </h4>
             </div>
           ))}
-
-          
         </div>
       </div>
 
@@ -319,7 +319,6 @@ export default function ArtAtlas() {
       - delete artists count
       -if  we have time make a bar chart using the counts?
       */}
-
     </>
   );
 }

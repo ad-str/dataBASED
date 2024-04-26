@@ -37,7 +37,7 @@ export default function Auth() {
         <span>Google</span>
       </button>
 
-      <button onClick={twitter.signInWithSocial}>
+      <button onClick={facebook.signInWithSocial}>
         <img src={FacebookIcon} alt="" />
         <span>Facebook</span>
       </button>

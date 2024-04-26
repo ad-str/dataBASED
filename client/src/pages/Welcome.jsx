@@ -10,7 +10,8 @@ const navigate = useNavigate()
     navigate("/home");
   }
   return (
-    <div className="utility__page ">
+    <div className="min-h-screen flex justify-center p-5 items-center">
+      <div className="space-y-5 text-center gap-5">
       <h1> Welcome</h1>
       {user && (
         <>
@@ -25,6 +26,7 @@ const navigate = useNavigate()
         </button>
         </>
       )}
+        </div>
     </div>
   );
 }

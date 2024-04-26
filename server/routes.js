@@ -36,31 +36,6 @@ const author = async function (req, res) {
   }
 };
 
-// Route: GET /artist
-const artist = async function (req, res) {
-  connection.query(
-    `
-    SELECT *
-    FROM Artist
-    ORDER BY RAND()
-    LIMIT 10
-  `,
-    (err, data) => {
-      if (err || data.length === 0) {
-        // If there is an error for some reason, or if the query is empty (this should not be possible)
-        // print the error message and return an empty object instead
-        console.log(err);
-        // Be cognizant of the fact we return an empty object {}. For future routes, depending on the
-        // return type you may need to return an empty array [] instead.
-        console.error("Error fetching artist:", err);
-        res.status(500).json({ err: "Internal Server Error" });
-      } else {
-        // return an array of artists
-        res.json(data);
-      }
-    }
-  );
-};
 
 // Route: GET /random
 const random = async (req, res) => {
@@ -516,9 +491,8 @@ const three_artworks = async (req, res) => {
 
 module.exports = {
   author, //for home page
-  artist, //for ArtistStories
   random, //for home page
-  artwork, //for everything
+  artwork, //selects images for a specifc ID
   artist_descriptors, // for which page? map?
   era_descriptors, //for which page?
   proportion_unknown, // for which page? we could potentially put this on art atlas page for additional descriptive stats

@@ -100,7 +100,7 @@ export default function HomePage() {
             </span>
           </h1>
         </div>
-        <p class="pt-2 pl-4 pr-4 pb-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
+        <p class="pt-2 pl-4 pr-4 pb-4 text-3xl font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
           Explore art from every corner of the globe, honor unknown artists, and
           unleash your inner artist.
         </p>

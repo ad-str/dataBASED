@@ -1,28 +1,24 @@
-import React, { useState } from 'react'
-import { auth } from '../firebase/config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useEffect, useState } from 'react'
+import { useAuthContext } from "../context/AuthContext";
+import { registerWithEmailAndPassword } from '../firebase/config';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Register = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const {user} = useAuthContext();
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
-      const user = userCredential.user;
-      localStorage.setItem('token', user.accessToken);
-      localStorage.setItem('user', JSON.stringify(user));
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const register = () => {
+    if (!name) alert("Please enter name");
+    registerWithEmailAndPassword(name, email, password);
+    navigate("/auth");
+  };
+
+  useEffect(() => console.log(user), [user]);
 
   return (
     <div className="min-h-screen flex justify-center p-5 items-center">
@@ -30,10 +26,17 @@ const Signup = () => {
         <h1 class="pt-12 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">
             ArtBased
           </h1>
-          <h2 className="lg:text-4xl text-2xl  font-bold">
-          Sign Up
-        </h2>
-        <form onSubmit={handleSubmit}>
+        <form >
+        <div className="text_area">
+            <input
+              type="text"
+              placeholder="Your Name"
+              required
+              value={name}
+              className="text_input"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
           <div className="text_area">
             <input
               type="email"
@@ -54,16 +57,16 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <input
-            type="submit"
-            value="SIGN UP"
+          <button 
             className="btn"
-          />
+            onClick={register}>
+                SIGN UP
+         </button>
         </form>
-        <p>Need to Login? <Link to="/login">Login</Link></p>
+        <p>Already have an account? <Link to="/auth">Login</Link></p>
       </div>
     </div>
   )
 }
 
-export default Signup
+export default Register

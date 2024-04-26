@@ -9,24 +9,13 @@
     color: #121212;
   }
   
-  .utility__page {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    row-gap: 2rem;
-    flex-direction: column;
-    background: #e2dbd9;
-  }
   
   h1 {
     font-size: 5rem;
   }
 
   p {
-    font-size: 14px;
+    font-size: 16px;
   }
   
   button img {
@@ -49,6 +38,12 @@
   .logout {
     background: rgb(208, 84, 84);
     color: #fff;
+  }
+  
+  .profile_img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
   }
 
 
@@ -77,7 +72,7 @@
 }
 
 .btn{
-    margin-top: 28px;
+    margin-top: 15px;
     width: 165px;
     height: 60px;
     border-radius: 30px;

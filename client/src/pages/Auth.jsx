@@ -21,15 +21,16 @@ const Auth = () => {
   const google = useSocialSignup(googleProvider);
   const facebook = useSocialSignup(facebookProvider);
 
-  useEffect(() => console.log(user), [user]);
-  /*useEffect(() => {
+  //useEffect(() => console.log(user), [user]);
+  useEffect(() => {
+    console.log(user);
     if (user) navigate("/welcome");
-  }, [user]);*/
+  }, [user]);
 
 
   const login=()=>{
+    //navigate("/welcome");
     logInWithEmailAndPassword(email, password);
-    navigate("/welcome");
   }
 
   return (

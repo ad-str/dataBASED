@@ -74,7 +74,7 @@ export default function Nameless() {
         their stories and contributions faded over time. Museums sometimes label
         these artists as simply "unknown."
       </p>
-      <h3 class="pl-8 pr-8 font-extrabold flex justify-center">
+      <h3 class="text-2xl pl-8 pr-8 font-extrabold flex justify-center">
         Explore below to break from the traditional focus on the same well-known
         artists!
       </h3>

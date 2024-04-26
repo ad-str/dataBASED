@@ -209,7 +209,7 @@ const top_artists = async (req, res) => {
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);
-        //console.error("Error fetching artworks location:", err);
+        console.error("Error fetching artworks location:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
@@ -426,7 +426,7 @@ const artwork_materials = async (req, res) => {
     WHERE aspect = 'material' AND artwork_id = ${artworkID}`,
     (err, data) => {
       if (err) {
-       // console.error("Error fetching artwork materials:", err);
+        console.error("Error fetching artwork materials:", err);
         res.status(500).json({ error: "Internal Server Error" });
         return;
       }
@@ -454,7 +454,7 @@ const artwork_description = async (req, res) => {
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);
-        //console.error("Error fetching artwork description:", err);
+        console.error("Error fetching artwork description:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);
@@ -480,7 +480,7 @@ const three_artworks = async (req, res) => {
     (err, data) => {
       if (err || data.length === 0) {
         console.log(err);
-        //console.error("Error fetching 3 artworks:", err);
+        console.error("Error fetching 3 artworks:", err);
         res.status(500).json({ err: "Internal Server Error" });
       } else {
         res.json(data);

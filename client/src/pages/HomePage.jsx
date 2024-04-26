@@ -164,16 +164,12 @@ export default function HomePage() {
 
       {/* TODO possibly add artist bios as a component? */}
 
-      {/* <p>Artists to explore:</p>
+      <p>Artists to explore:</p>
       <ul>
         {artists.map((artist, index) => (
-          //<h4 key={index}>{artist.name}</h4>
-          <h4 key={artist.id}>
-            {" "}
-            <NavLink to={`/artist/${artist.id}`}>{artist.name}</NavLink>
-          </h4>
+          <h4 key={index}>{artist.name}</h4>
         ))}
-      </ul> */}
+      </ul>
       <p class="pt-18 pb-10 text-m font-normal text-black-500 lg:text-xl dark:text-gray-400 flex justify-center">
         {" "}
         {author}{" "}

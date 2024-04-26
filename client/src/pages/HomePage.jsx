@@ -89,8 +89,8 @@ export default function HomePage() {
           </h1>
         </div>
         <p class="pt-2 pl-4 pr-4 pb-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
-          Explore art from every corner of the globe, honor forgotten artists,
-          and unleash your inner artist.
+          Explore art from every corner of the globe, honor unknown artists, and
+          unleash your inner artist.
         </p>
       </div>
       <div className="image-container">

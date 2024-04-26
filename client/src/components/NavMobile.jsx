@@ -24,9 +24,9 @@ export const NavMobile = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed left-0 shadow right-0 top-[4rem] p-4 pt-2 bg-gray-200"
+            className="fixed left-0 shadow right-0 top-[8rem] p-4 pt-2 bg-gray-200"
           >
-            <ul className="grid gap-2">
+            <ul className="grid gap-2 text-xl">
           <NavLink to="/home" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
           > {" "}Home{" "} </NavLink>
           <NavLink to="/map" className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"

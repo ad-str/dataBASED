@@ -5,3 +5,11 @@
 body {
   @apply bg-white text-black;
 }
+
+.image-container {
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 20px; 
+}

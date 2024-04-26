@@ -19,7 +19,7 @@ export const NavDesktop = () => {
         className="border-b-2 border-transparent hover:text-neutral-400 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6"
       >
         {" "}
-        Art Map{" "}
+        Art Atlas{" "}
       </NavLink>
       <NavLink
         to="/nameless"

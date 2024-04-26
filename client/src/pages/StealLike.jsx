@@ -139,20 +139,6 @@ export default function StealLike() {
 
   const [paintingImage, setPaintingImage] = useState(null);
 
-  useEffect(() => {
-    // Dynamically import the painting image
-    const importImage = async () => {
-      try {
-        const importedImage = await import("../assets/painting_versions.png");
-        setPaintingImage(importedImage.default);
-      } catch (error) {
-        console.error("Error importing image:", error);
-      }
-    };
-
-    importImage();
-  }, []);
-
   const flexFormat = {
     display: "flex",
     flexDirection: "row",
@@ -164,7 +150,7 @@ export default function StealLike() {
     <>
       <div>
         <div>
-          <h2 class=" pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
+          <h2 class=" pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
             Steal Like An Artist
           </h2>
 
@@ -179,8 +165,7 @@ export default function StealLike() {
             class="h-auto max-w-lg mx-auto flex justify-center"
             src={many_versions_gif}
             alt="Your GIF"
-            width="300"
-            height="200"
+            width="375"
           ></img>
         </div>
       </div>

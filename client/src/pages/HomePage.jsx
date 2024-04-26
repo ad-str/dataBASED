@@ -89,13 +89,18 @@ export default function HomePage() {
           </h1>
         </div>
         <p class="pt-2 pl-4 pr-4 pb-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
-          Explore art from every corner of the globe, honor forgotten artists,
-          and unleash your inner artist.
+          Explore art from every corner of the globe, honor unknown artists, and
+          unleash your inner artist.
         </p>
       </div>
-      <div className="image-container">
+      <div className="image-container" style={{
+                margin: "50px"}}>
         {colorfulImage.map((artwork) => (
-          <div key={artwork.id} className="flex justify-center">
+          <div key={artwork.id} className="flex justify-center" 
+               style={{
+                margin: "50px", 
+                textAlign: "center" 
+                }}>
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`}
               alt={` 3 Colorful Artworks`}
@@ -104,12 +109,12 @@ export default function HomePage() {
                 height: "300px",
                 objectFit: "contain",
                 cursor: "pointer",
-                margin: "20px",
-                padding: "20px",
+                margin: "0px",
+                padding: "0px",
                 marginBottom: "10px",
-                boxShadow: " 0 0 0 6px #833ab4",
+                boxShadow: " 0 0 0 5px #833ab4",
                 borderRadius: "20px",
-                background: "#fbeaf3",
+                background: "#f3f4f6",
               }}
               onClick={() => handleArtworkClick(artwork.id)}
             />
@@ -132,11 +137,11 @@ export default function HomePage() {
           onChange={handleColorfulnessRangeChange}
           style={{
             padding: "10px",
-            border: "2px solid #3c84f4",
+            border: "2px solid #8a8f96",
             borderRadius: "5px",
             margin: "40px",
             width: "450px",
-            background: "#C1c7d0",
+            background: "#f3f4f6",
           }}
         />
         <button
@@ -155,7 +160,7 @@ export default function HomePage() {
         </button>
       </div>
       {/* Displays an error message if the user inputs random stuff */}
-      {error && <p className="error-messageflex justify-center">{error}</p>}
+      {error && <p className="flex justify-center">{error}</p>}
 
       {/* TODO possibly add artist bios as a component? */}
 

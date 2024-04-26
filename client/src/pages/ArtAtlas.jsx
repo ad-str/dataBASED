@@ -21,8 +21,8 @@ export default function ArtAtlas() {
 
   const handleCountryClick = async (countryName) => {
     setActiveCountry(countryName);
+    const [startYear, endYear] = yearRange.toString().split(",");
     try {
-      const [startYear, endYear] = yearRange.toString().split(",");
       const response = await axios.get(`${url}/map`, {
         params: {
           country: countryName,
@@ -31,16 +31,23 @@ export default function ArtAtlas() {
         },
       });
       setArtworks(response.data);
-
-      // gets the top artists for the selected country
-      const topArtistsResponse = await axios.get(
-        `${url}/top-artists/${countryName}`
-      );
-      setTopArtists(topArtistsResponse.data);
-      console.log(topArtistsResponse.data);
     } catch (error) {
       setArtworks([]);
       console.error("Failed to fetch artworks", error);
+    }
+
+    try {
+      const response = await axios.get(`${url}/top-artists`, {
+        params: {
+          country: countryName,
+          startYear: startYear,
+          endYear: startYear,
+        },
+      });
+      setTopArtists(response.data);
+    } catch (error) {
+      setTopArtists([]);
+      console.error("Failed to fetch top artists", error);
     }
   };
 
@@ -55,7 +62,7 @@ export default function ArtAtlas() {
 
   const countryStyles = (countryName) => ({
     default: {
-      fill: countryName === activeCountry ? "#E42" : "#00c04b", // Active country gets a different fill
+      fill: countryName === activeCountry ? "#E42" : "#4ba44a", // Active country gets a different fill
       stroke: "#FFFFFF",
       strokeWidth: 0.75,
       outline: "none",
@@ -109,20 +116,23 @@ export default function ArtAtlas() {
 
   return (
     <>
-      <h1 class="pt-3 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex justify-center">
+      <h1 class="pt-4 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
         Art Atlas
       </h1>
 
-      <p class="pl-4 pr-4 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
+      <p class="pt-2 pl-8 pr-8 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center">
         Unveil hidden connections between art and geography, get a new
         perspective on art history, or plan your own art adventure.
       </p>
 
       {/* The slider container */}
-      <div style={{ margin: "10px 0" }}>
-        <Typography id="range-slider" gutterBottom>
+      <div class="m-5">
+        <p
+          id="range-slider"
+          class="pl-4 pr-4 pb-2 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center"
+        >
           Year Range
-        </Typography>
+        </p>
         <Slider
           getAriaLabel={() => "Year range"}
           value={yearRange}
@@ -137,9 +147,9 @@ export default function ArtAtlas() {
             { value: 2023, label: "2023" },
           ]}
         />
-        <Typography>
+        <p class="pl-4 pr-4 text-lg font-normal text-gray-700 lg:text-xl dark:text-gray-700 flex justify-center">
           Selected range: {yearRange[0]} to {yearRange[1]}
-        </Typography>
+        </p>
       </div>
 
       <div
@@ -158,14 +168,14 @@ export default function ArtAtlas() {
             display: "flex",
             flex: 3,
             position: "relative",
-            backgroundColor: "blue",
-            padding: "20px",
+            backgroundColor: "#98d0ef",
+            padding: "5px",
             boxSizing: "border-box",
-            borderRadius: "10px",
+            borderRadius: "60px",
           }}
           onMouseMove={handleMouseMove}
         >
-          <ComposableMap>
+          <ComposableMap class="p-6">
             <Geographies geography="/features.json">
               {({ geographies }) =>
                 geographies.map((geo) => (
@@ -202,6 +212,41 @@ export default function ArtAtlas() {
           )}
         </div>
 
+        {/* Top Artists Section */}
+        {artworks.length != 0 && (
+          <div
+            style={{
+              flex: 1,
+              width: "100%",
+              maxWidth: "800px",
+              margin: "20px",
+              flexDirection: "column",
+            }}
+          >
+            <h1
+              class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"
+              style={{ fontSize: "30px", margin: "20px" }}
+            >
+              Prominent Artists in {activeCountry}
+            </h1>
+            <ul>
+              {topArtists.map((artist) => (
+                <li
+                  key={artist.name}
+                  style={{
+                    width: "100%",
+                    margin: "20px",
+                    flexDirection: "column",
+                    fontSize: "20px",
+                  }}
+                >
+                  {artist.name}: {artist.count} pieces
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* The artworks container */}
         <div style={{ flex: 1 }} class="m-4 mt-0">
           <div
@@ -209,24 +254,19 @@ export default function ArtAtlas() {
               display: "flex",
               alignItems: "center",
               marginBottom: "20px",
+
             }}
           >
             <h2
               id="countryArtworks"
-              style={{
-                marginRight: "30px",
-                fontFamily: "Fira Sans",
-                fontWeight: "bold",
-                fontSize: "2em",
-                textDecoration: "none",
-              }}
+              class="pt-3 mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white"
             >
               {" "}
               Artworks:{" "}
             </h2>
             {activeCountry && (
               <Button
-                style={{ marginLeft: "20px" }}
+                style={{ marginLeft: "20px", backgroundColor: "#9ca3af" }}
                 variant="contained"
                 color="primary"
                 onClick={regenerateArtworks}
@@ -257,10 +297,12 @@ export default function ArtAtlas() {
                   cursor: "pointer",
                   margin: "30px",
                   marginBottom: "10px",
+                  boxShadow: " 0 0 0 5px #98d0ef",
+                  borderRadius: "25px"
                 }}
                 onClick={() => handleArtworkClick(artwork.id)}
               />
-              <h4 key={artwork.id} class="mt-0">
+              <h4 key={artwork.id} style={{display: "flex", justifyContent: "center"}}> 
                 {artwork.title}
               </h4>
             </div>
@@ -280,28 +322,6 @@ export default function ArtAtlas() {
       - delete artists count
       -if  we have time make a bar chart using the counts?
       */}
-      {/* Top Artists Section */}
-      {artworks.length != 0 && (
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            maxWidth: "800px",
-            marginTop: "20px",
-          }}
-        >
-          <h2 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
-            Prominent Artists in {activeCountry}:
-          </h2>
-          <ul>
-            {topArtists.map((artist) => (
-              <li key={artist.name}>
-                {artist.name} {artist.count} pieces
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </>
   );
 }

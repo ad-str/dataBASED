@@ -222,12 +222,13 @@ export default function ArtAtlas() {
             flex: 1,
             width: "100%",
             maxWidth: "800px",
-            margin: "20px",
+            marginRight: "40px",
+            marginLeft: "40px",
             flexDirection: 'column'
           }}
         >
-          <h1 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"  style={{fontSize : "30px", margin : "20px", }}>
-            Prominent Artists in {activeCountry}
+          <h1 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"  style={{fontSize : "25px", margin : "20px", }}>
+            Prominent Artists in {activeCountry}:
           </h1>
           <ul>
             {topArtists.map((artist) => (
@@ -236,7 +237,7 @@ export default function ArtAtlas() {
                 width: "100%",
                 margin: "20px",
                 flexDirection: 'column',
-                fontSize : "30px"
+                fontSize : "20px"
               }}>
                 {artist.name}: {artist.count} pieces
               </li>
@@ -292,12 +293,14 @@ export default function ArtAtlas() {
                   height: "75%",
                   objectFit: "contain",
                   cursor: "pointer",
-                  margin: "30px",
+                  margin: "40px",
                   marginBottom: "10px",
+                  boxShadow: " 0 0 0 5px #98d0ef",
+                  borderRadius: "20px",
                 }}
                 onClick={() => handleArtworkClick(artwork.id)}
               />
-              <h4 key={artwork.id} class="mt-0">
+              <h4 key={artwork.id} class="flex justify-center">
                 {artwork.title}
               </h4>
             </div>

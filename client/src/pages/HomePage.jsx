@@ -155,7 +155,7 @@ export default function HomePage() {
         </button>
       </div>
       {/* Displays an error message if the user inputs random stuff */}
-      {error && <p className="error-messageflex justify-center">{error}</p>}
+      {error && <p className="flex justify-center">{error}</p>}
 
       {/* TODO possibly add artist bios as a component? */}
 

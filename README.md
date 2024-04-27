@@ -1,6 +1,9 @@
-# dataBASED
+# dataBASED Team Project
 
-Our website will host a collection of artwork layered on a geographical map to gain insight on prominent works for a given country or time period. We will allow users to explore a diverse range of artistic expression across the globe through our innovative digital platform. Users will also be able to discover the historical and cultural significance for pieces of art that hold influence.
+
+artBased was born from the belief that art should be accessible, inclusive, and inspiring for everyone. Our goal was to create an immersive platform where art lovers can discover pieces across different regions, celebrate lesser-known artists, and unleash their own creative potential. We utilized public data from the Art Institute of Chicago Museum [API](https://api.artic.edu/docs/#introduction) and Web Gallery of Art [catalogue](https://www.wga.hu/frames-e.html?/database/download/index.html).
+
+Our website hosts a collection of artwork layered on a geographical map to gain insight on prominent works for a given country or time period. We allow users to explore a diverse range of artistic expression to draw inspiration for new works, creating a continuous flow of creativity. Users are also be able to discover the historical and cultural significance for all kinds art and a gallery of works from unknown creators.
 
 Art history represents where humans have been and where we’re going. For many, art history can require extensive memorization, where one must be able to identify significant art works, periods, artists, techniques and categories. The sheer volume of information can be overwhelming. We are solving the non-trivial problem of helping make art more digestible and accessible; our hope is to make learning about art immersive.
 
@@ -48,7 +51,7 @@ Runs the backend services for our web app in development mode, including routes 
    ```
    npm start
    ```
-Click or enter [http://localhost:8080/](http://localhost:8080/) in your Google Chrome browser to test server side routes
+Click or enter [http://localhost:8080/](http://localhost:8080/)  in your Google Chrome browser to test server side routes
 
 ## Running the Client Side in React+Vite
 Runs the frontend services for our web app in development, including visual display with HMR
@@ -56,7 +59,7 @@ Runs the frontend services for our web app in development, including visual disp
    ```
    npm run dev
    ```
-Click or enter [http://localhost:5173/](http://localhost:5173/) in your Google Chrome browser to view front end display and interact with web app (ensure server side is running to experience full web app capability)
+Click or enter [http://localhost:5173/](http://localhost:5173/)  in your Google Chrome browser to view front end display and interact with web app (ensure server side is running to experience full web app capability)
 
 ## To close Server Side & Client Side
 Execute this command in each terminal seperately to stop the application

@@ -185,11 +185,10 @@ export default function HomePage() {
         <button
           onClick={handleClick}
           style={{
-            padding: "3px 10px", // Adjust padding as needed for a smaller button
-            minWidth: "80px", // Set a smaller minimum width
-            height: "auto", // Let the height adjust based on content
+            padding: "3px 10px", 
+            minWidth: "80px",
+            height: "auto", 
             backgroundColor: "#fff",
-            // border: "1px solid #ddd",
             borderRadius: "3px",
             cursor: "pointer",
           }}
@@ -200,7 +199,7 @@ export default function HomePage() {
       {/* Displays an error message if the user inputs random stuff */}
       {error && <p className="flex justify-center">{error}</p>}
 
-      {/* TODO possibly add artist bios as a component? */}
+      {/* Featured Artist */}
       <div
         style={{
           margin: "80px",

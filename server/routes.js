@@ -2,7 +2,7 @@ const mysql = require("mysql");
 const config = require("./config.json");
 
 // Creates MySQL connection using database credential provided in config.json
-// Do not edit. If the connection fails, make sure to check that config.json is filled out correctly
+// If the connection fails, make sure to check that config.json is filled out correctly
 const connection = mysql.createConnection({
   host: config.rds_host,
   user: config.rds_user,
@@ -12,22 +12,20 @@ const connection = mysql.createConnection({
 });
 connection.connect((err) => err && console.log(err));
 
-// Route 1: GET /author/:type
+// GET /author/:type
 const author = async function (req, res) {
-  // TODO (TASK 1): replace the values of name and pennKey with your own
+  
   const team = "dataBASED";
   const names =
     "Adam Streff, Brianna Malcolm, Daunel Augustin and Veronica Polanco";
-
   // checks the value of type the request parameters
-  // note that parameters are required and are specified in server.js in the endpoint by a colon (e.g. /author/:type)
   if (req.params.type === "team") {
     // res.send returns data back to the requester via an HTTP response
     res.send(`Created by ${team}`);
   } else if (req.params.type === "names") {
     res.send(`Created by ${names}`);
   } else {
-    // we can also send back an HTTP status code to indicate an improper request
+    // improper request
     res
       .status(400)
       .send(
@@ -59,8 +57,8 @@ const random = async (req, res) => {
   );
 };
 
-// Route: GET /artwork/:id
-// given an id, returns image id
+//  GET /artwork/:id
+// given an id, returns image id, for testing purposes
 const artwork = async (req, res) => {
   connection.query(
     `
@@ -164,30 +162,6 @@ const proportion_unknown = async (req, res) => {
   );
 };
 
-//camelcase or snake case tis the question?
-// GET /time_periods
-const time_periods = async (req, res) => {
-  // req.query params are optional unless user specifies so this defaults to 0 for birth year and current year for death year
-  //front end implementation of this will be a slider i think
-  //const deathYear = req.query.deathYear ? req.query.deathYear : new Date().getFullYear() ; TODO later
-  const deathYear = req.query.deathYear ? req.query.deathYear : 2024;
-  const birthYear = req.query.birthYear ? req.query.birthYear : 0;
-  connection.query(
-    `SELECT name, id 
-    FROM Artist
-    WHERE death_year <  ${deathYear} AND birth_year > ${birthYear}`,
-    (err, data) => {
-      //return empty array for ranges where there are no artist
-      if (err || data.length === 0) {
-        console.log(err);
-        console.error("Error fetching time periods:", err);
-        res.status(500).json({ err: "Internal Server Error" });
-      } else {
-        res.json(data);
-      }
-    }
-  );
-};
 
 // GET /top_artists 
 const top_artists = async (req, res) => {
@@ -286,7 +260,7 @@ const featured_artists = async (req, res) => {
   const colorfulnessHigh = req.query.colorfulnessHigh ? req.query.colorfulnessHigh : 100;
   const colorfulnessLow = req.query.colorfulnessLow ? req.query.colorfulnessLow  : 0;
 
-  // fetches artists bios who are not well known by default
+  // fetches artists bios who are not well known by default when user does not query for color
   if (colorfulnessLow === 0 && colorfulnessHigh ===100){
 
     
@@ -493,12 +467,11 @@ module.exports = {
   author, //for home page
   random, //for home page
   artwork, //selects images for a specifc ID
-  artist_descriptors, // for which page? map?
-  era_descriptors, //for which page?
-  proportion_unknown, // for which page? we could potentially put this on art atlas page for additional descriptive stats
-  time_periods, //for which page?
+  artist_descriptors, // unused for now
+  era_descriptors, // unused for now
+  proportion_unknown, // unused for now
   top_artists, //for ArtAtlas
-  colorful_artists, //for home page and then a checkbox to switch to random images
+  colorful_artists, //for home page 
   unknown_artists, // for Nameless page
   artwork_materials, //for Steal Like An Artist
   artwork_description, //for Steal Like An Artist

@@ -31,7 +31,7 @@ export default function ArtistCard({ artistInfo, handleClose }) {
           </h2>
           <p
             className="font-normal text-gray-500"
-            style={{ marginTop: "10px" }} // Add margin between name and bio
+            style={{ marginTop: "10px" }} 
           >
             <b>Biography:</b> {artistInfo.biography}
           </p>

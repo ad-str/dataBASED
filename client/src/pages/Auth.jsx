@@ -21,7 +21,6 @@ const Auth = () => {
   const google = useSocialSignup(googleProvider);
   const facebook = useSocialSignup(facebookProvider);
 
-  //useEffect(() => console.log(user), [user]);
   useEffect(() => {
     console.log(user);
     if (user) navigate("/welcome");
@@ -29,7 +28,6 @@ const Auth = () => {
 
 
   const login=()=>{
-    //navigate("/welcome");
     logInWithEmailAndPassword(email, password);
   }
 

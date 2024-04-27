@@ -12,7 +12,7 @@ import time
 
 bio_catalog = pd.read_excel("bio_catalog.xlsx")
 
-service = Service(executable_path="/Users/daunel/Desktop/scraper/chromedriver")
+service = Service(executable_path="~path to chrome driver")
 driver = webdriver.Chrome(service=service)
 
 

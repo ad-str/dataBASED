@@ -1,36 +1,17 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-//import { auth, db, logout } from '../firebase/config';
-//import { query, collection, getDocs, where } from "firebase/firestore";
 
 
 export default function Welcome () {
-    //const [name, setName] = useState("");
     const navigate = useNavigate();
     const { user } = useAuthContext();
 
-    /*
-    const fetchUserName = async () => {
-        try {
-          const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-          const doc = await getDocs(q);
-          const data = doc.docs[0].data();
-    
-          setName(data.name);
-        } catch (err) {
-          console.error(err);
-          //alert("An error occured while fetching user data");
-        }
-      };
-      */
- // fetchUserName();
+  
     useEffect(() => {
         console.log(user);
         
     }, [user]); 
-
-    //useEffect(() => console.log(user), [user]);
 
     const goHome=()=>{
         navigate("/home");

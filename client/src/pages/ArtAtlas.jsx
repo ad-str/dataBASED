@@ -82,12 +82,15 @@ export default function ArtAtlas() {
   });
 
   const handleMouseMove = (event) => {
-    const mapContainer = event.currentTarget; // Get the reference to the map container
-    const rect = mapContainer.getBoundingClientRect(); // Get bounding rectangle of the map container
+    // reference to the map container
+    const mapContainer = event.currentTarget; 
+    // bounding rectangle of the map container
+    const rect = mapContainer.getBoundingClientRect(); 
 
     setMousePosition({
-      x: event.clientX - rect.left, // Subtract the left position of the container
-      y: event.clientY - rect.top, // Subtract the top position of the container
+      // subtract the left and right position of the container
+      x: event.clientX - rect.left, 
+      y: event.clientY - rect.top, 
     });
   };
 
@@ -104,7 +107,7 @@ export default function ArtAtlas() {
   };
 
   const handleSliderChangeCommitted = (event, newValue) => {
-    // Call the function to update the artworks based on the selected year range
+    //  update the artworks based on the selected year range
     if (activeCountry) {
       handleCountryClick(activeCountry);
     }
@@ -320,12 +323,6 @@ export default function ArtAtlas() {
           />
         )}
       </div>
-
-      {/* TODO 
-      - move this section to be underneath the map
-      - delete artists count
-      -if  we have time make a bar chart using the counts?
-      */}
     </>
   );
 }

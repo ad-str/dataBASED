@@ -84,7 +84,6 @@ export default function StealLike() {
   const [ArtworkType, setArtworkType] = useState("--Artwork Type--");
   const [mediumType, setMediumType] = useState("--Medium--");
   const [mediums, setMediums] = useState([]);
-  // const [classification, setClasification] = useState([]);
   const [artworks, setArtworks] = useState([]);
   const [showArtworkCard, setShowArtworkCard] = useState(false);
   const [selectedArtworkID, setSelectedArtworkID] = useState(null);

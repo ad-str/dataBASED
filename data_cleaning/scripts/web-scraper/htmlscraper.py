@@ -34,8 +34,8 @@ def extract_url(html_content):
 if __name__ == "__main__":
     start = time.time()
 
-    folder_path = '/Users/daunel/Desktop/scraper/artist_bios'
-    output_excel_path = '/Users/daunel/Desktop/scraper/artist_bios_scraped.xlsx'
+    folder_path = '/artist_bios'
+    output_excel_path = '/artist_bios_scraped.xlsx'
     
 
     #sorts alphabetically
@@ -59,10 +59,7 @@ if __name__ == "__main__":
                 count+=1
                 print(count) 
                 print(url)
-                # print(filename)
-                #debugging fun
-                # if count == 2:
-                #     break
+
 
     df = pd.DataFrame(data)
     df.to_excel(output_excel_path, index=False)

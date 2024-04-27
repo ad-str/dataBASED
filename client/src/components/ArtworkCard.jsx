@@ -93,17 +93,7 @@ export default function ArtworkCard({ artworkID, handleClose }) {
           border: "2px solid #000",
           width: 600,
         }}
-      >
-        {/* <img
-          src={`https://www.artic.edu/iiif/2/${artworkInfo[0].image}/full/200,/0/default.jpg`}
-          style={{
-            cursor: "pointer",
-            marginRight: "10px",
-            width: "500px",
-            height: "500px",
-          }}
-        /> */}
-        
+      > 
         <div class="d-flex flex-column align-items-center" style={{ maxHeight: '50vh', overflow: 'auto' }}>
           <img
             src={`https://www.artic.edu/iiif/2/${artworkImageId}/full/200,/0/default.jpg`}

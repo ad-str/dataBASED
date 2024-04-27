@@ -60,7 +60,7 @@ export default function Nameless() {
     justifyContent: "space-evenly",
   };
 
-  // error fetching artwork description
+
   return (
     <>
       <h1 class="pt-8 mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black flex justify-center">
@@ -85,7 +85,7 @@ export default function Nameless() {
                 <img
                   src={`https://www.artic.edu/iiif/2/${artwork.image}/full/200,/0/default.jpg`}
                   alt={`${artwork.title} Artwork`}
-                  style={{ cursor: "pointer", marginRight: "10px" }}
+                  style={{ marginRight: "10px" }}
                   loading="lazy"
                 />
               }
@@ -101,10 +101,3 @@ export default function Nameless() {
   );
 }
 
-/*B- grabbing images
-It would be nice to have the artwork pop up. At a minimum, the image should 
-link to a new page. Using this tutorial as a starter:
-https://www.codedaily.io/tutorials/Create-a-Modal-Route-with-Link-and-Nav-State-in-React-Router
-
-If we have time to make it sexy, we can use this site as reference:
-https://mui.com/material-ui/react-image-list/ */
